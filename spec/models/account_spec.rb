@@ -15,5 +15,10 @@ describe Account do
     Account.should respond_to(:trial_balance)
     Account.trial_balance.should be_kind_of(BigDecimal)
   end
+  
+  it "should not be valid without a name" do
+    asset = Factory.build(:asset, :name => nil)
+    asset.should_not be_valid
+  end
 
 end

@@ -19,7 +19,7 @@
 # @author Michael Bulat
 class Account < ActiveRecord::Base
   
-  validates_presence_of :type
+  validates_presence_of :type, :name
   
   has_many :credit_transactions,  :class_name => "Transaction", :foreign_key => "credit_account_id"
   has_many :debit_transactions,  :class_name => "Transaction", :foreign_key => "debit_account_id"      
