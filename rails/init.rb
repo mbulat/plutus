@@ -1,0 +1,1 @@
+require 'double_entry_accounting'

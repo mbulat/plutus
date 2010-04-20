@@ -1,0 +1,11 @@
+Description:
+    Generator for Double Entry Accounting Plugin
+
+Example:
+    ./script/generate double_entry_accounting double_entry_accounting
+
+    This will create:
+        Create a migration in the application for the "Account" and Transaction" tables.
+        
+    Once generated, simply run:
+        rake db:migrate
