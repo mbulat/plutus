@@ -2,6 +2,22 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "double_entry_accounting"
+    gem.summary = "A Plugin providing a Double Entry Accounting Engine for Rails"
+    gem.email = "mbulat@crazydogsoftware.com"
+    gem.homepage = ""
+    gem.authors = ["Michael Bulat"]
+    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+  end
+
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
+end
+
+
 desc 'Default: run unit tests.'
 task :default => :test
 
