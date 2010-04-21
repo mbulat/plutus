@@ -1,3 +1,4 @@
 test.sqlite3
 spec/debug.log
 .DS_Store
+.yardoc/
