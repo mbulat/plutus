@@ -1,7 +1,7 @@
-# The Account class represents accounts in the system. The Account class also provides
-# a trial_balance singleton method, which reports the trial balance for all accounts in the system.
 #
-# Each account must be subclassed as one of the following types:
+# == Overview:
+#
+# The Account class represents accounts in the system. Each account must be subclassed as one of the following types:
 #
 #   TYPE        | NORMAL BALANCE    | DESCRIPTION
 #   --------------------------------------------------------------------------
@@ -20,6 +20,13 @@
 # At all times the balance of all accounts should conform to the "accounting equation"
 #   Assets = Liabilties + Owner's Equity
 #
+# Each sublclass account acts as it's own ledger. See the individual subclasses for a 
+# description.
+#
+# @abstract 
+#   An account must be a subclass to be saved to the database. The Account class 
+#   has a singleton method {trial_balance} to calculate the balance on all Accounts.
+#
 # @see http://en.wikipedia.org/wiki/Accounting_equation Accounting Equation
 # @see http://en.wikipedia.org/wiki/Debits_and_credits Debits, Credits, and Contra Accounts
 # 
@@ -31,12 +38,14 @@ class Account < ActiveRecord::Base
   has_many :credit_transactions,  :class_name => "Transaction", :foreign_key => "credit_account_id"
   has_many :debit_transactions,  :class_name => "Transaction", :foreign_key => "debit_account_id"      
   
-  # The trial balance can be used for proof that all credits and
-  # debits are in balance. 
+  # The trial balance of all accounts in the system. This should always equal zero, 
+  # otherwise there is an error in the system.
   # 
   # @example
   #   >> Account.trial_balance.to_i
   #   => 0
+  #
+  # @return [BigDecimal] The decimal value balance of all accounts
   def self.trial_balance
     unless self.new.class == Account
       raise(NoMethodError, "undefined method 'trial_balance'")

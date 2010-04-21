@@ -1,36 +1,72 @@
+# The Equity class is an account type used to represents owners rights to the assets.
+#
+# === Normal Balance
+# The normal balance on Equity accounts is a *Credit*. 
+#
+# @see http://en.wikipedia.org/wiki/Equity_(finance) Equity
+#
+# @author Michael Bulat
 class Equity < Account
-  def credits_total
-    credits_total = BigDecimal.new('0')
+  
+  # The credit balance for the account.
+  # 
+  # @example
+  #   >> equity.credits_balance
+  #   => #<BigDecimal:103259bb8,'0.3E4',4(12)> 
+  #
+  # @return [BigDecimal] The decimal value credit balance
+  def credits_balance
+    credits_balance = BigDecimal.new('0')
     credit_transactions.each do |credit_transaction|
-      credits_total = credits_total + credit_transaction.amount
+      credits_balance = credits_balance + credit_transaction.amount
     end
-    return credits_total
+    return credits_balance
   end
 
-  def debits_total
-    debits_total = BigDecimal.new('0')
+  # The debit balance for the account.
+  # 
+  # @example
+  #   >> equity.debits_balance
+  #   => #<BigDecimal:103259bb8,'0.1E4',4(12)> 
+  #
+  # @return [BigDecimal] The decimal value credit balance
+  def debits_balance
+    debits_balance = BigDecimal.new('0')
     debit_transactions.each do |debit_transaction|
-      debits_total = debits_total + debit_transaction.amount
+      debits_balance = debits_balance + debit_transaction.amount
     end
-    return debits_total
+    return debits_balance
   end
   
-  # Equity has credit balances, so we need to subtract the debits from the credits
-  # unless this is a contra account, in which case the normal balance is reversed
+  
+  # The balance of the account.
+  #
+  # Equity accounts have normal credit balances, so the debits are subtracted from the credits
+  # unless this is a contra account, in which credits are subtracted from debits
+  # 
+  # @example
+  #   >> asset.balance
+  #   => #<BigDecimal:103259bb8,'0.2E4',4(12)> 
+  #
+  # @return [BigDecimal] The decimal value balance
   def balance
     unless contra
-      credits_total - debits_total
-      
+      credits_balance - debits_balance
     else
-      debits_total - credits_total
+      debits_balance - credits_balance
     end    
   end
   
-  # Balance of all Equity accounts
+  # This class method is used to return
+  # the balance of all Equity accounts.
+  #
+  # Contra accounts are automatically subtracted from the balance.
   #
   # @example
   #   >> Equity.balance
   #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
+  #
+  # @return [BigDecimal] The decimal value balance  
   def self.balance
     accounts_balance = BigDecimal.new('0') 
     accounts = self.find(:all)

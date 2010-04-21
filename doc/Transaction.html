@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: Transaction</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (T)</a> &raquo; 
+    
+    
+    <span class="title">Transaction</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: Transaction 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">ActiveRecord::Base</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ActiveRecord::Base</li>
+          
+            <li class="next">Transaction</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">app/models/transaction.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+Transactions are the recording of debits and credits to various accounts.
+This table can be thought of as a traditional accounting Journal.
+</p>
+<p>
+Posting to a Ledger can be considered to happen automatically, since
+Accounts have the reverse &#8216;has_many&#8217; relationship to either
+it&#8217;s credit or debit transactions
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h3>Examples:</h3>
+    
+      <h4><div class='inline'></div></h4>
+      <pre class="example code"><span class='cash identifier id'>cash</span> <span class='assign token'>=</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>'Cash'</span><span class='rparen token'>)</span>
+<span class='accounts_receivable identifier id'>accounts_receivable</span> <span class='assign token'>=</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>'Accounts Receivable'</span><span class='rparen token'>)</span>
+
+<span class='Transaction constant id'>Transaction</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:description</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Receiving payment on an invoice&quot;</span> <span class='comma token'>,</span> 
+                   <span class='symbol val'>:debit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='cash identifier id'>cash</span><span class='comma token'>,</span> 
+                   <span class='symbol val'>:credit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='accounts_receivable identifier id'>accounts_receivable</span><span class='comma token'>,</span> 
+                   <span class='symbol val'>:amount</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='integer val'>1000</span><span class='rparen token'>)</span>
+</pre>
+    
+  </div>
+
+  <h3>See Also:</h3>
+  <ul class="see">
+    
+      <li><a href="http://en.wikipedia.org/wiki/Journal_entry" title="Journal Entry">Journal Entry</a></li>
+    
+  </ul>
+<h3>Author:</h3>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>
+Michael Bulat
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+
+  
+
+
+  
+
+</div>
+    
+    <div id="footer">
+  Generated on Wed Apr 21 13:35:23 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>
