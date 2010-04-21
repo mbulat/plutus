@@ -1,4 +1,4 @@
-class Revenue < Account
+class Equity < Account
   def credits_total
     credits_total = BigDecimal.new('0')
     credit_transactions.each do |credit_transaction|
@@ -15,7 +15,7 @@ class Revenue < Account
     return debits_total
   end
   
-  # Revenues have credit balances, so we need to subtract the debits from the credits
+  # Equity has credit balances, so we need to subtract the debits from the credits
   # unless this is a contra account, in which case the normal balance is reversed
   def balance
     unless contra
@@ -26,19 +26,19 @@ class Revenue < Account
     end    
   end
   
-  # Balance of all Revenue accounts
+  # Balance of all Equity accounts
   #
   # @example
-  #   >> Revenue.balance
+  #   >> Equity.balance
   #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
   def self.balance
     accounts_balance = BigDecimal.new('0') 
     accounts = self.find(:all)
-    accounts.each do |revenue|
-      unless revenue.contra
-        accounts_balance += revenue.balance
+    accounts.each do |equity|
+      unless equity.contra
+        accounts_balance += equity.balance
       else
-        accounts_balance -= revenue.balance
+        accounts_balance -= equity.balance
       end
     end
     accounts_balance

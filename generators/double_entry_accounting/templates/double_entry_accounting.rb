@@ -3,6 +3,7 @@ class DoubleEntryAccounting < ActiveRecord::Migration
     create_table :accounts do |t|
       t.string :name
       t.string :type
+      t.boolean :contra
 
       t.timestamps
     end

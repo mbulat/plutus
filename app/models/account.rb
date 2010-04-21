@@ -1,4 +1,5 @@
-# The Account presents accounts in the system
+# The Account class represents accounts in the system. The Account class also provides
+# a trial_balance singleton method, which reports the trial balance for all accounts in the system.
 #
 # Each account must be subclassed as one of the following types:
 #
@@ -6,15 +7,21 @@
 #   --------------------------------------------------------------------------
 #   Asset       | Debit             | Resources owned by the Business Entity
 #   Liability   | Credit            | Debts owed to outsiders
-#   Capital     | Credit            | Owners rights to the Assets
-#   Drawing     | Debit             | Withdrawls made by owners
+#   Equity      | Credit            | Owners rights to the Assets
 #   Revenue     | Credit            | Increases in owners equity
 #   Expense     | Debit             | Assets or services consumed in the generation of revenue
+#
+# Each account can also be marked as a "Contra Account". A contra account will have it's 
+# normal balance swapped. For example, to remove equity, a "Drawing" account may be created
+# as a contra equity account as follows:
+#
+#   Equity.create(:name => "Drawing", contra => true)
 #
 # At all times the balance of all accounts should conform to the "accounting equation"
 #   Assets = Liabilties + Owner's Equity
 #
 # @see http://en.wikipedia.org/wiki/Accounting_equation Accounting Equation
+# @see http://en.wikipedia.org/wiki/Debits_and_credits Debits, Credits, and Contra Accounts
 # 
 # @author Michael Bulat
 class Account < ActiveRecord::Base
@@ -23,24 +30,6 @@ class Account < ActiveRecord::Base
   
   has_many :credit_transactions,  :class_name => "Transaction", :foreign_key => "credit_account_id"
   has_many :debit_transactions,  :class_name => "Transaction", :foreign_key => "debit_account_id"      
-
-  # Balance of account subtype.
-  #
-  # @example
-  #   >> Asset.balance
-  #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
-  def self.balance
-    if self.new.class == Account
-      raise(NoMethodError, "undefined method 'balance'")
-    else
-      accounts_balance = BigDecimal.new('0') 
-      accounts = self.find(:all)
-      accounts.each do |asset|
-        accounts_balance += asset.balance
-      end
-      accounts_balance
-    end
-  end
   
   # The trial balance can be used for proof that all credits and
   # debits are in balance. 
@@ -50,9 +39,9 @@ class Account < ActiveRecord::Base
   #   => 0
   def self.trial_balance
     unless self.new.class == Account
-      raise(NoMethodError, "undefined method 'balance'")
+      raise(NoMethodError, "undefined method 'trial_balance'")
     else
-      Asset.balance - (Liability.balance + Capital.balance + Revenue.balance - Expense.balance - Drawing.balance)
+      Asset.balance - (Liability.balance + Equity.balance + Revenue.balance - Expense.balance)
     end
   end
 

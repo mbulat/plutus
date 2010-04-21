@@ -6,14 +6,13 @@
 # debit transactions 
 #
 # @example
-#   # receiving payment on an invoice
 #   cash = Asset.find_by_name('Cash')
 #   accounts_receivable = Asset.find_by_name('Accounts Receivable')
-#   transaction = Transaction.create(:debit_account => cash, :credit_account => accounts_receivable, :amount => 100)
+#   Transaction.create(:description => "Receiving payment on an invoice" , :debit_account => cash, :credit_account => accounts_receivable, :amount => 1000)
 class Transaction < ActiveRecord::Base
   belongs_to :credit_account, :class_name => "Account"
   belongs_to :debit_account, :class_name => "Account"
   
-  validates_presence_of :credit_account, :debit_account
+  validates_presence_of :credit_account, :debit_account, :amount, :description
   validates_associated :credit_account, :debit_account
 end

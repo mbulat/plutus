@@ -27,5 +27,15 @@ describe Transaction do
     transaction = Factory.build(:transaction, :debit_account => bad_account)
     transaction.should_not be_valid
   end  
+  
+  it "should not be valid without an amount" do
+    transaction = Factory.build(:transaction, :amount => nil)
+    transaction.should_not be_valid
+  end
+
+  it "should not be valid without a description" do
+    transaction = Factory.build(:transaction, :description => nil)
+    transaction.should_not be_valid
+  end
 
 end

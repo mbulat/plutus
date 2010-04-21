@@ -16,7 +16,31 @@ class Liability < Account
   end
   
   # Liabilities have credit balances, so we need to subtract the debits from the credits
+  # unless this is a contra account, in which case the normal balance is reversed
   def balance
-    credits_total - debits_total
+    unless contra
+      credits_total - debits_total
+      
+    else
+      debits_total - credits_total
+    end    
+  end
+  
+  # Balance of all Liability accounts
+  #
+  # @example
+  #   >> Liability.balance
+  #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
+  def self.balance
+    accounts_balance = BigDecimal.new('0') 
+    accounts = self.find(:all)
+    accounts.each do |liability|
+      unless liability.contra
+        accounts_balance += liability.balance
+      else
+        accounts_balance -= liability.balance
+      end
+    end
+    accounts_balance
   end
 end

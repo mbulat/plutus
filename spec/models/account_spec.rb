@@ -16,9 +16,28 @@ describe Account do
     Account.trial_balance.should be_kind_of(BigDecimal)
   end
   
-  it "should not be valid without a name" do
-    asset = Factory.build(:asset, :name => nil)
-    asset.should_not be_valid
+  it "should report a trial balance of 0 with correct transactions" do
+    # credit accounts    
+    liability = Factory(:liability)
+    equity = Factory(:equity)
+    revenue = Factory(:revenue)
+    contra_asset = Factory(:asset, :contra => true)
+    contra_expense = Factory(:expense, :contra => true)
+
+    # debit accounts
+    asset = Factory(:asset)
+    expense = Factory(:expense)
+    contra_liability = Factory(:liability, :contra => true)
+    contra_equity = Factory(:equity, :contra => true)
+    contra_revenue = Factory(:revenue, :contra => true)
+    
+    Factory(:transaction, :credit_account =>  liability, :debit_account => asset, :amount => 100000)
+    Factory(:transaction, :credit_account =>  equity, :debit_account => expense, :amount => 1000)
+    Factory(:transaction, :credit_account =>  revenue, :debit_account => contra_liability, :amount => 40404)
+    Factory(:transaction, :credit_account =>  contra_asset, :debit_account => contra_equity, :amount => 2)
+    Factory(:transaction, :credit_account =>  contra_expense, :debit_account => contra_revenue, :amount => 333)
+
+    Account.trial_balance.should == 0
   end
 
 end

@@ -16,7 +16,30 @@ class Expense < Account
   end
   
   # Expenses have debit balances, so we need to subtract the credits from the debits
+  # unless this is a contra account, in which case the normal balance is reversed
   def balance
-    debits_total - credits_total
+    unless contra
+      debits_total - credits_total
+    else
+      credits_total - debits_total
+    end
+  end  
+  
+  # Balance of all Expense accounts
+  #
+  # @example
+  #   >> Expense.balance
+  #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
+  def self.balance
+    accounts_balance = BigDecimal.new('0') 
+    accounts = self.find(:all)
+    accounts.each do |expense|
+      unless expense.contra
+        accounts_balance += expense.balance
+      else
+        accounts_balance -= expense.balance
+      end
+    end
+    accounts_balance
   end  
 end
