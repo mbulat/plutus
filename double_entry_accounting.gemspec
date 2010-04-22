@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{double_entry_accounting}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael Bulat"]
-  s.date = %q{2010-04-21}
+  s.date = %q{2010-04-22}
   s.email = %q{mbulat@crazydogsoftware.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -21,6 +21,8 @@ Gem::Specification.new do |s|
      "README.markdown",
      "Rakefile",
      "VERSION.yml",
+     "app/controllers/accounts_controller.rb",
+     "app/controllers/transactions_controller.rb",
      "app/models/account.rb",
      "app/models/asset.rb",
      "app/models/equity.rb",
@@ -28,13 +30,22 @@ Gem::Specification.new do |s|
      "app/models/liability.rb",
      "app/models/revenue.rb",
      "app/models/transaction.rb",
+     "app/views/accounts/index.html.erb",
+     "app/views/accounts/show.html.erb",
+     "app/views/layouts/accounts.html.erb",
+     "app/views/layouts/transactions.html.erb",
+     "app/views/transactions/index.html.erb",
+     "app/views/transactions/show.html.erb",
+     "config/routes.rb",
      "doc/Account.html",
+     "doc/AccountsController.html",
      "doc/Asset.html",
      "doc/Equity.html",
      "doc/Expense.html",
      "doc/Liability.html",
      "doc/Revenue.html",
      "doc/Transaction.html",
+     "doc/TransactionsController.html",
      "doc/_index.html",
      "doc/class_list.html",
      "doc/css/common.css",
@@ -55,6 +66,8 @@ Gem::Specification.new do |s|
      "generators/double_entry_accounting/templates/double_entry_accounting.rb",
      "lib/double_entry_accounting.rb",
      "rails/init.rb",
+     "spec/controllers/accounts_controller_spec.rb",
+     "spec/controllers/transactions_controller_spec.rb",
      "spec/factories/account_factory.rb",
      "spec/factories/transaction_factory.rb",
      "spec/lib/double_entry_accouting_spec.rb",
@@ -66,6 +79,8 @@ Gem::Specification.new do |s|
      "spec/models/revenue_spec.rb",
      "spec/models/transaction_spec.rb",
      "spec/rcov.opts",
+     "spec/routing/accounts_routing_spec.rb",
+     "spec/routing/transactions_routing_spec.rb",
      "spec/schema.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb",
@@ -77,7 +92,9 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{A Plugin providing a Double Entry Accounting Engine for Rails}
   s.test_files = [
-    "spec/factories/account_factory.rb",
+    "spec/controllers/accounts_controller_spec.rb",
+     "spec/controllers/transactions_controller_spec.rb",
+     "spec/factories/account_factory.rb",
      "spec/factories/transaction_factory.rb",
      "spec/lib/double_entry_accouting_spec.rb",
      "spec/models/account_spec.rb",
@@ -87,6 +104,8 @@ Gem::Specification.new do |s|
      "spec/models/liability_spec.rb",
      "spec/models/revenue_spec.rb",
      "spec/models/transaction_spec.rb",
+     "spec/routing/accounts_routing_spec.rb",
+     "spec/routing/transactions_routing_spec.rb",
      "spec/schema.rb",
      "spec/spec_helper.rb"
   ]
