@@ -1,7 +1,7 @@
 DoubleEntryAccounting
 =================
 
-This double_entry_accounting plugin provides an accounting engine for Ruby on Rails applications.
+This double_entry_accounting plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.
 
 Installation
 ============
@@ -15,15 +15,13 @@ Installation
 Overview
 ========
 
-The double_entry_accounting plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general [Double Entry Bookkeeping](http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system) practices.
+The double_entry_accounting plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general [Double Entry Bookkeeping](http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system) practices. All calculations are done using [BigDecimal](http://www.ensta.fr/~diam/ruby/online/ruby-doc-stdlib/libdoc/bigdecimal/rdoc/classes/BigDecimal.html) in order to prevent floating point rounding errors. The plugin requires a decimal type on your database as well.
 
-The system consists of a table that maintains your accounts. This table uses single table inheritance to store information on each type of account (Asset, Liability, Equity, Revenue, Expense). 
-
-The system also includes a table which records your business transactions. This table is essentially a [Journal](http://en.wikipedia.org/wiki/Journal_entry)
+The system consists of a table that maintains your accounts and a table for recording transactions. The Account table uses single table inheritance to store information on each type of account (Asset, Liability, Equity, Revenue, Expense). The transaction table, which records your business transactions, is essentially your accounting  [Journal](http://en.wikipedia.org/wiki/Journal_entry)
 
 Every account object has a 'has_many' association of credit and debit transactions, which means that each account object also acts as it's own [Ledger](http://en.wikipedia.org/wiki/General_ledger), and exposes a method to calculate the balance of the account.  
 
-See {Account} and {Transaction} for more information.
+See the {Account} and {Transaction} classes for more information.
 
 Example
 =======
@@ -31,7 +29,7 @@ Example
 Recording a Transaction
 -----------------------
 
-  Let's assume the owner of the business wants to withdraw money from the business. First we'll assume an asset account for "Cash" as well as a contra-equity account for "Drawings" has been setup
+  Let's assume the owner of the business wants to withdraw money from the business. First we'll assume that an asset account for "Cash" as well as a contra-equity account for "Drawings" has been setup
 
     >> Equity.create(:name => "Drawing", :contra => true)
     >> Asset.create(:name => "Cash")
@@ -54,10 +52,10 @@ Checking the Balance of an  Individual Account
     => #<BigDecimal:103259bb8,'0.2E4',4(12)>
 
     
-Checking the Balance of an Account Class
-----------------------------------------
+Checking the Balance of an Account SubClass
+-------------------------------------------
 
-  Each class of accounts can report on the total balance of all the accounts of that type. This number should normally be positive. If the number is negative, you may have a problem.
+  Each subclass of accounts can report on the total balance of all the accounts of that type. This number should normally be positive. If the number is negative, you may have a problem.
 
     >> Asset.balance
     => #<BigDecimal:103259bb8,'0.2E4',4(12)>    
@@ -70,7 +68,21 @@ Calculating the Trial Balance
     >> Account.trial_balance
     => #<BigDecimal:1031c0d28,'0.0',4(12)>
 
-  
+
+Access & Security
+=================
+
+The Engine provides controllers and views for accessing Accounts and Transactions via the {AccountsController} and {TransactionsController}  classes. The controllers will render HTML, XML and JSON, and are compatible with [ActiveResource](http://api.rubyonrails.org/classes/ActiveResource/Base.html)
+
+Routing is also supplied by the Engine.
+
+Only GET requests are supported. You should ensure that your application controller enforces its own authentication and authorization, which this controller will inherit.  
+
+Testing
+=======
+
+[Rspec](http://rspec.info/) tests are provided. Install both the rpsec and rspec-rails gems to run the tests.
+
 * * *
 
 Copyright (c) 2009 The Tidewinds Group Inc. All Rights Reserved.

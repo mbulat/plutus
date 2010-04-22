@@ -43,7 +43,7 @@
     
     <div id="content"><div id='filecontents'><h1>DoubleEntryAccounting</h1>
 
-<p>This double_entry_accounting plugin provides an accounting engine for Ruby on Rails applications.</p>
+<p>This double_entry_accounting plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.</p>
 
 <h1>Installation</h1>
 
@@ -56,22 +56,20 @@
 
 <h1>Overview</h1>
 
-<p>The double_entry_accounting plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general <a href="http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system">Double Entry Bookkeeping</a> practices.</p>
+<p>The double_entry_accounting plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general <a href="http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system">Double Entry Bookkeeping</a> practices. All calculations are done using <a href="http://www.ensta.fr/~diam/ruby/online/ruby-doc-stdlib/libdoc/bigdecimal/rdoc/classes/BigDecimal.html">BigDecimal</a> in order to prevent floating point rounding errors. The plugin requires a decimal type on your database as well.</p>
 
-<p>The system consists of a table that maintains your accounts. This table uses single table inheritance to store information on each type of account (Asset, Liability, Equity, Revenue, Expense).</p>
-
-<p>The system also includes a table which records your business transactions. This table is essentially a <a href="http://en.wikipedia.org/wiki/Journal_entry">Journal</a></p>
+<p>The system consists of a table that maintains your accounts and a table for recording transactions. The Account table uses single table inheritance to store information on each type of account (Asset, Liability, Equity, Revenue, Expense). The transaction table, which records your business transactions, is essentially your accounting  <a href="http://en.wikipedia.org/wiki/Journal_entry">Journal</a></p>
 
 <p>Every account object has a 'has_many' association of credit and debit transactions, which means that each account object also acts as it's own <a href="http://en.wikipedia.org/wiki/General_ledger">Ledger</a>, and exposes a method to calculate the balance of the account.<br/>
 </p>
 
-<p>See <tt><a href="Account.html" title="Account (class)">Account</a></tt> and <tt><a href="Transaction.html" title="Transaction (class)">Transaction</a></tt> for more information.</p>
+<p>See the <tt><a href="Account.html" title="Account (class)">Account</a></tt> and <tt><a href="Transaction.html" title="Transaction (class)">Transaction</a></tt> classes for more information.</p>
 
 <h1>Example</h1>
 
 <h2>Recording a Transaction</h2>
 
-<p>  Let's assume the owner of the business wants to withdraw money from the business. First we'll assume an asset account for "Cash" as well as a contra-equity account for "Drawings" has been setup</p>
+<p>  Let's assume the owner of the business wants to withdraw money from the business. First we'll assume that an asset account for "Cash" as well as a contra-equity account for "Drawings" has been setup</p>
 
 <pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Equity constant id'>Equity</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Drawing&quot;</span><span class='comma token'>,</span> <span class='symbol val'>:contra</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span><span class='rparen token'>)</span>
 <span class='rshft op'>&gt;&gt;</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Cash&quot;</span><span class='rparen token'>)</span>
@@ -94,9 +92,9 @@
 <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='comment val'>#&lt;BigDecimal:103259bb8,'0.2E4',4(12)&gt;</span>
 </pre>
 
-<h2>Checking the Balance of an Account Class</h2>
+<h2>Checking the Balance of an Account SubClass</h2>
 
-<p>  Each class of accounts can report on the total balance of all the accounts of that type. This number should normally be positive. If the number is negative, you may have a problem.</p>
+<p>  Each subclass of accounts can report on the total balance of all the accounts of that type. This number should normally be positive. If the number is negative, you may have a problem.</p>
 
 <pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='balance identifier id'>balance</span>
 <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='comment val'>#&lt;BigDecimal:103259bb8,'0.2E4',4(12)&gt;    </span>
@@ -110,13 +108,26 @@
 <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='comment val'>#&lt;BigDecimal:1031c0d28,'0.0',4(12)&gt;</span>
 </pre>
 
+<h1>Access &amp; Security</h1>
+
+<p>The Engine provides controllers and views for accessing Accounts and Transactions via the <tt><a href="AccountsController.html" title="AccountsController (class)">AccountsController</a></tt> and <tt><a href="TransactionsController.html" title="TransactionsController (class)">TransactionsController</a></tt>  classes. The controllers will render HTML, XML and JSON, and are compatible with <a href="http://api.rubyonrails.org/classes/ActiveResource/Base.html">ActiveResource</a></p>
+
+<p>Routing is also supplied by the Engine.</p>
+
+<p>Only GET requests are supported. You should ensure that your application controller enforces its own authentication and authorization, which this controller will inherit.<br/>
+</p>
+
+<h1>Testing</h1>
+
+<p><a href="http://rspec.info/">Rspec</a> tests are provided. Install both the rpsec and rspec-rails gems to run the tests.</p>
+
 <hr />
 
 <p>Copyright (c) 2009 The Tidewinds Group Inc. All Rights Reserved.</p>
 </div></div>
     
     <div id="footer">
-  Generated on Wed Apr 21 13:35:23 2010 by 
+  Generated on Thu Apr 22 11:13:43 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.5.4 (ruby-1.8.7).
 </div>

@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{double_entry_accounting}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael Bulat"]
@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
      "LICENSE",
      "README.markdown",
      "Rakefile",
+     "VERSION.yml",
      "app/models/account.rb",
      "app/models/asset.rb",
      "app/models/equity.rb",
@@ -48,6 +49,7 @@ Gem::Specification.new do |s|
      "doc/js/jquery.js",
      "doc/method_list.html",
      "doc/top-level-namespace.html",
+     "double_entry_accounting.gemspec",
      "generators/double_entry_accounting/USAGE",
      "generators/double_entry_accounting/double_entry_accounting_generator.rb",
      "generators/double_entry_accounting/templates/double_entry_accounting.rb",
