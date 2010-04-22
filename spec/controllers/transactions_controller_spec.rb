@@ -13,5 +13,13 @@ describe TransactionsController do
       assigns[:transactions].should == [mock_transaction]
     end
   end
+  
+  describe "GET show" do
+    it "assigns the requested transaction as @transaction" do
+      Transaction.stub(:find).with("37").and_return(mock_transaction)
+      get :show, :id => "37"
+      assigns[:transaction].should equal(mock_transaction)
+    end
+  end  
 
 end

@@ -1,0 +1,24 @@
+<h1><%=h @transaction.description %> Transaction</h1>
+
+<table>
+  <tr>
+    <th class="nobg">ID</th>
+    <th>Description</th>
+    <th>Credit Account</th>
+    <th>Debit Account</th>
+    <th>Amount</th>
+    <th>Date</th>
+  </tr>
+
+  <tr class="odd">
+    <td><%=h @transaction.id %></td>
+    <td><%=h @transaction.description %></td>
+    <td><%=link_to(h(@transaction.credit_account.name), account_path(@transaction.credit_account)) %></td>
+    <td><%=link_to(h(@transaction.debit_account.name), account_path(@transaction.debit_account)) %></td>
+    <td><%=h @transaction.amount %></td>
+    <td><%=h @transaction.created_at %></td>
+  </tr>
+</table>
+
+
+</table>

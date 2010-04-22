@@ -14,8 +14,8 @@
   <tr class="<%= cycle("even", "odd") -%>">
     <td><%=h transaction.id %></td>
     <td><%=h transaction.description %></td>
-    <td><%=h transaction.credit_account.name %></td>
-    <td><%=h transaction.debit_account.name %></td>
+    <td><%=link_to(h(transaction.credit_account.name), account_path(transaction.credit_account)) %></td>
+    <td><%=link_to(h(transaction.debit_account.name), account_path(transaction.debit_account)) %></td>
     <td><%=h transaction.amount %></td>
     <td><%=h transaction.created_at %></td>
   </tr>
@@ -23,3 +23,5 @@
 </table>
 
 <br />
+
+<h3>Go to <%= link_to 'Accounts', accounts_path %></h3>
