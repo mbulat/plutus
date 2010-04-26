@@ -13,6 +13,8 @@ class DoubleEntryAccounting < ActiveRecord::Migration
       t.integer :credit_account_id
       t.integer :debit_account_id
       t.decimal :amount
+      t.integer :commercial_document_id
+      t.string :commercial_document_type
 
       t.timestamps
     end
