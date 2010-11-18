@@ -23,7 +23,7 @@ class Plutus < ActiveRecord::Migration
 
 		add_index :transactions, :credit_account_id
 		add_index :transactions, :debit_account_id
-		add_index :transactions, [:commercial_document_id, :commercial_document_type]
+		add_index :transactions, [:commercial_document_id, :commercial_document_type], :name => "index_transactions_on_commercial_doc"
   end
 
   def self.down
