@@ -6,7 +6,7 @@ This plutus plugin is a Ruby on Rails Engine which provides a double entry accou
 Installation
 ============
 
-- install plugin `./script/plugin install plutus`
+- install plugin `./script/plugin install git://github.com/mbulat/plutus.git`
 
 - generate migration files `./script/generate plutus plutus`
 
@@ -72,17 +72,22 @@ Calculating the Trial Balance
 Access & Security
 =================
 
-The Engine provides controllers and views for accessing Accounts and Transactions via the {AccountsController} and {TransactionsController}  classes. The controllers will render HTML, XML and JSON, and are compatible with [ActiveResource](http://api.rubyonrails.org/classes/ActiveResource/Base.html)
+The Engine provides controllers and views for viewing Accounts and Transactions via the {AccountsController} and {TransactionsController}  classes. The controllers will render HTML, XML and JSON, and are compatible with [ActiveResource](http://api.rubyonrails.org/classes/ActiveResource/Base.html)
 
-Routing is also supplied by the Engine.
+Routing is NOT supplied by the engine. You can add routes to your application in your config/routes.rb with something
+like the following
 
-Only GET requests are supported. You should ensure that your application controller enforces its own authentication and authorization, which this controller will inherit.  
+		map.resources :transactions, :only => [:index, :show], :conditions => { :method => :get }
+		map.resources :accounts, :only => [:index, :show], :conditions => { :method => :get }
+
+*NOTE: If you enable routing, you should ensure that your ApplicationController enforces its own authentication and authorization, which this controller will inherit.*  
 
 Testing
 =======
 
-[Rspec](http://rspec.info/) tests are provided. Install both the rpsec and rspec-rails gems to run the tests.
+[Rspec](http://rspec.info/) tests are provided. Install both the rpsec and rspec-rails gems, and install this plugin
+into a working rails application to run the tests.
 
 * * *
 
-Copyright (c) 2009 The Tidewinds Group Inc. All Rights Reserved.
+Copyright (c) 2010 Michael Bulat

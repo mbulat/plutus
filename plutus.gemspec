@@ -9,7 +9,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael Bulat"]
-  s.date = %q{2010-11-17}
+  s.date = %q{2010-11-18}
+  s.description = %q{The plutus plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general Double Entry Bookkeeping practices. All calculations are done using BigDecimal in order to prevent floating point rounding errors. The plugin requires a decimal type on your database as well.}
   s.email = %q{mbulat@crazydogsoftware.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -58,17 +59,17 @@ Gem::Specification.new do |s|
     "doc/js/jquery.js",
     "doc/method_list.html",
     "doc/top-level-namespace.html",
-    "plutus.gemspec",
     "generators/plutus/USAGE",
     "generators/plutus/plutus_generator.rb",
     "generators/plutus/templates/plutus.rb",
     "lib/plutus.rb",
+    "plutus.gemspec",
     "rails/init.rb",
     "spec/controllers/accounts_controller_spec.rb",
     "spec/controllers/transactions_controller_spec.rb",
     "spec/factories/account_factory.rb",
     "spec/factories/transaction_factory.rb",
-    "spec/lib/double_entry_accouting_spec.rb",
+    "spec/lib/plutus_spec.rb",
     "spec/models/account_spec.rb",
     "spec/models/asset_spec.rb",
     "spec/models/equity_spec.rb",
@@ -84,16 +85,16 @@ Gem::Specification.new do |s|
     "spec/spec_helper.rb",
     "tasks/plutus_tasks.rake"
   ]
-  s.homepage = %q{}
+  s.homepage = %q{http://github.com/mbulat/Plutus}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{A Plugin providing a Plutus Engine for Rails}
+  s.summary = %q{A Plugin providing a Double Entry Accounting Engine for Rails}
   s.test_files = [
     "spec/controllers/accounts_controller_spec.rb",
     "spec/controllers/transactions_controller_spec.rb",
     "spec/factories/account_factory.rb",
     "spec/factories/transaction_factory.rb",
-    "spec/lib/double_entry_accouting_spec.rb",
+    "spec/lib/plutus_spec.rb",
     "spec/models/account_spec.rb",
     "spec/models/asset_spec.rb",
     "spec/models/equity_spec.rb",

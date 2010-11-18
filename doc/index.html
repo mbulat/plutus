@@ -48,7 +48,7 @@
 <h1>Installation</h1>
 
 <ul>
-<li><p>install plugin <code>./script/plugin install plutus</code></p></li>
+<li><p>install plugin <code>./script/plugin install git://github.com/mbulat/plutus.git</code></p></li>
 <li><p>generate migration files <code>./script/generate plutus plutus</code></p></li>
 <li><p>run migrations <code>rake db:migrate</code></p></li>
 </ul>
@@ -109,22 +109,28 @@
 
 <h1>Access &amp; Security</h1>
 
-<p>The Engine provides controllers and views for accessing Accounts and Transactions via the <span class='object_link'><a href="AccountsController.html" title="AccountsController (class)">AccountsController</a></span> and <span class='object_link'><a href="TransactionsController.html" title="TransactionsController (class)">TransactionsController</a></span>  classes. The controllers will render HTML, XML and JSON, and are compatible with <a href="http://api.rubyonrails.org/classes/ActiveResource/Base.html">ActiveResource</a></p>
+<p>The Engine provides controllers and views for viewing Accounts and Transactions via the <span class='object_link'><a href="AccountsController.html" title="AccountsController (class)">AccountsController</a></span> and <span class='object_link'><a href="TransactionsController.html" title="TransactionsController (class)">TransactionsController</a></span>  classes. The controllers will render HTML, XML and JSON, and are compatible with <a href="http://api.rubyonrails.org/classes/ActiveResource/Base.html">ActiveResource</a></p>
 
-<p>Routing is also supplied by the Engine.</p>
+<p>Routing is NOT supplied by the engine. You can add routes to your application in your config/routes.rb with something
+like the following</p>
 
-<p>Only GET requests are supported. You should ensure that your application controller enforces its own authentication and authorization, which this controller will inherit.</p>
+<pre class="code">    <span class='map identifier id'>map</span><span class='dot token'>.</span><span class='resources identifier id'>resources</span> <span class='symbol val'>:transactions</span><span class='comma token'>,</span> <span class='symbol val'>:only</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='symbol val'>:index</span><span class='comma token'>,</span> <span class='symbol val'>:show</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:conditions</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:method</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:get</span> <span class='rbrace token'>}</span>
+    <span class='map identifier id'>map</span><span class='dot token'>.</span><span class='resources identifier id'>resources</span> <span class='symbol val'>:accounts</span><span class='comma token'>,</span> <span class='symbol val'>:only</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='symbol val'>:index</span><span class='comma token'>,</span> <span class='symbol val'>:show</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:conditions</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:method</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:get</span> <span class='rbrace token'>}</span>
+</pre>
+
+<p><em>NOTE: If you enable routing, you should ensure that your ApplicationController enforces its own authentication and authorization, which this controller will inherit.</em></p>
 
 <h1>Testing</h1>
 
-<p><a href="http://rspec.info/">Rspec</a> tests are provided. Install both the rpsec and rspec-rails gems to run the tests.</p>
+<p><a href="http://rspec.info/">Rspec</a> tests are provided. Install both the rpsec and rspec-rails gems, and install this plugin
+into a working rails application to run the tests.</p>
 
 <hr />
 
-<p>Copyright (c) 2009 The Tidewinds Group Inc. All Rights Reserved.</p></div></div>
+<p>Copyright (c) 2010 Michael Bulat</p></div></div>
     
     <div id="footer">
-  Generated on Thu Nov 18 08:50:44 2010 by 
+  Generated on Thu Nov 18 09:40:08 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.6.2 (ruby-1.8.7).
 </div>
