@@ -14,7 +14,7 @@ class Plutus < ActiveRecord::Migration
       t.string :description
       t.integer :credit_account_id
       t.integer :debit_account_id
-      t.decimal :amount, :precision => 20, :scale => 4
+      t.decimal :amount, :precision => 20, :scale => 10
       t.integer :commercial_document_id
       t.string :commercial_document_type
 
