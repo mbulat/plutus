@@ -1,8 +1,8 @@
 Description:
-    Generator for Double Entry Accounting Plugin
+    Generator for Plutus Plugin
 
 Example:
-    ./script/generate double_entry_accounting double_entry_accounting
+    ./script/generate plutus plutus
 
     This will create:
         Create a migration in the application for the "Account" and Transaction" tables.

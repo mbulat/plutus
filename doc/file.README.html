@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta name="Content-Type" content="text/html; charset=utf-8" />
-<title>Documentation by YARD 0.5.4</title>
+<title>Documentation by YARD 0.6.2</title>
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
@@ -41,29 +41,28 @@
     
     <iframe id="search_frame"></iframe>
     
-    <div id="content"><div id='filecontents'><h1>DoubleEntryAccounting</h1>
+    <div id="content"><div id='filecontents'><h1>Plutus</h1>
 
-<p>This double_entry_accounting plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.</p>
+<p>This plutus plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.</p>
 
 <h1>Installation</h1>
 
 <ul>
-<li><p>install plugin <code>./script/plugin install double_entry_accounting</code></p></li>
-<li><p>generate migration files <code>./script/generate double_entry_accounting double_entry_accounting</code></p></li>
+<li><p>install plugin <code>./script/plugin install plutus</code></p></li>
+<li><p>generate migration files <code>./script/generate plutus plutus</code></p></li>
 <li><p>run migrations <code>rake db:migrate</code></p></li>
 </ul>
 
 
 <h1>Overview</h1>
 
-<p>The double_entry_accounting plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general <a href="http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system">Double Entry Bookkeeping</a> practices. All calculations are done using <a href="http://www.ensta.fr/~diam/ruby/online/ruby-doc-stdlib/libdoc/bigdecimal/rdoc/classes/BigDecimal.html">BigDecimal</a> in order to prevent floating point rounding errors. The plugin requires a decimal type on your database as well.</p>
+<p>The plutus plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general <a href="http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system">Double Entry Bookkeeping</a> practices. All calculations are done using <a href="http://www.ensta.fr/~diam/ruby/online/ruby-doc-stdlib/libdoc/bigdecimal/rdoc/classes/BigDecimal.html">BigDecimal</a> in order to prevent floating point rounding errors. The plugin requires a decimal type on your database as well.</p>
 
 <p>The system consists of a table that maintains your accounts and a table for recording transactions. The Account table uses single table inheritance to store information on each type of account (Asset, Liability, Equity, Revenue, Expense). The transaction table, which records your business transactions, is essentially your accounting  <a href="http://en.wikipedia.org/wiki/Journal_entry">Journal</a></p>
 
-<p>Every account object has a 'has_many' association of credit and debit transactions, which means that each account object also acts as it's own <a href="http://en.wikipedia.org/wiki/General_ledger">Ledger</a>, and exposes a method to calculate the balance of the account.<br/>
-</p>
+<p>Every account object has a 'has_many' association of credit and debit transactions, which means that each account object also acts as it's own <a href="http://en.wikipedia.org/wiki/General_ledger">Ledger</a>, and exposes a method to calculate the balance of the account.</p>
 
-<p>See the <tt><a href="Account.html" title="Account (class)">Account</a></tt> and <tt><a href="Transaction.html" title="Transaction (class)">Transaction</a></tt> classes for more information.</p>
+<p>See the <span class='object_link'><a href="Account.html" title="Account (class)">Account</a></span> and <span class='object_link'><a href="Transaction.html" title="Transaction (class)">Transaction</a></span> classes for more information.</p>
 
 <h1>Example</h1>
 
@@ -110,12 +109,11 @@
 
 <h1>Access &amp; Security</h1>
 
-<p>The Engine provides controllers and views for accessing Accounts and Transactions via the <tt><a href="AccountsController.html" title="AccountsController (class)">AccountsController</a></tt> and <tt><a href="TransactionsController.html" title="TransactionsController (class)">TransactionsController</a></tt>  classes. The controllers will render HTML, XML and JSON, and are compatible with <a href="http://api.rubyonrails.org/classes/ActiveResource/Base.html">ActiveResource</a></p>
+<p>The Engine provides controllers and views for accessing Accounts and Transactions via the <span class='object_link'><a href="AccountsController.html" title="AccountsController (class)">AccountsController</a></span> and <span class='object_link'><a href="TransactionsController.html" title="TransactionsController (class)">TransactionsController</a></span>  classes. The controllers will render HTML, XML and JSON, and are compatible with <a href="http://api.rubyonrails.org/classes/ActiveResource/Base.html">ActiveResource</a></p>
 
 <p>Routing is also supplied by the Engine.</p>
 
-<p>Only GET requests are supported. You should ensure that your application controller enforces its own authentication and authorization, which this controller will inherit.<br/>
-</p>
+<p>Only GET requests are supported. You should ensure that your application controller enforces its own authentication and authorization, which this controller will inherit.</p>
 
 <h1>Testing</h1>
 
@@ -123,13 +121,12 @@
 
 <hr />
 
-<p>Copyright (c) 2009 The Tidewinds Group Inc. All Rights Reserved.</p>
-</div></div>
+<p>Copyright (c) 2009 The Tidewinds Group Inc. All Rights Reserved.</p></div></div>
     
     <div id="footer">
-  Generated on Thu Apr 22 11:13:44 2010 by 
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
-  0.5.4 (ruby-1.8.7).
+  Generated on Thu Nov 18 08:50:44 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.6.2 (ruby-1.8.7).
 </div>
 
   </body>

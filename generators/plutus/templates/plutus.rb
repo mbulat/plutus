@@ -1,4 +1,4 @@
-class DoubleEntryAccounting < ActiveRecord::Migration
+class Plutus < ActiveRecord::Migration
   def self.up
     create_table :accounts do |t|
       t.string :name

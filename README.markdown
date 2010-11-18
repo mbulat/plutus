@@ -1,21 +1,21 @@
-DoubleEntryAccounting
+Plutus
 =================
 
-This double_entry_accounting plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.
+This plutus plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.
 
 Installation
 ============
 
-- install plugin `./script/plugin install double_entry_accounting`
+- install plugin `./script/plugin install plutus`
 
-- generate migration files `./script/generate double_entry_accounting double_entry_accounting`
+- generate migration files `./script/generate plutus plutus`
 
 - run migrations `rake db:migrate`
 
 Overview
 ========
 
-The double_entry_accounting plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general [Double Entry Bookkeeping](http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system) practices. All calculations are done using [BigDecimal](http://www.ensta.fr/~diam/ruby/online/ruby-doc-stdlib/libdoc/bigdecimal/rdoc/classes/BigDecimal.html) in order to prevent floating point rounding errors. The plugin requires a decimal type on your database as well.
+The plutus plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general [Double Entry Bookkeeping](http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system) practices. All calculations are done using [BigDecimal](http://www.ensta.fr/~diam/ruby/online/ruby-doc-stdlib/libdoc/bigdecimal/rdoc/classes/BigDecimal.html) in order to prevent floating point rounding errors. The plugin requires a decimal type on your database as well.
 
 The system consists of a table that maintains your accounts and a table for recording transactions. The Account table uses single table inheritance to store information on each type of account (Asset, Liability, Equity, Revenue, Expense). The transaction table, which records your business transactions, is essentially your accounting  [Journal](http://en.wikipedia.org/wiki/Journal_entry)
 

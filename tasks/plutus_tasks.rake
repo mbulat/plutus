@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :double_entry_accounting do
+# task :plutus do
 #   # Task goes here
 # end
