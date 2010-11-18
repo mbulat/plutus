@@ -8,6 +8,8 @@ class Plutus < ActiveRecord::Migration
       t.timestamps
     end
     
+		add_index :accounts, [:name, :type]
+   
     create_table :transactions do |t|
       t.string :description
       t.integer :credit_account_id
@@ -18,6 +20,10 @@ class Plutus < ActiveRecord::Migration
 
       t.timestamps
     end
+
+		add_index :transactions, :credit_account_id
+		add_index :transactions, :debit_account_id
+		add_index :transactions, [:commercial_document_id, :commercial_document_type]
   end
 
   def self.down
