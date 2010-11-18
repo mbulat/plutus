@@ -6,7 +6,13 @@ This plutus plugin is a Ruby on Rails Engine which provides a double entry accou
 Installation
 ============
 
-- install plugin `./script/plugin install git://github.com/mbulat/plutus.git`
+- either install  as a plugin 
+		
+		./script/plugin install git://github.com/mbulat/plutus.git
+
+	or as a gem
+
+		gem install plutus
 
 - generate migration files `./script/generate plutus plutus`
 

@@ -48,7 +48,15 @@
 <h1>Installation</h1>
 
 <ul>
-<li><p>install plugin <code>./script/plugin install git://github.com/mbulat/plutus.git</code></p></li>
+<li><p>either install  as a plugin</p>
+
+<pre class="code">  <span class='dot token'>.</span><span class='div op'>/</span><span class='script identifier id'>script</span><span class='div op'>/</span><span class='plugin identifier id'>plugin</span> <span class='install identifier id'>install</span> <span class='git identifier id'>git</span><span class='symbol val'>:/</span><span class='regexp val'>/github.com/</span><span class='mbulat identifier id'>mbulat</span><span class='div op'>/</span><span class='plutus identifier id'>plutus</span><span class='dot token'>.</span><span class='git identifier id'>git</span>
+</pre>
+
+<p>  or as a gem</p>
+
+<pre class="code">  <span class='gem identifier id'>gem</span> <span class='install identifier id'>install</span> <span class='plutus identifier id'>plutus</span>
+</pre></li>
 <li><p>generate migration files <code>./script/generate plutus plutus</code></p></li>
 <li><p>run migrations <code>rake db:migrate</code></p></li>
 </ul>
@@ -153,7 +161,7 @@ into a working rails application to run the tests.</p>
 <p>Copyright (c) 2010 Michael Bulat</p></div></div>
     
     <div id="footer">
-  Generated on Thu Nov 18 10:30:23 2010 by 
+  Generated on Thu Nov 18 15:58:26 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.6.2 (ruby-1.8.7).
 </div>
