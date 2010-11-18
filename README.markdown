@@ -37,10 +37,32 @@ Recording a Transaction
   In order to record cash being withdrawn from the business by the owner, we would create the following transaction
 
     >> Transaction.create(:description => "Owner withdrawing cash", 
-                       :credit_account => Asset.find_by_name("Cash"),
-                       :debit_account => Equity.find_by_name("Drawing"), 
-                       :amount => 1000)
+                          :credit_account => Asset.find_by_name("Cash"),
+                          :debit_account => Equity.find_by_name("Drawing"), 
+                          :amount => 1000.00)
                        
+Associating Documents
+---------------------
+
+Although Plutus does not provide a mechanism for generating invoices or orders, it is possible to associate any such
+commercial document with a given transaction.
+
+Suppose we pull up our latest invoice in order to generate a transaction for plutus (we'll assume you already have an
+Invoice model):
+
+		>> invoice = Invoice.last
+
+Next, we'll go ahead and create a transaction for this invoice:
+
+    >> Transaction.create(:description => "Order placed for widgets", 
+                          :credit_account => Liability.find_by_name("Unearned Revenue"),
+                          :debit_account => Asset.find_by_name("Accounts Receivable"),
+                          :amount => invoice.amount,
+                          :commercial_document => invoice)
+
+The commercial document attribute on the transaction is a polymorphic association allowing you to associate any record
+from your models with a transaction (i.e. Bills, Invoices, Receipts, Returns, etc.)
+
                        
 Checking the Balance of an  Individual Account
 ----------------------------------------------
