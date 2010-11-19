@@ -66,56 +66,84 @@
 
 <p>The plutus plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general <a href="http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system">Double Entry Bookkeeping</a> practices. All calculations are done using <a href="http://www.ensta.fr/~diam/ruby/online/ruby-doc-stdlib/libdoc/bigdecimal/rdoc/classes/BigDecimal.html">BigDecimal</a> in order to prevent floating point rounding errors. The plugin requires a decimal type on your database as well.</p>
 
-<p>The system consists of a table that maintains your accounts and a table for recording transactions. The Account table uses single table inheritance to store information on each type of account (Asset, Liability, Equity, Revenue, Expense). The transaction table, which records your business transactions, is essentially your accounting  <a href="http://en.wikipedia.org/wiki/Journal_entry">Journal</a></p>
+<p>The system consists of a table that maintains your accounts and a table for recording transactions. Transactions are the recording of debits and credits to various accounts. The transaction table, which records your business transactions is, essentially, your accounting  <a href="http://en.wikipedia.org/wiki/Journal_entry">Journal</a></p>
 
-<p>Every account object has a 'has_many' association of credit and debit transactions, which means that each account object also acts as it's own <a href="http://en.wikipedia.org/wiki/General_ledger">Ledger</a>, and exposes a method to calculate the balance of the account.</p>
+<p>Posting to a <a href="http://en.wikipedia.org/wiki/General_ledger">Ledger</a> can be considered to happen automatically, since Accounts have the reverse <code>has_many</code> relationship to either its credit or debit transactions</p>
+
+<h2>Accounts</h2>
+
+<p>The Account class represents accounts in the system. The Account table uses single table inheritance to store information on each type of account (Asset, Liability, Equity, Revenue, Expense). Each account must be subclassed as one of the following types:</p>
+
+<pre class="code"><span class='TYPE constant id'>TYPE</span>        <span class='bitor op'>|</span> <span class='NORMAL constant id'>NORMAL</span> <span class='BALANCE constant id'>BALANCE</span>    <span class='bitor op'>|</span> <span class='DESCRIPTION constant id'>DESCRIPTION</span>
+<span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span>
+<span class='Asset constant id'>Asset</span>       <span class='bitor op'>|</span> <span class='Debit constant id'>Debit</span>             <span class='bitor op'>|</span> <span class='Resources constant id'>Resources</span> <span class='owned identifier id'>owned</span> <span class='by identifier id'>by</span> <span class='the identifier id'>the</span> <span class='Business constant id'>Business</span> <span class='Entity constant id'>Entity</span>
+<span class='Liability constant id'>Liability</span>   <span class='bitor op'>|</span> <span class='Credit constant id'>Credit</span>            <span class='bitor op'>|</span> <span class='Debts constant id'>Debts</span> <span class='owed identifier id'>owed</span> <span class='to identifier id'>to</span> <span class='outsiders identifier id'>outsiders</span>
+<span class='Equity constant id'>Equity</span>      <span class='bitor op'>|</span> <span class='Credit constant id'>Credit</span>            <span class='bitor op'>|</span> <span class='Owners constant id'>Owners</span> <span class='rights identifier id'>rights</span> <span class='to identifier id'>to</span> <span class='the identifier id'>the</span> <span class='Assets constant id'>Assets</span>
+<span class='Revenue constant id'>Revenue</span>     <span class='bitor op'>|</span> <span class='Credit constant id'>Credit</span>            <span class='bitor op'>|</span> <span class='Increases constant id'>Increases</span> <span class='in in kw'>in</span> <span class='owners identifier id'>owners</span> <span class='equity identifier id'>equity</span>
+<span class='Expense constant id'>Expense</span>     <span class='bitor op'>|</span> <span class='Debit constant id'>Debit</span>             <span class='bitor op'>|</span> <span class='Assets constant id'>Assets</span> <span class='or or kw'>or</span> <span class='services identifier id'>services</span> <span class='consumed identifier id'>consumed</span> <span class='in in kw'>in</span> <span class='the identifier id'>the</span> <span class='generation identifier id'>generation</span> <span class='of identifier id'>of</span> <span class='revenue identifier id'>revenue</span>
+</pre>
+
+<p>Each account can also be marked as a "Contra Account". A contra account will have its normal balance swapped. For example, to remove equity, a "Drawing" account may be created as a contra equity account as follows:</p>
+
+<pre class="code"><span class='Equity constant id'>Equity</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Drawing&quot;</span><span class='comma token'>,</span> <span class='contra identifier id'>contra</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span><span class='rparen token'>)</span>
+</pre>
+
+<p>At all times the balance of all accounts should conform to the <a href="http://en.wikipedia.org/wiki/Accounting_equation">Accounting
+Equation</a></p>
+
+<pre class="code"><span class='Assets constant id'>Assets</span> <span class='assign token'>=</span> <span class='Liabilties constant id'>Liabilties</span> <span class='plus op'>+</span> <span class='Owner constant id'>Owner</span><span class='string val'>'s Equity
+</span></pre>
+
+<p>Every account object has a <code>has_many</code> association of credit and debit transactions, which means that each account object also acts as its own <a href="http://en.wikipedia.org/wiki/General_ledger">Ledger</a>, and exposes a method to calculate the balance of the account.</p>
 
 <p>See the <span class='object_link'><a href="Account.html" title="Account (class)">Account</a></span> and <span class='object_link'><a href="Transaction.html" title="Transaction (class)">Transaction</a></span> classes for more information.</p>
 
-<h1>Example</h1>
+<h1>Examples</h1>
 
 <h2>Recording a Transaction</h2>
 
-<p>  Let's assume the owner of the business wants to withdraw money from the business. First we'll assume that an asset account for "Cash" as well as a contra-equity account for "Drawings" has been setup</p>
+<p>Let's assume we're accounting on an <a href="http://en.wikipedia.org/wiki/Accounting_methods">Accrual basis</a>. We've just taken a customer's order for some widgets, which we've also billed him for. At this point we've actually added a liability to the company until we deliver the goods. To record this transaction we'd need two accounts.</p>
 
-<pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Equity constant id'>Equity</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Drawing&quot;</span><span class='comma token'>,</span> <span class='symbol val'>:contra</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span><span class='rparen token'>)</span>
+<pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Liability constant id'>Liability</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Unearned Revenue&quot;</span><span class='rparen token'>)</span>
 <span class='rshft op'>&gt;&gt;</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Cash&quot;</span><span class='rparen token'>)</span>
 </pre>
 
-<p>  In order to record cash being withdrawn from the business by the owner, we would create the following transaction</p>
+<p>We'd then record the following transaction.</p>
 
-<pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Transaction constant id'>Transaction</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:description</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Owner withdrawing cash&quot;</span><span class='comma token'>,</span> 
-                      <span class='symbol val'>:credit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>&quot;Cash&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-                      <span class='symbol val'>:debit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Equity constant id'>Equity</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>&quot;Drawing&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span> 
-                      <span class='symbol val'>:amount</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='float val'>1000.00</span><span class='rparen token'>)</span>
+<pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Transaction constant id'>Transaction</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:description</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Order placed for widgets&quot;</span><span class='comma token'>,</span> 
+                    <span class='symbol val'>:credit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Liability constant id'>Liability</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>&quot;Unearned Revenue&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+                    <span class='symbol val'>:debit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>&quot;Cash&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+                    <span class='symbol val'>:amount</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='integer val'>1000</span><span class='rparen token'>)</span>
 </pre>
 
 <h2>Associating Documents</h2>
 
-<p>Although Plutus does not provide a mechanism for generating invoices or orders, it is possible to associate any such
-commercial document with a given transaction.</p>
+<p>Although Plutus does not provide a mechanism for generating invoices or orders, it is possible to associate any such commercial document with a given transaction.</p>
 
-<p>Suppose we pull up our latest invoice in order to generate a transaction for plutus (we'll assume you already have an
-Invoice model):</p>
+<p>Suppose we pull up our latest invoice in order to generate a transaction for plutus (we'll assume you already have an Invoice model):</p>
 
-<pre class="code">    <span class='rshft op'>&gt;&gt;</span> <span class='invoice identifier id'>invoice</span> <span class='assign token'>=</span> <span class='Invoice constant id'>Invoice</span><span class='dot token'>.</span><span class='last identifier id'>last</span>
+<pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='invoice identifier id'>invoice</span> <span class='assign token'>=</span> <span class='Invoice constant id'>Invoice</span><span class='dot token'>.</span><span class='last identifier id'>last</span>
+</pre>
+
+<p>We'll also assume that we have not yet received payment for the order, so we'll need an "Accounts Receivable" Asset:</p>
+
+<pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Accounts Receivable&quot;</span><span class='rparen token'>)</span>
 </pre>
 
 <p>Next, we'll go ahead and create a transaction for this invoice:</p>
 
 <pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Transaction constant id'>Transaction</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:description</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Order placed for widgets&quot;</span><span class='comma token'>,</span> 
-                      <span class='symbol val'>:credit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Liability constant id'>Liability</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>&quot;Unearned Revenue&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-                      <span class='symbol val'>:debit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>&quot;Accounts Receivable&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
-                      <span class='symbol val'>:amount</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='invoice identifier id'>invoice</span><span class='dot token'>.</span><span class='amount identifier id'>amount</span><span class='comma token'>,</span>
-                      <span class='symbol val'>:commercial_document</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='invoice identifier id'>invoice</span><span class='rparen token'>)</span>
+                    <span class='symbol val'>:credit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Liability constant id'>Liability</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>&quot;Unearned Revenue&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+                    <span class='symbol val'>:debit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>&quot;Accounts Receivable&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+                    <span class='symbol val'>:amount</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='invoice identifier id'>invoice</span><span class='dot token'>.</span><span class='amount identifier id'>amount</span><span class='comma token'>,</span>
+                    <span class='symbol val'>:commercial_document</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='invoice identifier id'>invoice</span><span class='rparen token'>)</span>
 </pre>
 
-<p>The commercial document attribute on the transaction is a polymorphic association allowing you to associate any record
-from your models with a transaction (i.e. Bills, Invoices, Receipts, Returns, etc.)</p>
+<p>The commercial document attribute on the transaction is a polymorphic association allowing you to associate any record from your models with a transaction (i.e. Bills, Invoices, Receipts, Returns, etc.)</p>
 
 <h2>Checking the Balance of an  Individual Account</h2>
 
-<p>  Each account can report on it's own balance. This number should normally be positive. If the number is negative, you may have a problem.</p>
+<p>Each account can report on its own balance. This number should normally be positive. If the number is negative, you may have a problem.</p>
 
 <pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='cash identifier id'>cash</span> <span class='assign token'>=</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>&quot;Cash&quot;</span><span class='rparen token'>)</span>
 <span class='rshft op'>&gt;&gt;</span> <span class='cash identifier id'>cash</span><span class='dot token'>.</span><span class='balance identifier id'>balance</span>
@@ -124,7 +152,7 @@ from your models with a transaction (i.e. Bills, Invoices, Receipts, Returns, et
 
 <h2>Checking the Balance of an Account SubClass</h2>
 
-<p>  Each subclass of accounts can report on the total balance of all the accounts of that type. This number should normally be positive. If the number is negative, you may have a problem.</p>
+<p>Each subclass of accounts can report on the total balance of all the accounts of that type. This number should normally be positive. If the number is negative, you may have a problem.</p>
 
 <pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='balance identifier id'>balance</span>
 <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='comment val'>#&lt;BigDecimal:103259bb8,'0.2E4',4(12)&gt;    </span>
@@ -132,21 +160,58 @@ from your models with a transaction (i.e. Bills, Invoices, Receipts, Returns, et
 
 <h2>Calculating the Trial Balance</h2>
 
-<p>  The <a href="http://en.wikipedia.org/wiki/Trial_balance">Trial Balance</a> for all accounts on the system can be found through the abstract Account class. This value should be 0 unless there is an error in the system.</p>
+<p>The <a href="http://en.wikipedia.org/wiki/Trial_balance">Trial Balance</a> for all accounts on the system can be found through the abstract Account class. This value should be 0 unless there is an error in the system.</p>
 
 <pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Account constant id'>Account</span><span class='dot token'>.</span><span class='trial_balance identifier id'>trial_balance</span>
 <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='comment val'>#&lt;BigDecimal:1031c0d28,'0.0',4(12)&gt;</span>
 </pre>
 
+<h2>Contra Accounts and Complex Transactions</h2>
+
+<p>For complex transaction, you should always ensure that you are balancing your accounts via the <a href="http://en.wikipedia.org/wiki/Accounting_equation">Accounting Equation</a>.</p>
+
+<pre class="code"><span class='Assets constant id'>Assets</span> <span class='assign token'>=</span> <span class='Liabilties constant id'>Liabilties</span> <span class='plus op'>+</span> <span class='Owner constant id'>Owner</span><span class='string val'>'s Equity
+</span></pre>
+
+<p>For example, let's assume the owner of a business wants to withdraw cash. First we'll assume that we have an asset account for "Cash" which the funds will be drawn from. We'll then need an Equity account to record where the funds are going, however, in this case, we can't simply create a regular Equity account. The "Cash" account must be credited for the decrease in its balance since it's an Asset. Likewise, Equity accounts are typically credited when there is an increase in their balance. Equity is considered an owner's rights to Assets in the business. In this case however, we are not simply increasing the owners right's to assets within the business; we are actually removing capital from the business altogether. Hence both sides of our accounting equation will see a decrease. In order to accomplish this, we need to create a Contra-Equity account we'll call "Drawings". Since Equity accounts normally have credit balances, a Contra-Equity account will have a debit balance, which is what we need for our transaction.</p>
+
+<pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Equity constant id'>Equity</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Drawing&quot;</span><span class='comma token'>,</span> <span class='symbol val'>:contra</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='true true kw'>true</span><span class='rparen token'>)</span>
+<span class='rshft op'>&gt;&gt;</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Cash&quot;</span><span class='rparen token'>)</span>
+</pre>
+
+<p>We would then create the following transaction:</p>
+
+<pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Transaction constant id'>Transaction</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:description</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Owner withdrawing cash&quot;</span><span class='comma token'>,</span> 
+                    <span class='symbol val'>:credit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>&quot;Cash&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+                    <span class='symbol val'>:debit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Equity constant id'>Equity</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>&quot;Drawing&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span> 
+                    <span class='symbol val'>:amount</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='float val'>1000.00</span><span class='rparen token'>)</span>
+</pre>
+
+<p>To make the example clearer, imagine instead that the owner decides to invest his money into the business in exchange for some type of equity security. In this case we might have the following accounts:</p>
+
+<pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Equity constant id'>Equity</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Common Stock&quot;</span><span class='rparen token'>)</span>
+<span class='rshft op'>&gt;&gt;</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Cash&quot;</span><span class='rparen token'>)</span>
+</pre>
+
+<p>And out transaction would be:</p>
+
+<pre class="code"><span class='rshft op'>&gt;&gt;</span> <span class='Transaction constant id'>Transaction</span><span class='dot token'>.</span><span class='create identifier id'>create</span><span class='lparen token'>(</span><span class='symbol val'>:description</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Owner investing cash&quot;</span><span class='comma token'>,</span> 
+                    <span class='symbol val'>:credit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Equity constant id'>Equity</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>&quot;Common Stock&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span>
+                    <span class='symbol val'>:debit_account</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='Asset constant id'>Asset</span><span class='dot token'>.</span><span class='find_by_name identifier id'>find_by_name</span><span class='lparen token'>(</span><span class='string val'>&quot;Cash&quot;</span><span class='rparen token'>)</span><span class='comma token'>,</span> 
+                    <span class='symbol val'>:amount</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='float val'>1000.00</span><span class='rparen token'>)</span>
+</pre>
+
+<p>In this case, we've increase our cash Asset, and simultaneously increased the other side of our accounting equation in
+Equity, keeping everything balanced.</p>
+
 <h1>Access &amp; Security</h1>
 
 <p>The Engine provides controllers and views for viewing Accounts and Transactions via the <span class='object_link'><a href="AccountsController.html" title="AccountsController (class)">AccountsController</a></span> and <span class='object_link'><a href="TransactionsController.html" title="TransactionsController (class)">TransactionsController</a></span>  classes. The controllers will render HTML, XML and JSON, and are compatible with <a href="http://api.rubyonrails.org/classes/ActiveResource/Base.html">ActiveResource</a></p>
 
-<p>Routing is NOT supplied by the engine. You can add routes to your application in your config/routes.rb with something
-like the following</p>
+<p>Routing is NOT supplied by the engine. You can add routes to your application in your config/routes.rb with something like the following</p>
 
-<pre class="code">    <span class='map identifier id'>map</span><span class='dot token'>.</span><span class='resources identifier id'>resources</span> <span class='symbol val'>:transactions</span><span class='comma token'>,</span> <span class='symbol val'>:only</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='symbol val'>:index</span><span class='comma token'>,</span> <span class='symbol val'>:show</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:conditions</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:method</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:get</span> <span class='rbrace token'>}</span>
-    <span class='map identifier id'>map</span><span class='dot token'>.</span><span class='resources identifier id'>resources</span> <span class='symbol val'>:accounts</span><span class='comma token'>,</span> <span class='symbol val'>:only</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='symbol val'>:index</span><span class='comma token'>,</span> <span class='symbol val'>:show</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:conditions</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:method</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:get</span> <span class='rbrace token'>}</span>
+<pre class="code"><span class='map identifier id'>map</span><span class='dot token'>.</span><span class='resources identifier id'>resources</span> <span class='symbol val'>:transactions</span><span class='comma token'>,</span> <span class='symbol val'>:only</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='symbol val'>:index</span><span class='comma token'>,</span> <span class='symbol val'>:show</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:conditions</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:method</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:get</span> <span class='rbrace token'>}</span>
+<span class='map identifier id'>map</span><span class='dot token'>.</span><span class='resources identifier id'>resources</span> <span class='symbol val'>:accounts</span><span class='comma token'>,</span> <span class='symbol val'>:only</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='symbol val'>:index</span><span class='comma token'>,</span> <span class='symbol val'>:show</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='symbol val'>:conditions</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:method</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:get</span> <span class='rbrace token'>}</span>
 </pre>
 
 <p><em>NOTE: If you enable routing, you should ensure that your ApplicationController enforces its own authentication and authorization, which this controller will inherit.</em></p>
@@ -156,12 +221,27 @@ like the following</p>
 <p><a href="http://rspec.info/">Rspec</a> tests are provided. Install both the rpsec and rspec-rails gems, and install this plugin
 into a working rails application to run the tests.</p>
 
+<h1>ToDo</h1>
+
+<ul>
+<li>Better views, including paging and ledgers</li>
+<li>Namespacing to allow overriding engine classes</li>
+<li>Reference for common accounting transactions</li>
+</ul>
+
+
+<h1>Reference</h1>
+
+<p>For a complete reference on Accounting prinples, we recommend the following textbook</p>
+
+<p><a href="http://amzn.com/0324662963">http://amzn.com/0324662963</a></p>
+
 <hr />
 
 <p>Copyright (c) 2010 Michael Bulat</p></div></div>
     
     <div id="footer">
-  Generated on Thu Nov 18 15:58:26 2010 by 
+  Generated on Fri Nov 19 12:33:12 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.6.2 (ruby-1.8.7).
 </div>
