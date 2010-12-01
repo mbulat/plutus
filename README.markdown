@@ -185,7 +185,7 @@ ToDo
 Reference
 =========
 
-For a complete reference on Accounting prinples, we recommend the following textbook 
+For a complete reference on Accounting principles, we recommend the following textbook 
 
 [http://amzn.com/0324662963](http://amzn.com/0324662963)
 
