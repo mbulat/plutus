@@ -2,7 +2,7 @@ Description:
     Generator for Plutus Plugin
 
 Example:
-    ./script/generate plutus plutus
+    rails g plutus
 
     This will create:
         Create a migration in the application for the "Account" and Transaction" tables.
