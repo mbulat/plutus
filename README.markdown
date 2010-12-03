@@ -3,18 +3,21 @@ Plutus
 
 This plutus plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.
 
+NOTE: This version of Plutus is compatable with RAILS 3
+=======================================================
+
+For the rails 2 version, you can go here:
+
+[https://github.com/mbulat/plutus/tree/rails2](https://github.com/mbulat/plutus/tree/rails2)
+
+Gems in RubyGems.org >= 0.5.0 support Rails 3
+
 Installation
 ============
 
-- either install  as a plugin 
-		
-		./script/plugin install git://github.com/mbulat/plutus.git
+- Add the gem to your Gemfile `gem "plutus"`
 
-	or as a gem
-
-		gem install plutus
-
-- generate migration files `./script/generate plutus plutus`
+- generate migration files `rails g plutus`
 
 - run migrations `rake db:migrate`
 
