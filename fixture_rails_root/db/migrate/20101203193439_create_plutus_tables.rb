@@ -1,4 +1,4 @@
-class Plutus < ActiveRecord::Migration
+class CreatePlutusTables < ActiveRecord::Migration
   def self.up
     create_table :accounts do |t|
       t.string :name

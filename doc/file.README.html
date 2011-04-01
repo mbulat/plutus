@@ -45,19 +45,19 @@
 
 <p>This plutus plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.</p>
 
+<h1>NOTE: This version of Plutus is compatable with RAILS 3</h1>
+
+<p>For the rails 2 version, you can go here:</p>
+
+<p><a href="https://github.com/mbulat/plutus/tree/rails2">https://github.com/mbulat/plutus/tree/rails2</a></p>
+
+<p>Gems in RubyGems.org >= 0.5.0 support Rails 3</p>
+
 <h1>Installation</h1>
 
 <ul>
-<li><p>either install  as a plugin</p>
-
-<pre class="code">  <span class='dot token'>.</span><span class='div op'>/</span><span class='script identifier id'>script</span><span class='div op'>/</span><span class='plugin identifier id'>plugin</span> <span class='install identifier id'>install</span> <span class='git identifier id'>git</span><span class='symbol val'>:/</span><span class='regexp val'>/github.com/</span><span class='mbulat identifier id'>mbulat</span><span class='div op'>/</span><span class='plutus identifier id'>plutus</span><span class='dot token'>.</span><span class='git identifier id'>git</span>
-</pre>
-
-<p>  or as a gem</p>
-
-<pre class="code">  <span class='gem identifier id'>gem</span> <span class='install identifier id'>install</span> <span class='plutus identifier id'>plutus</span>
-</pre></li>
-<li><p>generate migration files <code>./script/generate plutus plutus</code></p></li>
+<li><p>Add the gem to your Gemfile <code>gem "plutus"</code></p></li>
+<li><p>generate migration files <code>rails g plutus</code></p></li>
 <li><p>run migrations <code>rake db:migrate</code></p></li>
 </ul>
 
@@ -232,7 +232,7 @@ into a working rails application to run the tests.</p>
 
 <h1>Reference</h1>
 
-<p>For a complete reference on Accounting prinples, we recommend the following textbook</p>
+<p>For a complete reference on Accounting principles, we recommend the following textbook</p>
 
 <p><a href="http://amzn.com/0324662963">http://amzn.com/0324662963</a></p>
 
@@ -241,7 +241,7 @@ into a working rails application to run the tests.</p>
 <p>Copyright (c) 2010 Michael Bulat</p></div></div>
     
     <div id="footer">
-  Generated on Fri Nov 19 14:05:56 2010 by 
+  Generated on Fri Dec  3 14:35:07 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.6.2 (ruby-1.8.7).
 </div>
