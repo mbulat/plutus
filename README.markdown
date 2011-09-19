@@ -167,8 +167,8 @@ The Engine provides controllers and views for viewing Accounts and Transactions 
 
 Routing is NOT supplied by the engine. You can add routes to your application in your config/routes.rb with something like the following
 
-	map.resources :transactions, :only => [:index, :show], :conditions => { :method => :get }
-	map.resources :accounts, :only => [:index, :show], :conditions => { :method => :get }
+	resources :transactions, :only => [:index, :show], :conditions => { :method => :get }
+	resources :accounts, :only => [:index, :show], :conditions => { :method => :get }
 
 *NOTE: If you enable routing, you should ensure that your ApplicationController enforces its own authentication and authorization, which this controller will inherit.*  
 
