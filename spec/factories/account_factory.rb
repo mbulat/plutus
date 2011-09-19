@@ -1,29 +1,31 @@
-Factory.define :account do |account|
-  account.name 'factory name'
-  account.contra false
-end
+FactoryGirl.define do
+  factory :account do |account|
+    account.name 'factory name'
+    account.contra false
+  end
 
-Factory.define :asset do |account|
-  account.name 'factory name'
-  account.contra false
-end
+  factory :asset do |account|
+    account.name 'factory name'
+    account.contra false
+  end
 
-Factory.define :equity do |account|
-  account.name 'factory name'
-  account.contra false
-end
+  factory :equity do |account|
+    account.name 'factory name'
+    account.contra false
+  end
 
-Factory.define :expense do |account|
-  account.name 'factory name'
-  account.contra false
-end
+  factory :expense do |account|
+    account.name 'factory name'
+    account.contra false
+  end
 
-Factory.define :liability do |account|
-  account.name 'factory name'
-  account.contra false
-end
+  factory :liability do |account|
+    account.name 'factory name'
+    account.contra false
+  end
 
-Factory.define :revenue do |account|
-  account.name 'factory name'
-  account.contra false
+  factory :revenue do |account|
+    account.name 'factory name'
+    account.contra false
+  end
 end
