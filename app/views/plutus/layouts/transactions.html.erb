@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Transactions</title>
+  <style>
+    body {
+      font: normal 11px auto "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+      color: #4f6b72;
+      background: #E6EAE9;
+    }
+
+    a {
+      color: #4f6b72;
+    }
+
+    table {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    th {
+      font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+      color: #6D929B;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 6px 6px 6px 12px;
+      background: #CAE8EA;
+      border-top: 1px solid #C1DAD7;
+      border-right: 1px solid #AAA;
+      border-bottom: 1px solid #AAA;
+      border-left: 1px solid #C1DAD7;
+    }
+
+    th.nobg {
+      border-top: 1px solid #C1DAD7;
+      border-right: 1px solid #AAA;
+      border-bottom: 1px solid #AAA;
+      border-left: 1px solid #C1DAD7;
+      background: #C1DAD7;
+    }
+
+    tr.odd td {
+      border: 1px solid #C1DAD7;
+      background: #fff;
+      padding: 6px 6px 6px 12px;
+      color: #6D929B;
+    }
+
+    tr.even td {
+      border: 1px solid #C1DAD7;
+      background: #fff;
+      padding: 6px 6px 6px 12px;
+      color: #B4AA9D;
+    }
+  </style>
+</head>
+<body>
+
+<p style="color: green"><%= flash[:notice] %></p>
+
+<%= yield %>
+
+</body>
+</html>
