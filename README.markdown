@@ -182,7 +182,6 @@ ToDo
 ====
 
 * Better views, including paging and ledgers
-* Namespacing to allow overriding engine classes
 * Reference for common accounting transactions
 
 Reference
