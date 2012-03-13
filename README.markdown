@@ -1,5 +1,6 @@
 Plutus
 =================
+[![Build Status](https://secure.travis-ci.org/mbulat/plutus.png?branch=master)](http://travis-ci.org/mbulat/plutus)
 
 This plutus plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.
 
