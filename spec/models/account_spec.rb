@@ -4,7 +4,7 @@ module Plutus
   describe Account do
 
     it "should not allow creating an account without a subtype" do
-      account = Factory.build(:account)
+      account = FactoryGirl.build(:account)
       account.should_not be_valid
     end
 

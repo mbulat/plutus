@@ -22,7 +22,7 @@ module Plutus
     end
 
     it "should not be valid without a name" do
-      asset = Factory.build(:asset, :name => nil)
+      asset = FactoryGirl.build(:asset, :name => nil)
       asset.should_not be_valid
     end
 
