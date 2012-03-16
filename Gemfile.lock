@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    plutus (0.5.2)
+    plutus (0.6.0)
       rails (>= 3.0)
 
 GEM
@@ -47,7 +47,7 @@ GEM
     i18n (0.6.0)
     journey (1.0.3)
     json (1.6.5)
-    mail (2.4.3)
+    mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
