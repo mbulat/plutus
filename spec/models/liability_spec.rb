@@ -22,7 +22,7 @@ module Plutus
     end
 
     it "should not be valid without a name" do
-      liability = Factory.build(:liability, :name => nil)
+      liability = FactoryGirl.build(:liability, :name => nil)
       liability.should_not be_valid
     end
 
