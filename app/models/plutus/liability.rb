@@ -60,7 +60,7 @@ module Plutus
     # Balance of all Liability accounts
     #
     # @example
-    #   >> Liability.balance
+    #   >> Plutus::Liability.balance
     #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
     def self.balance
       accounts_balance = BigDecimal.new('0')

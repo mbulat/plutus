@@ -83,6 +83,7 @@ GEM
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
+    redcarpet (2.1.1)
     rspec (2.10.0)
       rspec-core (~> 2.10.0)
       rspec-expectations (~> 2.10.0)
@@ -107,6 +108,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.33)
+    yard (0.8.1)
 
 PLATFORMS
   ruby
@@ -115,6 +117,8 @@ DEPENDENCIES
   factory_girl
   factory_girl_rails (~> 1.1)
   plutus!
+  redcarpet
   rspec (~> 2.6)
   rspec-rails (~> 2.6)
   sqlite3
+  yard

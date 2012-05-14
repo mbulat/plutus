@@ -6,7 +6,7 @@
 <title>
   Class: Plutus::Transaction
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  relpath = '..';
-  if (relpath != '') relpath += '/';
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
 
@@ -26,36 +28,41 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="../_index.html">Index (T)</a> &raquo; 
+    <a href="../_index.html">Index (T)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../Plutus.html" title="Plutus (module)">Plutus</a></span></span>
      &raquo; 
     <span class="title">Transaction</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><h1>Class: Plutus::Transaction
   
   
@@ -110,27 +117,30 @@ debit transactions</p>
 <div class="tags">
   
   <div class="examples">
-    <h3>Examples:</h3>
+    <p class="tag_title">Examples:</p>
     
-      <h4><div class='inline'></div></h4>
-      <pre class="example code"><span class='id identifier rubyid_cash'>cash</span> <span class='op'>=</span> <span class='const'>Asset</span><span class='period'>.</span><span class='id identifier rubyid_find_by_name'>find_by_name</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Cash</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_accounts_receivable'>accounts_receivable</span> <span class='op'>=</span> <span class='const'>Asset</span><span class='period'>.</span><span class='id identifier rubyid_find_by_name'>find_by_name</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Accounts Receivable</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+      
+      <pre class="example code"><span class='id identifier rubyid_cash'>cash</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Asset</span><span class='period'>.</span><span class='id identifier rubyid_find_by_name'>find_by_name</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Cash</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_accounts_receivable'>accounts_receivable</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Asset</span><span class='period'>.</span><span class='id identifier rubyid_find_by_name'>find_by_name</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Accounts Receivable</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
 
-<span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Receiving payment on an invoice</span><span class='tstring_end'>&quot;</span></span> <span class='comma'>,</span>
-                   <span class='symbol'>:debit_account</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_cash'>cash</span><span class='comma'>,</span>
-                   <span class='symbol'>:credit_account</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_accounts_receivable'>accounts_receivable</span><span class='comma'>,</span>
-                   <span class='symbol'>:amount</span> <span class='op'>=&gt;</span> <span class='int'>1000</span><span class='rparen'>)</span></pre>
+<span class='id identifier rubyid_debit_amount'>debit_amount</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>DebitAmount</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:account</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_cash'>cash</span><span class='comma'>,</span> <span class='symbol'>:amount</span> <span class='op'>=&gt;</span> <span class='int'>1000</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_credit_amount'>credit_amount</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>CreditAmount</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:account</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_accounts_receivable'>accounts_receivable</span><span class='comma'>,</span> <span class='symbol'>:amount</span> <span class='op'>=&gt;</span> <span class='int'>1000</span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Receiving payment on an invoice</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_transaction'>transaction</span><span class='period'>.</span><span class='id identifier rubyid_debit_amounts'>debit_amounts</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_debit_amount'>debit_amount</span>
+<span class='id identifier rubyid_transaction'>transaction</span><span class='period'>.</span><span class='id identifier rubyid_credit_amounts'>credit_amounts</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_credit_amount'>credit_amount</span>
+<span class='id identifier rubyid_transaction'>transaction</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span></pre>
     
   </div>
 
 
-  <h3>See Also:</h3>
+  <p class="tag_title">See Also:</p>
   <ul class="see">
     
       <li><a href="http://en.wikipedia.org/wiki/Journal_entry" target="_parent" title="Journal Entry">Journal Entry</a></li>
     
   </ul>
-<h3>Author:</h3>
+<p class="tag_title">Author:</p>
 <ul class="author">
   
     <li>
@@ -154,15 +164,254 @@ debit transactions</p>
 
 
 
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#amounts_cancel%3F-instance_method" title="#amounts_cancel? (instance method)">- (Boolean) <strong>amounts_cancel?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#has_credit_amounts%3F-instance_method" title="#has_credit_amounts? (instance method)">- (Boolean) <strong>has_credit_amounts?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#has_debit_amounts%3F-instance_method" title="#has_debit_amounts? (instance method)">- (Boolean) <strong>has_debit_amounts?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
 
   
 
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="amounts_cancel?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>amounts_cancel?</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/plutus/transaction.rb', line 44</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_amounts_cancel?'>amounts_cancel?</span>
+  <span class='id identifier rubyid_errors'>errors</span><span class='lbracket'>[</span><span class='symbol'>:base</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The credit and debit amounts are not equal</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_difference_of_amounts'>difference_of_amounts</span> <span class='op'>!=</span> <span class='int'>0</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="has_credit_amounts?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>has_credit_amounts?</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/plutus/transaction.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_has_credit_amounts?'>has_credit_amounts?</span>
+  <span class='id identifier rubyid_errors'>errors</span><span class='lbracket'>[</span><span class='symbol'>:base</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Transaction must have at least one credit amount</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_credit_amounts'>credit_amounts</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="has_debit_amounts?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>has_debit_amounts?</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+39
+40
+41</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/plutus/transaction.rb', line 39</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_has_debit_amounts?'>has_debit_amounts?</span>
+  <span class='id identifier rubyid_errors'>errors</span><span class='lbracket'>[</span><span class='symbol'>:base</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Transaction must have at least one debit amount</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_debit_amounts'>debit_amounts</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
     <div id="footer">
-  Generated on Fri Feb 24 16:20:52 2012 by 
+  Generated on Mon May 14 16:58:46 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.3).
+  0.8.1 (ruby-1.9.3).
 </div>
 
   </body>

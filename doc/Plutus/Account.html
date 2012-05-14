@@ -6,7 +6,7 @@
 <title>
   Class: Plutus::Account
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  relpath = '..';
-  if (relpath != '') relpath += '/';
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
 
@@ -26,36 +28,41 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="../_index.html">Index (A)</a> &raquo; 
+    <a href="../_index.html">Index (A)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../Plutus.html" title="Plutus (module)">Plutus</a></span></span>
      &raquo; 
     <span class="title">Account</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><h1>Class: Plutus::Account
   <span class="abstract note title">Abstract</span>
   
@@ -97,15 +104,13 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     <div class="note abstract">
-  <strong>This class is abstract.</strong> 
+  <strong>This class is abstract.</strong>
   <div class='inline'>
 <p>An account must be a subclass to be saved to the database. The Account
-class has a singleton method <span class='object_link'><a href="#trial_balance-class_method" title="Plutus::Account.trial_balance (method)">trial_balance</a></span> to calculate the balance on
+class has a singleton method <span class='object_link'><a href="#trial_balance-class_method" title="Plutus::Account.trial_balance (method)">Account.trial_balance</a></span> to calculate the balance on
 all Accounts.</p>
 </div>
 </div>
-
-<h2>Overview:</h2>
 
 <p>The Account class represents accounts in the system. Each account must be
 subclassed as one of the following types:</p>
@@ -122,12 +127,13 @@ Expense     | Debit             | Assets or services consumed in the generation 
 will have it's normal balance swapped. For example, to remove equity, a
 "Drawing" account may be created as a contra equity account as follows:</p>
 
-<pre class="code ruby"><code><span class='const'>Equity</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Drawing</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_contra'>contra</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span></code></pre>
+<pre class="ruby"><span class="ruby-constant">Plutus</span><span class="ruby-operator">::</span><span class="ruby-constant">Equity</span>.<span class="ruby-identifier">create</span>(:<span class="ruby-identifier">name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Drawing&quot;</span>, <span class="ruby-identifier">contra</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>)
+</pre>
 
 <p>At all times the balance of all accounts should conform to the "accounting
 equation"</p>
 
-<pre class="code ruby"><code>Assets = Liabilties + Owner's Equity</code></pre>
+<pre class="code ruby"><code>Plutus::Assets = Liabilties + Owner's Equity</code></pre>
 
 <p>Each sublclass account acts as it's own ledger. See the individual
 subclasses for a description.</p>
@@ -138,7 +144,7 @@ subclasses for a description.</p>
 <div class="tags">
   
 
-  <h3>See Also:</h3>
+  <p class="tag_title">See Also:</p>
   <ul class="see">
     
       <li><a href="http://en.wikipedia.org/wiki/Accounting_equation" target="_parent" title="Accounting Equation">Accounting Equation</a></li>
@@ -146,7 +152,7 @@ subclasses for a description.</p>
       <li><a href="http://en.wikipedia.org/wiki/Debits_and_credits" target="_parent" title="Debits, Credits, and Contra Accounts">Debits, Credits, and Contra Accounts</a></li>
     
   </ul>
-<h3>Author:</h3>
+<p class="tag_title">Author:</p>
 <ul class="author">
   
     <li>
@@ -196,6 +202,7 @@ subclasses for a description.</p>
   
   
   
+  
 
   
     <span class="summary_desc"><div class='inline'>
@@ -213,16 +220,18 @@ subclasses for a description.</p>
 
   <div id="class_method_details" class="method_details_list">
     <h2>Class Method Details</h2>
-    
+
     
       <div class="method_details first">
-  <p class="signature first" id="trial_balance-class_method">
+  <h3 class="signature first" id="trial_balance-class_method">
   
     + (<tt>BigDecimal</tt>) <strong>trial_balance</strong> 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     
 <p>The trial balance of all accounts in the system. This should always equal
@@ -234,15 +243,15 @@ zero, otherwise there is an error in the system.</p>
 <div class="tags">
   
   <div class="examples">
-    <h3>Examples:</h3>
+    <p class="tag_title">Examples:</p>
     
-      <h4><div class='inline'></div></h4>
+      
       <pre class="example code">&gt;&gt; Account.trial_balance.to_i
 =&gt; 0</pre>
     
   </div>
 
-<h3>Returns:</h3>
+<p class="tag_title">Returns:</p>
 <ul class="return">
   
     <li>
@@ -267,16 +276,16 @@ zero, otherwise there is an error in the system.</p>
       <pre class="lines">
 
 
+48
+49
 50
 51
 52
 53
-54
-55
-56</pre>
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/plutus/account.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'app/models/plutus/account.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_trial_balance'>trial_balance</span>
   <span class='kw'>unless</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span> <span class='op'>==</span> <span class='const'>Account</span>
@@ -293,11 +302,11 @@ zero, otherwise there is an error in the system.</p>
   </div>
 
 </div>
-    
+
     <div id="footer">
-  Generated on Fri Feb 24 16:20:52 2012 by 
+  Generated on Mon May 14 16:58:46 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.3).
+  0.8.1 (ruby-1.9.3).
 </div>
 
   </body>

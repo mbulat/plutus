@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
-  Documentation by YARD 0.7.5
+  Documentation by YARD 0.8.1
   
 </title>
 
@@ -13,9 +13,11 @@
   <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
   relpath = '';
-  if (relpath != '') relpath += '/';
+  framesUrl = "frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
 
@@ -24,40 +26,42 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    
-    <span class="title"></span>
-  
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
-    <div id="content"><h1 class="noborder title">Documentation by YARD 0.7.5</h1>
+
+    <div id="content"><h1 class="noborder title">Documentation by YARD 0.8.1</h1>
 <div id="listing">
   <h1 class="alphaindex">Alphabetic Index</h1>
   
   <h2>File Listing</h2>
-  <ul id="files">
+  <ul id="files" class="index_inline_list">
   
   
     <li class="r1"><a href="index.html" title="README">README</a></li>
@@ -81,21 +85,58 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Plutus/Account.html" title="Plutus::Account (class)">Account</a></span> 
+                <span class='object_link'><a href="Plutus/Account.html" title="Plutus::Account (class)">Account</a></span>
                 
                   <small>(Plutus)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Plutus/AccountsController.html" title="Plutus::AccountsController (class)">AccountsController</a></span> 
+                <span class='object_link'><a href="Plutus/AccountsController.html" title="Plutus::AccountsController (class)">AccountsController</a></span>
                 
                   <small>(Plutus)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Plutus/Asset.html" title="Plutus::Asset (class)">Asset</a></span> 
+                <span class='object_link'><a href="Plutus/Amount.html" title="Plutus::Amount (class)">Amount</a></span>
+                
+                  <small>(Plutus)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Plutus/Asset.html" title="Plutus::Asset (class)">Asset</a></span>
+                
+                  <small>(Plutus)</small>
+                
+              </li>
+            
+          </ul>
+        </ul>
+      
+        
+        <ul id="alpha_C" class="alpha">
+          <li class="letter">C</li>
+          <ul>
+            
+              <li>
+                <span class='object_link'><a href="Plutus/CreditAmount.html" title="Plutus::CreditAmount (class)">CreditAmount</a></span>
+                
+                  <small>(Plutus)</small>
+                
+              </li>
+            
+          </ul>
+        </ul>
+      
+        
+        <ul id="alpha_D" class="alpha">
+          <li class="letter">D</li>
+          <ul>
+            
+              <li>
+                <span class='object_link'><a href="Plutus/DebitAmount.html" title="Plutus::DebitAmount (class)">DebitAmount</a></span>
                 
                   <small>(Plutus)</small>
                 
@@ -110,14 +151,14 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Plutus/Equity.html" title="Plutus::Equity (class)">Equity</a></span> 
+                <span class='object_link'><a href="Plutus/Equity.html" title="Plutus::Equity (class)">Equity</a></span>
                 
                   <small>(Plutus)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Plutus/Expense.html" title="Plutus::Expense (class)">Expense</a></span> 
+                <span class='object_link'><a href="Plutus/Expense.html" title="Plutus::Expense (class)">Expense</a></span>
                 
                   <small>(Plutus)</small>
                 
@@ -132,7 +173,7 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Plutus/Liability.html" title="Plutus::Liability (class)">Liability</a></span> 
+                <span class='object_link'><a href="Plutus/Liability.html" title="Plutus::Liability (class)">Liability</a></span>
                 
                   <small>(Plutus)</small>
                 
@@ -147,7 +188,7 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Plutus.html" title="Plutus (module)">Plutus</a></span> 
+                <span class='object_link'><a href="Plutus.html" title="Plutus (module)">Plutus</a></span>
                 
               </li>
             
@@ -160,7 +201,7 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Plutus/Revenue.html" title="Plutus::Revenue (class)">Revenue</a></span> 
+                <span class='object_link'><a href="Plutus/Revenue.html" title="Plutus::Revenue (class)">Revenue</a></span>
                 
                   <small>(Plutus)</small>
                 
@@ -170,19 +211,22 @@
         </ul>
       
         
+          </td><td valign='top' width="33%">
+          
+        
         <ul id="alpha_T" class="alpha">
           <li class="letter">T</li>
           <ul>
             
               <li>
-                <span class='object_link'><a href="Plutus/Transaction.html" title="Plutus::Transaction (class)">Transaction</a></span> 
+                <span class='object_link'><a href="Plutus/Transaction.html" title="Plutus::Transaction (class)">Transaction</a></span>
                 
                   <small>(Plutus)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Plutus/TransactionsController.html" title="Plutus::TransactionsController (class)">TransactionsController</a></span> 
+                <span class='object_link'><a href="Plutus/TransactionsController.html" title="Plutus::TransactionsController (class)">TransactionsController</a></span>
                 
                   <small>(Plutus)</small>
                 
@@ -198,11 +242,11 @@
 </div>
 
 </div>
-    
+
     <div id="footer">
-  Generated on Fri Feb 24 16:20:51 2012 by 
+  Generated on Mon May 14 16:58:45 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.3).
+  0.8.1 (ruby-1.9.3).
 </div>
 
   </body>

@@ -63,7 +63,7 @@ module Plutus
     # Contra accounts are automatically subtracted from the balance.
     #
     # @example
-    #   >> Asset.balance
+    #   >> Plutus::Asset.balance
     #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
     #
     # @return [BigDecimal] The decimal value balance

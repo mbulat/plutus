@@ -1,7 +1,4 @@
 module Plutus
-  #
-  # == Overview:
-  #
   # The Account class represents accounts in the system. Each account must be subclassed as one of the following types:
   #
   #   TYPE        | NORMAL BALANCE    | DESCRIPTION
@@ -16,10 +13,10 @@ module Plutus
   # normal balance swapped. For example, to remove equity, a "Drawing" account may be created
   # as a contra equity account as follows:
   #
-  #   Equity.create(:name => "Drawing", contra => true)
+  #   Plutus::Equity.create(:name => "Drawing", contra => true)
   #
   # At all times the balance of all accounts should conform to the "accounting equation"
-  #   Assets = Liabilties + Owner's Equity
+  #   Plutus::Assets = Liabilties + Owner's Equity
   #
   # Each sublclass account acts as it's own ledger. See the individual subclasses for a
   # description.

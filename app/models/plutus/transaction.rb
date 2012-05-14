@@ -7,13 +7,16 @@ module Plutus
   # debit transactions
   #
   # @example
-  #   cash = Asset.find_by_name('Cash')
-  #   accounts_receivable = Asset.find_by_name('Accounts Receivable')
+  #   cash = Plutus::Asset.find_by_name('Cash')
+  #   accounts_receivable = Plutus::Asset.find_by_name('Accounts Receivable')
   #
-  #   Transaction.create(:description => "Receiving payment on an invoice" ,
-  #                      :debit_account => cash,
-  #                      :credit_account => accounts_receivable,
-  #                      :amount => 1000)
+  #   debit_amount = Plutus::DebitAmount.new(:account => cash, :amount => 1000)
+  #   credit_amount = Plutus::CreditAmount.new(:account => accounts_receivable, :amount => 1000)
+  #
+  #   transaction = Plutus::Transaction.new(:description => "Receiving payment on an invoice")
+  #   transaction.debit_amounts << debit_amount
+  #   transaction.credit_amounts << credit_amount
+  #   transaction.save
   #
   # @see http://en.wikipedia.org/wiki/Journal_entry Journal Entry
   #

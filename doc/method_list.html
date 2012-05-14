@@ -8,13 +8,13 @@
     
       <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
     
-    
+
     
       <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
     
       <script type="text/javascript" charset="utf-8" src="js/full_list.js"></script>
     
-    
+
     <base id="base_target" target="_parent" />
   </head>
   <body>
@@ -28,30 +28,36 @@
       <h1 id="full_list_header">Method List</h1>
       <div id="nav">
         
-          <a target="_self" href="class_list.html">Classes</a>
+          <span><a target="_self" href="class_list.html">
+            Classes
+          </a></span>
         
-          <a target="_self" href="method_list.html">Methods</a>
+          <span><a target="_self" href="method_list.html">
+            Methods
+          </a></span>
         
-          <a target="_self" href="file_list.html">Files</a>
+          <span><a target="_self" href="file_list.html">
+            Files
+          </a></span>
         
       </div>
       <div id="search">Search: <input type="text" /></div>
 
-      <ul id="full_list" class="methods">
+      <ul id="full_list" class="method">
         
 
   <li class="r1 ">
-    <span class='object_link'><a href="Plutus/Expense.html#balance-class_method" title="Plutus::Expense.balance (method)">balance</a></span>
+    <span class='object_link'><a href="Plutus/Transaction.html#amounts_cancel%3F-instance_method" title="Plutus::Transaction#amounts_cancel? (method)">#amounts_cancel?</a></span>
     
-      <small>Plutus::Expense</small>
+      <small>Plutus::Transaction</small>
     
   </li>
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Plutus/Liability.html#balance-class_method" title="Plutus::Liability.balance (method)">balance</a></span>
+    <span class='object_link'><a href="Plutus/Expense.html#balance-class_method" title="Plutus::Expense.balance (method)">balance</a></span>
     
-      <small>Plutus::Liability</small>
+      <small>Plutus::Expense</small>
     
   </li>
   
@@ -73,15 +79,15 @@
   
 
   <li class="r1 ">
-    <span class='object_link'><a href="Plutus/Expense.html#balance-instance_method" title="Plutus::Expense#balance (method)">#balance</a></span>
+    <span class='object_link'><a href="Plutus/Revenue.html#balance-class_method" title="Plutus::Revenue.balance (method)">balance</a></span>
     
-      <small>Plutus::Expense</small>
+      <small>Plutus::Revenue</small>
     
   </li>
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Plutus/Liability.html#balance-instance_method" title="Plutus::Liability#balance (method)">#balance</a></span>
+    <span class='object_link'><a href="Plutus/Liability.html#balance-class_method" title="Plutus::Liability.balance (method)">balance</a></span>
     
       <small>Plutus::Liability</small>
     
@@ -97,6 +103,22 @@
   
 
   <li class="r2 ">
+    <span class='object_link'><a href="Plutus/Expense.html#balance-instance_method" title="Plutus::Expense#balance (method)">#balance</a></span>
+    
+      <small>Plutus::Expense</small>
+    
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Plutus/Liability.html#balance-instance_method" title="Plutus::Liability#balance (method)">#balance</a></span>
+    
+      <small>Plutus::Liability</small>
+    
+  </li>
+  
+
+  <li class="r2 ">
     <span class='object_link'><a href="Plutus/Revenue.html#balance-instance_method" title="Plutus::Revenue#balance (method)">#balance</a></span>
     
       <small>Plutus::Revenue</small>
@@ -105,25 +127,9 @@
   
 
   <li class="r1 ">
-    <span class='object_link'><a href="Plutus/Revenue.html#balance-class_method" title="Plutus::Revenue.balance (method)">balance</a></span>
-    
-      <small>Plutus::Revenue</small>
-    
-  </li>
-  
-
-  <li class="r2 ">
     <span class='object_link'><a href="Plutus/Equity.html#balance-class_method" title="Plutus::Equity.balance (method)">balance</a></span>
     
       <small>Plutus::Equity</small>
-    
-  </li>
-  
-
-  <li class="r1 ">
-    <span class='object_link'><a href="Plutus/Liability.html#credits_balance-instance_method" title="Plutus::Liability#credits_balance (method)">#credits_balance</a></span>
-    
-      <small>Plutus::Liability</small>
     
   </li>
   
@@ -145,14 +151,6 @@
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Plutus/Asset.html#credits_balance-instance_method" title="Plutus::Asset#credits_balance (method)">#credits_balance</a></span>
-    
-      <small>Plutus::Asset</small>
-    
-  </li>
-  
-
-  <li class="r1 ">
     <span class='object_link'><a href="Plutus/Expense.html#credits_balance-instance_method" title="Plutus::Expense#credits_balance (method)">#credits_balance</a></span>
     
       <small>Plutus::Expense</small>
@@ -160,10 +158,18 @@
   </li>
   
 
-  <li class="r2 ">
-    <span class='object_link'><a href="Plutus/Expense.html#debits_balance-instance_method" title="Plutus::Expense#debits_balance (method)">#debits_balance</a></span>
+  <li class="r1 ">
+    <span class='object_link'><a href="Plutus/Liability.html#credits_balance-instance_method" title="Plutus::Liability#credits_balance (method)">#credits_balance</a></span>
     
-      <small>Plutus::Expense</small>
+      <small>Plutus::Liability</small>
+    
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Plutus/Asset.html#credits_balance-instance_method" title="Plutus::Asset#credits_balance (method)">#credits_balance</a></span>
+    
+      <small>Plutus::Asset</small>
     
   </li>
   
@@ -177,9 +183,9 @@
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Plutus/Revenue.html#debits_balance-instance_method" title="Plutus::Revenue#debits_balance (method)">#debits_balance</a></span>
+    <span class='object_link'><a href="Plutus/Asset.html#debits_balance-instance_method" title="Plutus::Asset#debits_balance (method)">#debits_balance</a></span>
     
-      <small>Plutus::Revenue</small>
+      <small>Plutus::Asset</small>
     
   </li>
   
@@ -193,14 +199,38 @@
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Plutus/Asset.html#debits_balance-instance_method" title="Plutus::Asset#debits_balance (method)">#debits_balance</a></span>
+    <span class='object_link'><a href="Plutus/Revenue.html#debits_balance-instance_method" title="Plutus::Revenue#debits_balance (method)">#debits_balance</a></span>
     
-      <small>Plutus::Asset</small>
+      <small>Plutus::Revenue</small>
     
   </li>
   
 
   <li class="r1 ">
+    <span class='object_link'><a href="Plutus/Expense.html#debits_balance-instance_method" title="Plutus::Expense#debits_balance (method)">#debits_balance</a></span>
+    
+      <small>Plutus::Expense</small>
+    
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Plutus/Transaction.html#has_credit_amounts%3F-instance_method" title="Plutus::Transaction#has_credit_amounts? (method)">#has_credit_amounts?</a></span>
+    
+      <small>Plutus::Transaction</small>
+    
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Plutus/Transaction.html#has_debit_amounts%3F-instance_method" title="Plutus::Transaction#has_debit_amounts? (method)">#has_debit_amounts?</a></span>
+    
+      <small>Plutus::Transaction</small>
+    
+  </li>
+  
+
+  <li class="r2 ">
     <span class='object_link'><a href="Plutus/TransactionsController.html#index-instance_method" title="Plutus::TransactionsController#index (method)">#index</a></span>
     
       <small>Plutus::TransactionsController</small>
@@ -208,8 +238,16 @@
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Plutus/AccountsController.html#index-instance_method" title="Plutus::AccountsController#index (method)">#index</a></span>
+    
+      <small>Plutus::AccountsController</small>
+    
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Plutus/AccountsController.html#show-instance_method" title="Plutus::AccountsController#show (method)">#show</a></span>
     
       <small>Plutus::AccountsController</small>
     
@@ -225,14 +263,6 @@
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Plutus/AccountsController.html#show-instance_method" title="Plutus::AccountsController#show (method)">#show</a></span>
-    
-      <small>Plutus::AccountsController</small>
-    
-  </li>
-  
-
-  <li class="r1 ">
     <span class='object_link'><a href="Plutus/Account.html#trial_balance-class_method" title="Plutus::Account.trial_balance (method)">trial_balance</a></span>
     
       <small>Plutus::Account</small>
