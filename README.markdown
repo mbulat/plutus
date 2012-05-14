@@ -4,7 +4,7 @@ Plutus
 
 This plutus plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.
 
-NOTE: This version of Plutus is compatable with RAILS 3
+NOTE: This version of Plutus is compatable with RAILS 3.1
 =======================================================
 
 For the rails 2 version, you can go here:
