@@ -1,3 +1,4 @@
+<div class="plutus_container">
 <h1>Listing Accounts</h1>
 
 <table>
@@ -12,9 +13,9 @@
 
 <% @accounts.each do |account| %>
   <tr class="<%= cycle("even", "odd") -%>">
-    <td><%=h account.id %></td>
+    <td><%=link_to(account.id, account_path(account.id)) %></td>
     <td><%=h account.name %></td>
-    <td><%=h account.type %></td>
+    <td><%=h account.type.sub('Plutus::','') %></td>
     <td><%=h account.credits_balance %></td>
     <td><%=h account.debits_balance %></td>
     <td><%=h account.balance %></td>
@@ -25,3 +26,4 @@
 <br />
 
 <h3>Go to <%= link_to 'Transactions', transactions_path %></h3>
+</div>

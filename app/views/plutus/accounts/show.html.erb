@@ -1,3 +1,4 @@
+<div class="plutus_container">
 <h1><%=h @account.name %> Account</h1>
 
 <table>
@@ -13,7 +14,7 @@
   <tr class="odd">
     <td><%=h @account.id %></td>
     <td><%=h @account.name %></td>
-    <td><%=h @account.type %></td>
+    <td><%=h @account.type.sub('Plutus::','') %></td>
     <td><%=h @account.credits_balance %></td>
     <td><%=h @account.debits_balance %></td>
     <td><%=h @account.balance %></td>
@@ -26,9 +27,6 @@
   <tr>
     <th class="nobg">ID</th>
     <th>Description</th>
-    <th>Credit Account</th>
-    <th>Debit Account</th>
-    <th>Amount</th>
     <th>Date</th>
   </tr>
 
@@ -36,9 +34,6 @@
   <tr class="<%= cycle("even", "odd") -%>">
     <td><%=h transaction.id %></td>
     <td><%=h transaction.description %></td>
-    <td><%=h transaction.credit_account.name %></td>
-    <td><%=h transaction.debit_account.name %></td>
-    <td><%=h transaction.amount %></td>
     <td><%=h transaction.created_at %></td>
   </tr>
 <% end %>
@@ -50,20 +45,15 @@
   <tr>
     <th class="nobg">ID</th>
     <th>Description</th>
-    <th>Credit Account</th>
-    <th>Debit Account</th>
-    <th>Amount</th>
     <th>Date</th>
   </tr>
 
-<% @account.debit_transactions.each do |transaction| %>
+<% @account.debit_transactions.each do |tr| %>
   <tr class="<%= cycle("even", "odd") -%>">
-    <td><%=h transaction.id %></td>
-    <td><%=h transaction.description %></td>
-    <td><%=h transaction.credit_account.name %></td>
-    <td><%=h transaction.debit_account.name %></td>
-    <td><%=h transaction.amount %></td>
-    <td><%=h transaction.created_at %></td>
+    <td><%=h tr.id %></td>
+    <td><%=h tr.description %></td>
+    <td><%=h tr.created_at %></td>
   </tr>
 <% end %>
 </table>
+</div>
