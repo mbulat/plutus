@@ -38,6 +38,8 @@ Gem::Specification.new do |s|
     "app/models/plutus/liability.rb",
     "app/models/plutus/revenue.rb",
     "app/models/plutus/transaction.rb",
+    "app/models/plutus/credit_amount.rb",
+    "app/models/plutus/debit_amount.rb",
     "app/views/plutus/accounts/index.html.erb",
     "app/views/plutus/accounts/show.html.erb",
     "app/views/plutus/layouts/accounts.html.erb",

@@ -3,17 +3,22 @@ require 'spec_helper'
 module Plutus
   describe Revenue do
 
-    it "should allow creating a revenue account" do
-      revenue = Factory(:revenue)
+    it "should allow creating an revenue account" do
+      revenue = FactoryGirl.create(:revenue)
     end
 
     it "should report a balance for the revenue account" do
-      revenue = Factory(:revenue)
+      revenue = FactoryGirl.create(:revenue)
+      FactoryGirl.create(:credit_amount, :account => revenue)
+      revenue.balance.should > 0
       revenue.balance.should be_kind_of(BigDecimal)
     end
 
     it "should report a balance for the class of accounts" do
+      revenue = FactoryGirl.create(:revenue)
+      FactoryGirl.create(:credit_amount, :account => revenue)
       Revenue.should respond_to(:balance)
+      Revenue.balance.should > 0
       Revenue.balance.should be_kind_of(BigDecimal)
     end
 
@@ -37,11 +42,11 @@ module Plutus
     end
 
     it "a contra account should reverse the normal balance" do
-      revenue = Factory(:revenue)
       contra_revenue = Factory(:revenue, :contra => true)
-      transaction = Factory(:transaction, :credit_account => revenue, :debit_account => contra_revenue, :amount => 1000)
+      # the odd amount below is because factories create an revenue debit_amount
+      FactoryGirl.create(:debit_amount, :account => contra_revenue, :amount => 473) 
       contra_revenue.balance.should > 0
-      Revenue.balance.should == 0
+      Revenue.balance.should == 0 
     end
 
   end

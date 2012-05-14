@@ -4,16 +4,21 @@ module Plutus
   describe Expense do
 
     it "should allow creating an expense account" do
-      expense = Factory(:expense)
+      expense = FactoryGirl.create(:expense)
     end
 
     it "should report a balance for the expense account" do
-      expense = Factory(:expense)
+      expense = FactoryGirl.create(:expense)
+      FactoryGirl.create(:debit_amount, :account => expense)
+      expense.balance.should > 0
       expense.balance.should be_kind_of(BigDecimal)
     end
 
     it "should report a balance for the class of accounts" do
+      expense = FactoryGirl.create(:expense)
+      FactoryGirl.create(:debit_amount, :account => expense)
       Expense.should respond_to(:balance)
+      Expense.balance.should > 0
       Expense.balance.should be_kind_of(BigDecimal)
     end
 
@@ -37,9 +42,10 @@ module Plutus
     end
 
     it "a contra account should reverse the normal balance" do
-      expense = Factory(:expense)
+      expense = FactoryGirl.create(:expense)
       contra_expense = Factory(:expense, :contra => true)
-      transaction = Factory(:transaction, :credit_account => contra_expense, :debit_account => expense, :amount => 1000)
+      FactoryGirl.create(:debit_amount, :account => expense)
+      FactoryGirl.create(:credit_amount, :account => contra_expense)
       contra_expense.balance.should > 0
       Expense.balance.should == 0
     end

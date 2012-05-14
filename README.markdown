@@ -67,15 +67,19 @@ Recording a Transaction
 
 Let's assume we're accounting on an [Accrual basis](http://en.wikipedia.org/wiki/Accounting_methods). We've just taken a customer's order for some widgets, which we've also billed him for. At this point we've actually added a liability to the company until we deliver the goods. To record this transaction we'd need two accounts.
 
-	>> Liability.create(:name => "Unearned Revenue")
-	>> Asset.create(:name => "Cash")
+	>> unearned_revenue = Liability.create(:name => "Unearned Revenue")
+	>> cash = Asset.create(:name => "Cash")
+
+We then specify the amount that is debited and credited from each account.
+
+  >> credit_amount = CreditAmount.new(:amount => 1000, account: unearned_revenue)
+  >> debit_amount = DebitAmount.new(:amount => 1000, account: cash) 
 
 We'd then record the following transaction.
 
 	>> Transaction.create(:description => "Order placed for widgets", 
-                        :credit_account => Liability.find_by_name("Unearned Revenue"),
-                        :debit_account => Asset.find_by_name("Cash"),
-                        :amount => 1000)
+                        :credit_amounts => [credit_amount],
+                        :debit_amounts => [debit_amount])
                        
 Associating Documents
 ---------------------
@@ -176,8 +180,7 @@ Routing is NOT supplied by the engine. You can add routes to your application in
 Testing
 =======
 
-[Rspec](http://rspec.info/) tests are provided. Install both the rpsec and rspec-rails gems, and install this plugin
-into a working rails application to run the tests.
+[Rspec](http://rspec.info/) tests are provided. Run `bundle install` then `rake`.  
 
 ToDo
 ====

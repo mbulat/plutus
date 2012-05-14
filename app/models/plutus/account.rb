@@ -33,11 +33,12 @@ module Plutus
   #
   # @author Michael Bulat
   class Account < ActiveRecord::Base
+    has_many :credit_amounts
+    has_many :debit_amounts
+    has_many :credit_transactions, :through => :credit_amounts, :source => :transaction
+    has_many :debit_transactions, :through => :credit_amounts, :source => :transaction
 
     validates_presence_of :type, :name
-
-    has_many :credit_transactions,  :class_name => "Transaction", :foreign_key => "credit_account_id"
-    has_many :debit_transactions,  :class_name => "Transaction", :foreign_key => "debit_account_id"
 
     # The trial balance of all accounts in the system. This should always equal zero,
     # otherwise there is an error in the system.
