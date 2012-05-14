@@ -7,7 +7,6 @@ class CreatePlutusTables < ActiveRecord::Migration
 
       t.timestamps
     end
-  
     add_index :plutus_accounts, [:name, :type]
 
     create_table :plutus_transactions do |t|
@@ -17,7 +16,6 @@ class CreatePlutusTables < ActiveRecord::Migration
 
       t.timestamps
     end
-
     add_index :plutus_transactions, [:commercial_document_id, :commercial_document_type], :name => "index_transactions_on_commercial_doc"
 
     create_table :plutus_amounts do |t|
@@ -26,8 +24,7 @@ class CreatePlutusTables < ActiveRecord::Migration
       t.references :transaction
       t.decimal :amount, :precision => 20, :scale => 10
     end 
-
-    add_index :plutus_accounts, :type
+    add_index :plutus_amounts, :type
     add_index :plutus_amounts, [:account_id, :transaction_id]
     add_index :plutus_amounts, [:transaction_id, :account_id]
   end

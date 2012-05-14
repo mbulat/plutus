@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-FixtureRailsRoot::Application.config.secret_token = '1d9d3187b88356d11abe80608aff8d73e852ca313f6d5f8e80533150479d92750a8ff99f054851bf6f8868fb73d364c1affd0cab80cd4cd614db0bbdce099068'
+FixtureRailsRoot::Application.config.secret_token = '3c8e6cf530f61ff0dd6807d8e5b68f6691ef846adb340f58ff3afd9b2c9e748ad1137869dd26a14bce4941aec90e1f5a3247ebb3cab5580890edb4728d76e010'
