@@ -29,21 +29,10 @@ module Plutus
     has_many :debit_accounts, :through => :debit_amounts, :source => :account
 
     validates_presence_of :description
-
     validate :has_credit_amounts?
-    def has_credit_amounts?
-      errors[:base] << "Transaction must have at least one credit amount" if self.credit_amounts.blank?
-    end
-
     validate :has_debit_amounts?
-    def has_debit_amounts?
-      errors[:base] << "Transaction must have at least one debit amount" if self.debit_amounts.blank?
-    end
-
     validate :amounts_cancel?
-    def amounts_cancel?
-      errors[:base] << "The credit and debit amounts are not equal" if difference_of_amounts != 0
-    end
+
 
     # Simple API for building a transaction and associated debit and credit amounts
     #
@@ -71,6 +60,18 @@ module Plutus
     end
 
     private
+      def has_credit_amounts?
+        errors[:base] << "Transaction must have at least one credit amount" if self.credit_amounts.blank?
+      end
+
+      def has_debit_amounts?
+        errors[:base] << "Transaction must have at least one debit amount" if self.debit_amounts.blank?
+      end
+
+      def amounts_cancel?
+        errors[:base] << "The credit and debit amounts are not equal" if difference_of_amounts != 0
+      end
+
       def difference_of_amounts
         credit_amount_total = credit_amounts.inject(0) {|sum, credit_amount| sum + credit_amount.amount.to_i}
         debit_amount_total = debit_amounts.inject(0) {|sum, debit_amount| sum + debit_amount.amount.to_i}
