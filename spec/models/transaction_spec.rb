@@ -60,5 +60,19 @@ module Plutus
       saved_transaction.commercial_document.should == mock_document
     end
 
+    it "should allow building a transaction and credit and debits with a hash" do
+      FactoryGirl.create(:asset, :name => "Accounts Receivable")
+      FactoryGirl.create(:revenue, :name => "Sales Revenue")
+      FactoryGirl.create(:liability, :name =>  "Sales Tax Payable")
+      transaction = Transaction.build(
+        description: "Sold some widgets",
+        debits: [
+          {account: "Accounts Receivable", amount: 50}], 
+        credits: [
+          {account: "Sales Revenue", amount: 45},
+          {account: "Sales Tax Payable", amount: 5}])
+      transaction.should be_valid
+    end
+
   end
 end

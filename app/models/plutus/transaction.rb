@@ -45,6 +45,31 @@ module Plutus
       errors[:base] << "The credit and debit amounts are not equal" if difference_of_amounts != 0
     end
 
+    # Simple API for building a transaction and associated debit and credit amounts
+    #
+    # @example
+    #   transaction = Plutus::Transaction.build(
+    #     description: "Sold some widgets",
+    #     debits: [
+    #       {account: "Accounts Receivable", amount: 50}], 
+    #     credits: [
+    #       {account: "Sales Revenue", amount: 45},
+    #       {account: "Sales Tax Payable", amount: 5}])
+    #
+    # @return [Plutus::Transaction] A Transaction with built credit and debit objects ready for saving
+    def self.build(hash)
+      transaction = Transaction.new(:description => hash[:description])
+      hash[:debits].each do |debit|
+        a = Account.find_by_name(debit[:account])
+        transaction.debit_amounts << DebitAmount.new(:account => a, :amount => debit[:amount], :transaction => transaction)
+      end
+      hash[:credits].each do |credit|
+        a = Account.find_by_name(credit[:account])
+        transaction.credit_amounts << CreditAmount.new(:account => a, :amount => credit[:amount], :transaction => transaction)
+      end
+      transaction
+    end
+
     private
       def difference_of_amounts
         credit_amount_total = credit_amounts.inject(0) {|sum, credit_amount| sum + credit_amount.amount.to_i}
