@@ -4,8 +4,8 @@ Plutus
 
 This plutus plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.
 
-NOTE: This version of Plutus is compatable with RAILS 3.1
-=======================================================
+NOTE: This version of Plutus is compatible with RAILS 3.1
+=========================================================
 
 For the rails 2 version, you can go here:
 
@@ -34,7 +34,7 @@ Posting to a [Ledger](http://en.wikipedia.org/wiki/General_ledger) can be consid
 Accounts
 --------
 
-The Account class represents accounts in the system. The Account table uses single table inheritance to store information on each type of account (Asset, Liability, Equity, Revenue, Expense). Each account must be subclassed as one of the following types:
+The Account class represents accounts in the system. The Account table uses single table inheritance to store information on each type of account (Asset, Liability, Equity, Revenue, Expense). Each account must be sub-classed as one of the following types:
 
     TYPE        | NORMAL BALANCE    | DESCRIPTION
     --------------------------------------------------------------------------
@@ -51,7 +51,7 @@ Each account can also be marked as a "Contra Account". A contra account will hav
 At all times the balance of all accounts should conform to the [Accounting
 Equation](http://en.wikipedia.org/wiki/Accounting_equation)
 
-    Assets = Liabilties + Owner's Equity
+    Assets = Liabilities + Owner's Equity
 
 Every account object has a `has_many` association of credit and debit transactions, which means that each account object also acts as its own [Ledger](http://en.wikipedia.org/wiki/General_ledger), and exposes a method to calculate the balance of the account.  
 
@@ -79,7 +79,7 @@ We then specify the amount that is debited and credited from each account for th
     >> transaction.debit_amounts << Plutus::DebitAmount.new(:amount => 1000, account: cash, transaction: transaction) 
     >> transaction.credit_amounts << Plutus::CreditAmount.new(:amount => 1000, account: unearned_revenue, transaction: transaction)
 
-Finally, save the transaction, which saves the corresponsing credit and debit amounts.
+Finally, save the transaction, which saves the corresponding credit and debit amounts.
 
     >> transaction.save
 
@@ -102,7 +102,7 @@ And now we apply the amounts:
     >> transaction.credit_amounts << Plutus::CreditAmount.new(:amount => 1000, account: sales_revenue, transaction: transaction)
     >> transaction.credit_amounts << Plutus::CreditAmount.new(:amount => 60, account: sales_tax_payable, transaction: transaction)
 
-Finally, save the transaction, which saves the corresponsing credit and debit amounts.
+Finally, save the transaction, which saves the corresponding credit and debit amounts.
 
     >> transaction.save
 
@@ -158,9 +158,9 @@ Contra Accounts and Complex Transactions
 
 For complex transaction, you should always ensure that you are balancing your accounts via the [Accounting Equation](http://en.wikipedia.org/wiki/Accounting_equation).
 
-    Assets = Liabilties + Owner's Equity
+    Assets = Liabilities + Owner's Equity
 
-For example, let's assume the owner of a business wants to withdraw cash. First we'll assume that we have an asset account for "Cash" which the funds will be drawn from. We'll then need an Equity account to record where the funds are going, however, in this case, we can't simply create a regular Equity account. The "Cash" account must be credited for the decrease in its balance since it's an Asset. Likewise, Equity accounts are typically credited when there is an increase in their balance. Equity is considered an owner's rights to Assets in the business. In this case however, we are not simply increasing the owners right's to assets within the business; we are actually removing capital from the business altogether. Hence both sides of our accounting equation will see a decrease. In order to accomplish this, we need to create a Contra-Equity account we'll call "Drawings". Since Equity accounts normally have credit balances, a Contra-Equity account will have a debit balance, which is what we need for our transaction. 
+For example, let's assume the owner of a business wants to withdraw cash. First we'll assume that we have an asset account for "Cash" which the funds will be drawn from. We'll then need an Equity account to record where the funds are going, however, in this case, we can't simply create a regular Equity account. The "Cash" account must be credited for the decrease in its balance since it's an Asset. Likewise, Equity accounts are typically credited when there is an increase in their balance. Equity is considered an owner's rights to Assets in the business. In this case however, we are not simply increasing the owner's rights to assets within the business; we are actually removing capital from the business altogether. Hence both sides of our accounting equation will see a decrease. In order to accomplish this, we need to create a Contra-Equity account we'll call "Drawings". Since Equity accounts normally have credit balances, a Contra-Equity account will have a debit balance, which is what we need for our transaction. 
 
     >> drawing = Plutus::Equity.create(:name => "Drawing", :contra => true)
     >> cash = Plutus::Asset.create(:name => "Cash")
