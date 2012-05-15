@@ -22,6 +22,8 @@ module Plutus
   #
   # @author Michael Bulat
   class Transaction < ActiveRecord::Base
+    attr_accessible :description, :commercial_document
+
     belongs_to :commercial_document, :polymorphic => true
     has_many :credit_amounts
     has_many :debit_amounts
