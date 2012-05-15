@@ -1,7 +1,4 @@
 module Plutus
-  #
-  # == Overview:
-  #
   # The Account class represents accounts in the system. Each account must be subclassed as one of the following types:
   #
   #   TYPE        | NORMAL BALANCE    | DESCRIPTION
@@ -16,10 +13,10 @@ module Plutus
   # normal balance swapped. For example, to remove equity, a "Drawing" account may be created
   # as a contra equity account as follows:
   #
-  #   Equity.create(:name => "Drawing", contra => true)
+  #   Plutus::Equity.create(:name => "Drawing", contra => true)
   #
   # At all times the balance of all accounts should conform to the "accounting equation"
-  #   Assets = Liabilties + Owner's Equity
+  #   Plutus::Assets = Liabilties + Owner's Equity
   #
   # Each sublclass account acts as it's own ledger. See the individual subclasses for a
   # description.
@@ -33,11 +30,15 @@ module Plutus
   #
   # @author Michael Bulat
   class Account < ActiveRecord::Base
+    attr_accessible :name
+    
+    has_many :credit_amounts
+    has_many :debit_amounts
+    has_many :credit_transactions, :through => :credit_amounts, :source => :transaction
+    has_many :debit_transactions, :through => :debit_amounts, :source => :transaction
 
     validates_presence_of :type, :name
-
-    has_many :credit_transactions,  :class_name => "Transaction", :foreign_key => "credit_account_id"
-    has_many :debit_transactions,  :class_name => "Transaction", :foreign_key => "debit_account_id"
+    validates_uniqueness_of :name
 
     # The trial balance of all accounts in the system. This should always equal zero,
     # otherwise there is an error in the system.

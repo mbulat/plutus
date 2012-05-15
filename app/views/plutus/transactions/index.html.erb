@@ -1,27 +1,48 @@
-<h1>Listing Transactions</h1>
+<div class="plutus_container">
+<h1>Transactions</h1>
 
-<table>
-  <tr>
-    <th class="nobg">ID</th>
-    <th>Description</th>
-    <th>Credit Account</th>
-    <th>Debit Account</th>
-    <th>Amount</th>
-    <th>Date</th>
-  </tr>
-
-<% @transactions.each do |transaction| %>
-  <tr class="<%= cycle("even", "odd") -%>">
-    <td><%=h transaction.id %></td>
-    <td><%=h transaction.description %></td>
-    <td><%=link_to(h(transaction.credit_account.name), account_path(transaction.credit_account)) %></td>
-    <td><%=link_to(h(transaction.debit_account.name), account_path(transaction.debit_account)) %></td>
-    <td><%=h transaction.amount %></td>
-    <td><%=h transaction.created_at %></td>
-  </tr>
-<% end %>
+<table cellspacing="0">
+  <thead>
+    <tr>
+      <th class="nobg">ID</th>
+      <th>Description</th>
+      <th>Debits</th>
+      <th>Credits</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @transactions.each do |transaction| %>
+    <tr class="<%= cycle("even", "odd") -%>">
+      <td><%=link_to(transaction.id, transaction_path(transaction)) %></td>
+      <td><%=h transaction.description %></td>
+      <td></td>
+      <td></td>
+      <td><%=h transaction.created_at %></td>
+    </tr>
+    <% transaction.debit_amounts.each do |debit_amount| %>
+      <tr class="<%= cycle("odd", "odd") -%>">
+        <td></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=h "#{debit_amount.account.name}" %></td>
+        <td><%=h debit_amount.amount %></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
+    <% transaction.credit_amounts.each do |credit_amount| %>
+      <tr class="<%= cycle("odd", "odd") -%>">
+        <td></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=h "#{credit_amount.account.name}" %></td>
+        <td></td>
+        <td><%=h credit_amount.amount %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
 </table>
 
 <br />
 
 <h3>Go to <%= link_to 'Accounts', accounts_path %></h3>
+</div>
