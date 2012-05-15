@@ -70,15 +70,6 @@ module Plutus
       transaction
     end
 
-    
-t = Plutus::Transaction.build(
-  description: "Sold some widgets",
-  debits: [
-    {account: "Accounts Receivable", amount: 50}], 
-  credits: [
-    {account: "Sales Revenue", amount: 45},
-    {account: "Sales Tax Payable", amount: 8}])
-
     private
       def difference_of_amounts
         credit_amount_total = credit_amounts.inject(0) {|sum, credit_amount| sum + credit_amount.amount.to_i}
