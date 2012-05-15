@@ -217,6 +217,10 @@ Routing is supplied via an engine mount point. Plutus can be mounted on a subpat
 
 *NOTE: If you enable routing, you should ensure that your ApplicationController enforces its own authentication and authorization, which this controller will inherit.*
 
+Sample stylesheets can also be applied by adding the following to your application layout:
+
+    <%= stylesheet_link_tag    "plutus/application" %>
+
 Testing
 =======
 
