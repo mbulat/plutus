@@ -64,14 +64,19 @@ module Plutus
       FactoryGirl.create(:asset, :name => "Accounts Receivable")
       FactoryGirl.create(:revenue, :name => "Sales Revenue")
       FactoryGirl.create(:liability, :name =>  "Sales Tax Payable")
+      mock_document = FactoryGirl.create(:asset)
       transaction = Transaction.build(
         description: "Sold some widgets",
+        commercial_document: mock_document,
         debits: [
           {account: "Accounts Receivable", amount: 50}], 
         credits: [
           {account: "Sales Revenue", amount: 45},
           {account: "Sales Tax Payable", amount: 5}])
       transaction.should be_valid
+      transaction.save
+      saved_transaction = Transaction.find(transaction.id)
+      saved_transaction.commercial_document.should == mock_document
     end
 
   end
