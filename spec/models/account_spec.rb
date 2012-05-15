@@ -8,6 +8,13 @@ module Plutus
       account.should_not be_valid
     end
 
+    it "should be unique per name" do
+      FactoryGirl.create(:account, :name => "Test1", :type => "Plutus::Asset")
+      account = FactoryGirl.build(:account, :name => "Test1", :type => "Plutus::Asset")
+      account.should_not be_valid
+      account.errors[:name].should == ["has already been taken"]
+    end
+
     it "should not have a balance method" do
       lambda{Account.balance}.should raise_error(NoMethodError)
     end

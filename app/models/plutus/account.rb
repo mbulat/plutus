@@ -36,6 +36,7 @@ module Plutus
     has_many :debit_transactions, :through => :debit_amounts, :source => :transaction
 
     validates_presence_of :type, :name
+    validates_uniqueness_of :name
 
     # The trial balance of all accounts in the system. This should always equal zero,
     # otherwise there is an error in the system.
