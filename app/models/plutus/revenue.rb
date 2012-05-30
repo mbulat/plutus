@@ -18,8 +18,8 @@ module Plutus
     # @return [BigDecimal] The decimal value credit balance
     def credits_balance
       credits_balance = BigDecimal.new('0')
-      credit_transactions.each do |credit_transaction|
-        credits_balance = credits_balance + credit_transaction.amount
+      credit_amounts.each do |credit_amount|
+        credits_balance = credits_balance + credit_amount.amount
       end
       return credits_balance
     end
@@ -33,8 +33,8 @@ module Plutus
     # @return [BigDecimal] The decimal value credit balance
     def debits_balance
       debits_balance = BigDecimal.new('0')
-      debit_transactions.each do |debit_transaction|
-        debits_balance = debits_balance + debit_transaction.amount
+      debit_amounts.each do |debit_amount|
+        debits_balance = debits_balance + debit_amount.amount
       end
       return debits_balance
     end
@@ -63,7 +63,7 @@ module Plutus
     # Contra accounts are automatically subtracted from the balance.
     #
     # @example
-    #   >> Revenue.balance
+    #   >> Plutus::Revenue.balance
     #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
     #
     # @return [BigDecimal] The decimal value balance

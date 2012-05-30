@@ -3,17 +3,22 @@ require 'spec_helper'
 module Plutus
   describe Liability do
 
-    it "should allow creating a liability account" do
-      liability = Factory(:liability)
+    it "should allow creating an liability account" do
+      liability = FactoryGirl.create(:liability)
     end
 
     it "should report a balance for the liability account" do
-      liability = Factory(:liability)
+      liability = FactoryGirl.create(:liability)
+      FactoryGirl.create(:credit_amount, :account => liability)
+      liability.balance.should > 0
       liability.balance.should be_kind_of(BigDecimal)
     end
 
     it "should report a balance for the class of accounts" do
+      liability = FactoryGirl.create(:liability)
+      FactoryGirl.create(:credit_amount, :account => liability)
       Liability.should respond_to(:balance)
+      Liability.balance.should > 0
       Liability.balance.should be_kind_of(BigDecimal)
     end
 
@@ -37,9 +42,10 @@ module Plutus
     end
 
     it "a contra account should reverse the normal balance" do
-      liability = Factory(:liability)
+      liability = FactoryGirl.create(:liability)
       contra_liability = Factory(:liability, :contra => true)
-      transaction = Factory(:transaction, :credit_account => liability, :debit_account => contra_liability, :amount => 1000)
+      FactoryGirl.create(:credit_amount, :account => liability)
+      FactoryGirl.create(:debit_amount, :account => contra_liability)
       contra_liability.balance.should > 0
       Liability.balance.should == 0
     end
