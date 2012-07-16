@@ -226,6 +226,11 @@ Testing
 
 [Rspec](http://rspec.info/) tests are provided. Run `bundle install` then `rake`.  
 
+Community and where to get help
+===============================
+
+* Join the [mailing list](https://groups.google.com/d/forum/plutus-gem) (Google Group)
+
 ToDo
 ====
 
