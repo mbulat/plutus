@@ -56,7 +56,7 @@ Then simply run `rake db:seed`
 
 Each account can also be marked as a "Contra Account". A contra account will have its normal balance swapped. For example, to remove equity, a "Drawing" account may be created as a contra equity account as follows:
 
-    Plutus::Equity.create(:name => "Drawing", contra => true)
+    Plutus::Equity.create(:name => "Drawing", :contra => true)
 
 At all times the balance of all accounts should conform to the [Accounting
 Equation](http://en.wikipedia.org/wiki/Accounting_equation)
