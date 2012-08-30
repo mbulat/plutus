@@ -73,7 +73,7 @@ Examples
 Recording a Transaction
 -----------------------
 
-Let's assume we're accounting on an [Accrual basis](http://en.wikipedia.org/wiki/Accounting_methods). We've just taken a customer's order for some widgets, which we've also billed him for. At this point we've actually added a liability to the company until we deliver the goods. To record this transaction we'd need two accounts:
+Let's assume we're accounting on an [Accrual basis](http://en.wikipedia.org/wiki/Accounting_methods#Accrual_basis). We've just taken a customer's order for some widgets, which we've also billed him for. At this point we've actually added a liability to the company until we deliver the goods. To record this transaction we'd need two accounts:
 
     >> Plutus::Asset.create(:name => "Cash")
     >> Plutus::Liability.create(:name => "Unearned Revenue")
