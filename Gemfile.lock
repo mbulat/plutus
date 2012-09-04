@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    plutus (0.7.0)
+    plutus (0.7.1)
       rails (~> 3.1)
 
 GEM
