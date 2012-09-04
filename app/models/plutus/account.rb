@@ -30,7 +30,7 @@ module Plutus
   #
   # @author Michael Bulat
   class Account < ActiveRecord::Base
-    attr_accessible :name
+    attr_accessible :name, :contra
     
     has_many :credit_amounts
     has_many :debit_amounts
