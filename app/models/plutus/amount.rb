@@ -7,7 +7,7 @@ module Plutus
   # @author Michael Bulat
   class Amount < ActiveRecord::Base
     attr_accessible :account, :amount, :transaction
-    
+
     belongs_to :transaction
     belongs_to :account
 

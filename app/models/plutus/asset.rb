@@ -8,7 +8,6 @@ module Plutus
   #
   # @author Michael Bulat
   class Asset < Account
-
     # The credit balance for the account.
     #
     # @example
