@@ -26,8 +26,8 @@ module Plutus
 
     belongs_to :commercial_document, :polymorphic => true
     has_many :amounts
-    has_many :credit_amounts, :class_name => 'Plutus::CreditAmount', :autosave => true
-    has_many :debit_amounts, :class_name => 'Plutus::DebitAmount', :autosave => true
+    has_many :credit_amounts, :autosave => true
+    has_many :debit_amounts, :autosave => true
     has_many :accounts,:through => :amounts, :source => :account
     has_many :credit_accounts, :through => :credit_amounts, :source => :account
     has_many :debit_accounts, :through => :debit_amounts, :source => :account

@@ -20,7 +20,7 @@ module Plutus
       transaction.debit_amounts << FactoryGirl.build(:debit_amount, :transaction => transaction)
       transaction.credit_amounts << FactoryGirl.build(:credit_amount, :transaction => transaction, :amount => nil)
       transaction.should_not be_valid
-      transaction.errors[:credit_amounts].should == ["is invalid"]
+      transaction.errors["credit_amounts.amount".to_sym].should include("can't be blank")
     end
 
     it "should not be valid without a debit amount" do
@@ -35,7 +35,7 @@ module Plutus
       transaction.credit_amounts << FactoryGirl.build(:credit_amount, :transaction => transaction)
       transaction.debit_amounts << FactoryGirl.build(:debit_amount, :transaction => transaction, :amount => nil)
       transaction.should_not be_valid
-      transaction.errors[:debit_amounts].should == ["is invalid"]
+      transaction.errors["debit_amounts.amount".to_sym].should include("can't be blank")
     end
 
     it "should not be valid without a description" do
