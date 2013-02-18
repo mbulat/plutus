@@ -52,6 +52,14 @@ module Plutus
       transaction.errors['base'].should == ["The credit and debit amounts are not equal"]
     end
 
+    it "should require the debit and credit amounts to cancel even with fractions" do
+      transaction = FactoryGirl.build(:transaction)
+      transaction.credit_amounts << FactoryGirl.build(:credit_amount, :amount => 100.1, :transaction => transaction)
+      transaction.debit_amounts << FactoryGirl.build(:debit_amount, :amount => 100.2, :transaction => transaction)
+      transaction.should_not be_valid
+      transaction.errors['base'].should == ["The credit and debit amounts are not equal"]
+    end
+
     it "should have a polymorphic commercial document associations" do
       mock_document = FactoryGirl.create(:asset) # one would never do this, but it allows us to not require a migration for the test
       transaction = FactoryGirl.build(:transaction_with_credit_and_debit, :commercial_document => mock_document)

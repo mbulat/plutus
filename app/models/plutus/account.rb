@@ -32,13 +32,35 @@ module Plutus
   class Account < ActiveRecord::Base
     attr_accessible :name, :contra
     
-    has_many :credit_amounts
-    has_many :debit_amounts
+    has_many :credit_amounts, :extend => AmountsExtension
+    has_many :debit_amounts, :extend => AmountsExtension
     has_many :credit_transactions, :through => :credit_amounts, :source => :transaction
     has_many :debit_transactions, :through => :debit_amounts, :source => :transaction
 
     validates_presence_of :type, :name
     validates_uniqueness_of :name
+
+    # The credit balance for the account.
+    #
+    # @example
+    #   >> asset.credits_balance
+    #   => #<BigDecimal:103259bb8,'0.1E4',4(12)>
+    #
+    # @return [BigDecimal] The decimal value credit balance
+    def credits_balance
+      credit_amounts.balance
+    end
+
+    # The debit balance for the account.
+    #
+    # @example
+    #   >> asset.debits_balance
+    #   => #<BigDecimal:103259bb8,'0.3E4',4(12)>
+    #
+    # @return [BigDecimal] The decimal value credit balance
+    def debits_balance
+      debit_amounts.balance
+    end
 
     # The trial balance of all accounts in the system. This should always equal zero,
     # otherwise there is an error in the system.

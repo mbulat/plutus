@@ -9,36 +9,6 @@ module Plutus
   # @author Michael Bulat
   class Expense < Account
 
-    # The credit balance for the account.
-    #
-    # @example
-    #   >> expense.credits_balance
-    #   => #<BigDecimal:103259bb8,'0.1E4',4(12)>
-    #
-    # @return [BigDecimal] The decimal value credit balance
-    def credits_balance
-      credits_balance = BigDecimal.new('0')
-      credit_amounts.each do |credit_amount|
-        credits_balance = credits_balance + credit_amount.amount
-      end
-      return credits_balance
-    end
-
-    # The debit balance for the account.
-    #
-    # @example
-    #   >> expense.debits_balance
-    #   => #<BigDecimal:103259bb8,'0.3E4',4(12)>
-    #
-    # @return [BigDecimal] The decimal value credit balance
-    def debits_balance
-      debits_balance = BigDecimal.new('0')
-      debit_amounts.each do |debit_amount|
-        debits_balance = debits_balance + debit_amount.amount
-      end
-      return debits_balance
-    end
-
     # The balance of the account.
     #
     # Expenses have normal debit balances, so the credits are subtracted from the debits
