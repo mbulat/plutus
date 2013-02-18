@@ -32,8 +32,8 @@ module Plutus
   class Account < ActiveRecord::Base
     attr_accessible :name, :contra
     
-    has_many :credit_amounts
-    has_many :debit_amounts
+    has_many :credit_amounts, :extend => AmountsExtension
+    has_many :debit_amounts, :extend => AmountsExtension
     has_many :credit_transactions, :through => :credit_amounts, :source => :transaction
     has_many :debit_transactions, :through => :debit_amounts, :source => :transaction
 
@@ -48,11 +48,7 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value credit balance
     def credits_balance
-      credits_balance = BigDecimal.new('0')
-      credit_amounts.each do |credit_amount|
-        credits_balance += credit_amount.amount
-      end
-      return credits_balance
+      credit_amounts.balance
     end
 
     # The debit balance for the account.
@@ -63,11 +59,7 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value credit balance
     def debits_balance
-      debits_balance = BigDecimal.new('0')
-      debit_amounts.each do |debit_amount|
-        debits_balance += debit_amount.amount
-      end
-      return debits_balance
+      debit_amounts.balance
     end
 
     # The trial balance of all accounts in the system. This should always equal zero,
