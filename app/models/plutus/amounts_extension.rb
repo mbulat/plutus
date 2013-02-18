@@ -5,7 +5,11 @@ module Plutus
     def balance
       balance = BigDecimal.new('0')
       each do |amount_record|
-        balance += amount_record.amount
+        if amount_record.amount
+          balance += amount_record.amount
+        else
+          balance = nil
+        end
       end
       return balance
     end

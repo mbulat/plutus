@@ -25,8 +25,8 @@ module Plutus
     attr_accessible :description, :commercial_document
 
     belongs_to :commercial_document, :polymorphic => true
-    has_many :credit_amounts
-    has_many :debit_amounts
+    has_many :credit_amounts, :extend => AmountsExtension
+    has_many :debit_amounts, :extend => AmountsExtension
     has_many :credit_accounts, :through => :credit_amounts, :source => :account
     has_many :debit_accounts, :through => :debit_amounts, :source => :account
 
@@ -71,13 +71,7 @@ module Plutus
       end
 
       def amounts_cancel?
-        errors[:base] << "The credit and debit amounts are not equal" if difference_of_amounts != 0
-      end
-
-      def difference_of_amounts
-        credit_amount_total = credit_amounts.inject(0) {|sum, credit_amount| sum + credit_amount.amount.to_i}
-        debit_amount_total = debit_amounts.inject(0) {|sum, debit_amount| sum + debit_amount.amount.to_i}
-        credit_amount_total - debit_amount_total  
+        errors[:base] << "The credit and debit amounts are not equal" if credit_amounts.balance != debit_amounts.balance
       end
   end
 end
