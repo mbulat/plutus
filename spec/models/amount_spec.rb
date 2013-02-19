@@ -2,11 +2,7 @@ require 'spec_helper'
 
 module Plutus
   describe Amount do
-
-    it "should not allow creating an amount without a subtype" do
-      amount = FactoryGirl.build(:amount)
-      amount.should_not be_valid
-    end
-
+    subject { FactoryGirl.build(:amount) }
+    it { should_not be_valid }  # construct a child class instead
   end
 end
