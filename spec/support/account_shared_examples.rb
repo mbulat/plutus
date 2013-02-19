@@ -3,9 +3,22 @@ shared_examples_for 'a Plutus::Account subtype' do |elements|
   let(:account) { FactoryGirl.create(elements[:kind], contra: contra)}
   subject { account }
 
-  its(:balance) { should be_kind_of(BigDecimal) }
-  it { should respond_to(:credit_transactions) }
-  it { should respond_to(:debit_transactions) }
+  describe "class methods" do
+    subject { account.class }
+    its(:balance) { should be_kind_of(BigDecimal) }
+    describe "trial_balance" do
+      it "should raise NoMethodError" do
+        lambda { subject.trial_balance }.should raise_error NoMethodError
+      end
+    end
+  end
+
+  describe "instance methods" do
+    its(:balance) { should be_kind_of(BigDecimal) }
+
+    it { should respond_to(:credit_transactions) }
+    it { should respond_to(:debit_transactions) }
+  end
 
   it "requires a name" do
     account.name = nil
