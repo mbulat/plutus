@@ -25,8 +25,8 @@ module Plutus
     attr_accessible :description, :commercial_document
 
     belongs_to :commercial_document, :polymorphic => true
-    has_many :credit_amounts, :extend => AmountsExtension
-    has_many :debit_amounts, :extend => AmountsExtension
+    has_many :credit_amounts, :inverse_of => :transaction, :extend => AmountsExtension
+    has_many :debit_amounts, :inverse_of => :transaction, :extend => AmountsExtension
     has_many :credit_accounts, :through => :credit_amounts, :source => :account
     has_many :debit_accounts, :through => :debit_amounts, :source => :account
 
@@ -34,31 +34,17 @@ module Plutus
     validate :has_credit_amounts?
     validate :has_debit_amounts?
     validate :amounts_cancel?
-
-
-    # Simple API for building a transaction and associated debit and credit amounts
-    #
-    # @example
-    #   transaction = Plutus::Transaction.build(
-    #     description: "Sold some widgets",
-    #     debits: [
-    #       {account: "Accounts Receivable", amount: 50}], 
-    #     credits: [
-    #       {account: "Sales Revenue", amount: 45},
-    #       {account: "Sales Tax Payable", amount: 5}])
-    #
-    # @return [Plutus::Transaction] A Transaction with built credit and debit objects ready for saving
+    
+    # Support construction using 'credits' and 'debits' keys
+    accepts_nested_attributes_for :credit_amounts, :debit_amounts
+    alias_method :credits=, :credit_amounts_attributes=
+    alias_method :debits=, :debit_amounts_attributes=
+    attr_accessible :credits, :debits
+    
+    # Support the deprecated .build method
     def self.build(hash)
-      transaction = Transaction.new(:description => hash[:description], :commercial_document => hash[:commercial_document])
-      hash[:debits].each do |debit|
-        a = Account.find_by_name(debit[:account])
-        transaction.debit_amounts << DebitAmount.new(:account => a, :amount => debit[:amount], :transaction => transaction)
-      end
-      hash[:credits].each do |credit|
-        a = Account.find_by_name(credit[:account])
-        transaction.credit_amounts << CreditAmount.new(:account => a, :amount => credit[:amount], :transaction => transaction)
-      end
-      transaction
+      ActiveSupport::Deprecation.warn("Plutus::Transaction.build() is deprecated (use new instead)", caller)
+      new(hash)
     end
 
     private

@@ -78,16 +78,16 @@ Let's assume we're accounting on an [Accrual basis](http://en.wikipedia.org/wiki
     >> Plutus::Asset.create(:name => "Cash")
     >> Plutus::Liability.create(:name => "Unearned Revenue")
 
-Next we'll build the transaction we want to record. Plutus provides a simple interface to build the transaction. 
+Next we'll build the transaction we want to record. Plutus uses ActiveRecord conventions build the transaction and its associated amounts. 
 
-    transaction = Plutus::Transaction.build(
+    transaction = Plutus::Transaction.new(
                     :description => "Order placed for widgets",
                     :debits => [
-                      {:account => "Cash", :amount => 100.00}], 
+                      {:account_name => "Cash", :amount => 100.00}], 
                     :credits => [
-                      {:account => "Unearned Revenue", :amount => 100.00}])
+                      {:account_name => "Unearned Revenue", :amount => 100.00}])
 
-The build method takes a hash consisting of a description, and an array of debits and credits. Each debit and credit item is a hash that specifies the amount, and the account to be debited or credited. Simply pass in the string name you used when you created the account. 
+Transactions must specify a description, as well as at least one credit and debit amount. `Amount`s must specify an amount value as well as an account, either by providing a `Plutus::Account` to `account` or by passing in an `account_name` string.
 
 Finally, save the transaction.
 
@@ -106,13 +106,13 @@ Often times a single transaction requires more than one type of account. A class
 
 And here's the transaction:
 
-    transaction = Plutus::Transaction.build(
+    transaction = Plutus::Transaction.new(
                     :description => "Sold some widgets",
                     :debits => [
-                      {:account => "Accounts Receivable", :amount => 50}], 
+                      {:account_name => "Accounts Receivable", :amount => 50}], 
                     :credits => [
-                      {:account => "Sales Revenue", :amount => 45},
-                      {:account => "Sales Tax Payable", :amount => 5}])
+                      {:account_name => "Sales Revenue", :amount => 45},
+                      {:account_name => "Sales Tax Payable", :amount => 5}])
     transaction.save
                        
 Associating Documents
@@ -126,14 +126,14 @@ Suppose we pull up our latest invoice in order to generate a transaction for plu
 
 Let's assume we're using the same transaction from the last example
 
-    transaction = Plutus::Transaction.build(
+    transaction = Plutus::Transaction.new(
                     :description => "Sold some widgets",
                     :commercial_document => invoice,
                     :debits => [
-                      {:account => "Accounts Receivable", :amount => invoice.total_amount}], 
+                      {:account_name => "Accounts Receivable", :amount => invoice.total_amount}], 
                     :credits => [
-                      {:account => "Sales Revenue", :amount => invoice.sales_amount},
-                      {:account => "Sales Tax Payable", :amount => invoice.tax_amount}])
+                      {:account_name => "Sales Revenue", :amount => invoice.sales_amount},
+                      {:account_name => "Sales Tax Payable", :amount => invoice.tax_amount}])
     transaction.save
 
 The commercial document attribute on the transaction is a polymorphic association allowing you to associate any record from your models with a transaction (i.e. Bills, Invoices, Receipts, Returns, etc.)
@@ -178,12 +178,12 @@ For example, let's assume the owner of a business wants to withdraw cash. First 
 
 We would then create the following transaction:
 
-    transaction = Plutus::Transaction.build(
+    transaction = Plutus::Transaction.new(
                     :description => "Owner withdrawing cash",
                     :debits => [
-                      {:account => "Drawing", :amount => 1000}], 
+                      {:account_name => "Drawing", :amount => 1000}], 
                     :credits => [
-                      {:account => "Cash", :amount => 1000}])
+                      {:account_name => "Cash", :amount => 1000}])
     transaction.save
 
 To make the example clearer, imagine instead that the owner decides to invest his money into the business in exchange for some type of equity security. In this case we might have the following accounts:
@@ -193,12 +193,12 @@ To make the example clearer, imagine instead that the owner decides to invest hi
 
 And out transaction would be:
 
-    transaction = Plutus::Transaction.build(
+    transaction = Plutus::Transaction.new(
                     :description => "Owner investing cash",
                     :debits => [
-                      {:account => "Cash", :amount => 1000}], 
+                      {:account_name => "Cash", :amount => 1000}], 
                     :credits => [
-                      {:account => "Common Stock", :amount => 1000}])
+                      {:account_name => "Common Stock", :amount => 1000}])
     transaction.save
 
 In this case, we've increase our cash Asset, and simultaneously increased the other side of our accounting equation in
