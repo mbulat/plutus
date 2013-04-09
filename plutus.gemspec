@@ -4,6 +4,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
 require "plutus/version"
+require "date"
 
 Gem::Specification.new do |s|
   s.name = %q{plutus}
