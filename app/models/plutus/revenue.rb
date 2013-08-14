@@ -39,7 +39,7 @@ module Plutus
     # @return [BigDecimal] The decimal value balance
     def self.balance
       accounts_balance = BigDecimal.new('0')
-      accounts = self.find(:all)
+      accounts = self.all
       accounts.each do |revenue|
         unless revenue.contra
           accounts_balance += revenue.balance
