@@ -111,7 +111,6 @@ DEPENDENCIES
   factory_girl
   factory_girl_rails (~> 1.1)
   plutus!
-  protected_attributes
   redcarpet
   rspec (~> 2.6)
   rspec-rails (~> 2.6)
