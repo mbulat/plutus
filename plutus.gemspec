@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
     "README.markdown"
   ]
   s.add_dependency("rails", ">= 3.1", '< 4.1')
-  s.add_dependency("protected_attributes", "~> 1.0")
   s.add_development_dependency("sqlite3")
   s.add_development_dependency("rspec", "~> 2.6")
   s.add_development_dependency("rspec-rails", "~> 2.6")
