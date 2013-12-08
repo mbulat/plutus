@@ -1,1 +1,1 @@
-rvm 1.9.2@plutus --create
+rvm 2.0.0@plutus --create
