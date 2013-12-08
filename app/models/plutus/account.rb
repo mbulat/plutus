@@ -38,6 +38,8 @@ module Plutus
     validates_presence_of :type, :name
     validates_uniqueness_of :name
 
+    default_scope { includes [:credit_amounts, :debit_amounts] }
+
     # The credit balance for the account.
     #
     # @example
