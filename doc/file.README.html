@@ -6,13 +6,13 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.8.1
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
@@ -67,7 +67,11 @@
 
 <p>The Plutus plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.</p>
 
-<h3>NOTE: This version of Plutus is compatible with RAILS 3.1</h3>
+<h3>NOTE: This version of Plutus is compatible with RAILS ~&gt; 4.0</h3>
+
+<p>For the rails 3 version, you can go here (current master):</p>
+
+<p><a href="https://github.com/mbulat/plutus/tree/rails3">https://github.com/mbulat/plutus</a></p>
 
 <p>For the rails 2 version, you can go here:</p>
 
@@ -95,7 +99,7 @@
 
 <p>The Account class represents accounts in the system. The Account table uses single table inheritance to store information on each type of account (Asset, Liability, Equity, Revenue, Expense). Each account must be sub-classed as one of the following types:</p>
 
-<pre class="code ruby"><code>TYPE        | NORMAL BALANCE    | DESCRIPTION
+<pre class="code ruby"><code class="ruby">TYPE        | NORMAL BALANCE    | DESCRIPTION
 --------------------------------------------------------------------------
 Asset       | Debit             | Resources owned by the Business Entity
 Liability   | Credit            | Debts owed to outsiders
@@ -106,7 +110,7 @@ Expense     | Debit             | Assets or services consumed in the generation 
 
 <p>Your Book of Accounts needs to be created prior to recording any transactions. The simplest method is to have a number of create methods in your db/seeds.rb file like so:</p>
 
-<pre class="code ruby"><code>Plutus::Asset.create(:name =&gt; &quot;Accounts Receivable&quot;)
+<pre class="code ruby"><code class="ruby">Plutus::Asset.create(:name =&gt; &quot;Accounts Receivable&quot;)
 Plutus::Asset.create(:name =&gt; &quot;Cash&quot;)
 Plutus::Revenue.create(:name =&gt; &quot;Sales Revenue&quot;)
 Plutus::Liability.create(:name =&gt; &quot;Unearned Revenue&quot;)
@@ -118,13 +122,13 @@ etc...
 
 <p>Each account can also be marked as a &quot;Contra Account&quot;. A contra account will have its normal balance swapped. For example, to remove equity, a &quot;Drawing&quot; account may be created as a contra equity account as follows:</p>
 
-<pre class="code ruby"><code><span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Equity</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Drawing</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_contra'>contra</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<pre class="code ruby"><code class="ruby"><span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Equity</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Drawing</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:contra</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span>
 </code></pre>
 
 <p>At all times the balance of all accounts should conform to the <a href="http://en.wikipedia.org/wiki/Accounting_equation">Accounting
 Equation</a></p>
 
-<pre class="code ruby"><code>Assets = Liabilities + Owner's Equity
+<pre class="code ruby"><code class="ruby">Assets = Liabilities + Owner&#39;s Equity
 </code></pre>
 
 <p>Every account object has a <code>has_many</code> association of credit and debit transactions, which means that each account object also acts as its own <a href="http://en.wikipedia.org/wiki/General_ledger">Ledger</a>, and exposes a method to calculate the balance of the account.  </p>
@@ -135,15 +139,15 @@ Equation</a></p>
 
 <h2>Recording a Transaction</h2>
 
-<p>Let&#39;s assume we&#39;re accounting on an <a href="http://en.wikipedia.org/wiki/Accounting_methods">Accrual basis</a>. We&#39;ve just taken a customer&#39;s order for some widgets, which we&#39;ve also billed him for. At this point we&#39;ve actually added a liability to the company until we deliver the goods. To record this transaction we&#39;d need two accounts:</p>
+<p>Let&#39;s assume we&#39;re accounting on an <a href="http://en.wikipedia.org/wiki/Accounting_methods#Accrual_basis">Accrual basis</a>. We&#39;ve just taken a customer&#39;s order for some widgets, which we&#39;ve also billed him for. At this point we&#39;ve actually added a liability to the company until we deliver the goods. To record this transaction we&#39;d need two accounts:</p>
 
-<pre class="code ruby"><code>&gt;&gt; Plutus::Asset.create(:name =&gt; &quot;Cash&quot;)
+<pre class="code ruby"><code class="ruby">&gt;&gt; Plutus::Asset.create(:name =&gt; &quot;Cash&quot;)
 &gt;&gt; Plutus::Liability.create(:name =&gt; &quot;Unearned Revenue&quot;)
 </code></pre>
 
 <p>Next we&#39;ll build the transaction we want to record. Plutus provides a simple interface to build the transaction. </p>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span>
                 <span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Order placed for widgets</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
                 <span class='symbol'>:debits</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span>
                   <span class='lbrace'>{</span><span class='symbol'>:account</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cash</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:amount</span> <span class='op'>=&gt;</span> <span class='float'>100.00</span><span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span> 
@@ -155,7 +159,7 @@ Equation</a></p>
 
 <p>Finally, save the transaction.</p>
 
-<pre class="code ruby"><code>&gt;&gt; transaction.save
+<pre class="code ruby"><code class="ruby">&gt;&gt; transaction.save
 </code></pre>
 
 <p>If there are any issues with your credit and debit amounts, the save will fail and return false. You can inspect the errors via <code>transaction.errors</code>. Because we are doing double-entry accounting, your credit and debit amounts must always cancel out to keep the accounts in balance.</p>
@@ -164,14 +168,14 @@ Equation</a></p>
 
 <p>Often times a single transaction requires more than one type of account. A classic example would be a transaction in which a tax is charged. We&#39;ll assume that we have not yet received payment for the order, so we&#39;ll need an &quot;Accounts Receivable&quot; Asset:</p>
 
-<pre class="code ruby"><code>&gt;&gt; Plutus::Asset.create(:name =&gt; &quot;Accounts Receivable&quot;)
+<pre class="code ruby"><code class="ruby">&gt;&gt; Plutus::Asset.create(:name =&gt; &quot;Accounts Receivable&quot;)
 &gt;&gt; Plutus::Revenue.create(:name =&gt; &quot;Sales Revenue&quot;)
 &gt;&gt; Plutus::Liability.create(:name =&gt; &quot;Sales Tax Payable&quot;)
 </code></pre>
 
 <p>And here&#39;s the transaction:</p>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span>
                 <span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Sold some widgets</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
                 <span class='symbol'>:debits</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span>
                   <span class='lbrace'>{</span><span class='symbol'>:account</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Accounts Receivable</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:amount</span> <span class='op'>=&gt;</span> <span class='int'>50</span><span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span> 
@@ -187,12 +191,12 @@ Equation</a></p>
 
 <p>Suppose we pull up our latest invoice in order to generate a transaction for plutus (we&#39;ll assume you already have an Invoice model):</p>
 
-<pre class="code ruby"><code>&gt;&gt; invoice = Invoice.last
+<pre class="code ruby"><code class="ruby">&gt;&gt; invoice = Invoice.last
 </code></pre>
 
 <p>Let&#39;s assume we&#39;re using the same transaction from the last example</p>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span>
                 <span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Sold some widgets</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
                 <span class='symbol'>:commercial_document</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_invoice'>invoice</span><span class='comma'>,</span>
                 <span class='symbol'>:debits</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span>
@@ -209,43 +213,43 @@ Equation</a></p>
 
 <p>Each account can report on its own balance. This number should normally be positive. If the number is negative, you may have a problem.</p>
 
-<pre class="code ruby"><code>&gt;&gt; cash = Plutus::Asset.find_by_name(&quot;Cash&quot;)
+<pre class="code ruby"><code class="ruby">&gt;&gt; cash = Plutus::Asset.find_by_name(&quot;Cash&quot;)
 &gt;&gt; cash.balance
-=&gt; #&lt;BigDecimal:103259bb8,'0.2E4',4(12)&gt;
+=&gt; #&lt;BigDecimal:103259bb8,&#39;0.2E4&#39;,4(12)&gt;
 </code></pre>
 
 <h2>Checking the Balance of an Account Type</h2>
 
 <p>Each subclass of accounts can report on the total balance of all the accounts of that type. This number should normally be positive. If the number is negative, you may have a problem.</p>
 
-<pre class="code ruby"><code>&gt;&gt; Plutus::Asset.balance
-=&gt; #&lt;BigDecimal:103259bb8,'0.2E4',4(12)&gt;    
+<pre class="code ruby"><code class="ruby">&gt;&gt; Plutus::Asset.balance
+=&gt; #&lt;BigDecimal:103259bb8,&#39;0.2E4&#39;,4(12)&gt;    
 </code></pre>
 
 <h2>Calculating the Trial Balance</h2>
 
 <p>The <a href="http://en.wikipedia.org/wiki/Trial_balance">Trial Balance</a> for all accounts on the system can be found through the abstract Account class. This value should be 0 unless there is an error in the system.</p>
 
-<pre class="code ruby"><code>&gt;&gt; Plutus::Account.trial_balance
-=&gt; #&lt;BigDecimal:1031c0d28,'0.0',4(12)&gt;
+<pre class="code ruby"><code class="ruby">&gt;&gt; Plutus::Account.trial_balance
+=&gt; #&lt;BigDecimal:1031c0d28,&#39;0.0&#39;,4(12)&gt;
 </code></pre>
 
 <h2>Contra Accounts and Complex Transactions</h2>
 
 <p>For complex transaction, you should always ensure that you are balancing your accounts via the <a href="http://en.wikipedia.org/wiki/Accounting_equation">Accounting Equation</a>.</p>
 
-<pre class="code ruby"><code>Assets = Liabilities + Owner's Equity
+<pre class="code ruby"><code class="ruby">Assets = Liabilities + Owner&#39;s Equity
 </code></pre>
 
 <p>For example, let&#39;s assume the owner of a business wants to withdraw cash. First we&#39;ll assume that we have an asset account for &quot;Cash&quot; which the funds will be drawn from. We&#39;ll then need an Equity account to record where the funds are going, however, in this case, we can&#39;t simply create a regular Equity account. The &quot;Cash&quot; account must be credited for the decrease in its balance since it&#39;s an Asset. Likewise, Equity accounts are typically credited when there is an increase in their balance. Equity is considered an owner&#39;s rights to Assets in the business. In this case however, we are not simply increasing the owner&#39;s rights to assets within the business; we are actually removing capital from the business altogether. Hence both sides of our accounting equation will see a decrease. In order to accomplish this, we need to create a Contra-Equity account we&#39;ll call &quot;Drawings&quot;. Since Equity accounts normally have credit balances, a Contra-Equity account will have a debit balance, which is what we need for our transaction. </p>
 
-<pre class="code ruby"><code>&gt;&gt; Plutus::Equity.create(:name =&gt; &quot;Drawing&quot;, :contra =&gt; true)
+<pre class="code ruby"><code class="ruby">&gt;&gt; Plutus::Equity.create(:name =&gt; &quot;Drawing&quot;, :contra =&gt; true)
 &gt;&gt; Plutus::Asset.create(:name =&gt; &quot;Cash&quot;)
 </code></pre>
 
 <p>We would then create the following transaction:</p>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span>
                 <span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Owner withdrawing cash</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
                 <span class='symbol'>:debits</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span>
                   <span class='lbrace'>{</span><span class='symbol'>:account</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Drawing</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:amount</span> <span class='op'>=&gt;</span> <span class='int'>1000</span><span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span> 
@@ -256,13 +260,13 @@ Equation</a></p>
 
 <p>To make the example clearer, imagine instead that the owner decides to invest his money into the business in exchange for some type of equity security. In this case we might have the following accounts:</p>
 
-<pre class="code ruby"><code>&gt;&gt; Plutus::Equity.create(:name =&gt; &quot;Common Stock&quot;)
+<pre class="code ruby"><code class="ruby">&gt;&gt; Plutus::Equity.create(:name =&gt; &quot;Common Stock&quot;)
 &gt;&gt; Plutus::Asset.create(:name =&gt; &quot;Cash&quot;)
 </code></pre>
 
 <p>And out transaction would be:</p>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span>
                 <span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Owner investing cash</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
                 <span class='symbol'>:debits</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span>
                   <span class='lbrace'>{</span><span class='symbol'>:account</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cash</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:amount</span> <span class='op'>=&gt;</span> <span class='int'>1000</span><span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span> 
@@ -282,14 +286,25 @@ Equity, keeping everything balanced.</p>
 
 <p>Routing is supplied via an engine mount point. Plutus can be mounted on a subpath in your existing Rails 3 app by adding the following to your routes.rb:</p>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_mount'>mount</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Engine</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/plutus</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:as</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>plutus</span><span class='tstring_end'>&quot;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_mount'>mount</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Engine</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/plutus</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:as</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>plutus</span><span class='tstring_end'>&quot;</span></span>
 </code></pre>
 
 <p><em>NOTE: If you enable routing, you should ensure that your ApplicationController enforces its own authentication and authorization, which this controller will inherit.</em></p>
 
+<p>Sample stylesheets can also be applied by adding the following to your application layout:</p>
+
+<pre class="code ruby"><code class="ruby">&lt;%= stylesheet_link_tag    &quot;plutus/application&quot; %&gt;
+</code></pre>
+
 <h1>Testing</h1>
 
 <p><a href="http://rspec.info/">Rspec</a> tests are provided. Run <code>bundle install</code> then <code>rake</code>.  </p>
+
+<h1>Community and where to get help</h1>
+
+<ul>
+<li>Join the <a href="https://groups.google.com/d/forum/plutus-gem">mailing list</a> (Google Group)</li>
+</ul>
 
 <h1>ToDo</h1>
 
@@ -310,9 +325,9 @@ Equity, keeping everything balanced.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Tue May 15 12:38:13 2012 by
+  Generated on Wed Jan 15 16:34:44 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.1 (ruby-1.9.3).
+  0.8.7.3 (ruby-2.1.0).
 </div>
 
   </body>

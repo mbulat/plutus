@@ -6,13 +6,13 @@
 <title>
   Class: Plutus::Equity
   
-    &mdash; Documentation by YARD 0.8.1
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
@@ -214,54 +214,6 @@ assets.</p>
 </li>
 
       
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#credits_balance-instance_method" title="#credits_balance (instance method)">- (BigDecimal) <strong>credits_balance</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>The credit balance for the account.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#debits_balance-instance_method" title="#debits_balance (instance method)">- (BigDecimal) <strong>debits_balance</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>The debit balance for the account.</p>
-</div></span>
-  
-</li>
-
-      
     </ul>
   
 
@@ -275,7 +227,7 @@ assets.</p>
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Account.html" title="Plutus::Account (class)">Account</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Account.html#trial_balance-class_method" title="Plutus::Account.trial_balance (method)">trial_balance</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Account.html#credits_balance-instance_method" title="Plutus::Account#credits_balance (method)">#credits_balance</a></span>, <span class='object_link'><a href="Account.html#debits_balance-instance_method" title="Plutus::Account#debits_balance (method)">#debits_balance</a></span>, <span class='object_link'><a href="Account.html#trial_balance-class_method" title="Plutus::Account.trial_balance (method)">trial_balance</a></span></p>
 
   
 
@@ -308,8 +260,8 @@ assets.</p>
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code">&gt;&gt; Plutus::Equity.balance
-=&gt; #&lt;BigDecimal:1030fcc98,'0.82875E5',8(20)&gt;</pre>
+      <pre class="example code"><code>&gt;&gt; Plutus::Equity.balance
+=&gt; #&lt;BigDecimal:1030fcc98,&#39;0.82875E5&#39;,8(20)&gt;</code></pre>
     
   </div>
 
@@ -338,25 +290,25 @@ assets.</p>
       <pre class="lines">
 
 
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82</pre>
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/plutus/equity.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'app/models/plutus/equity.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_balance'>balance</span>
-  <span class='id identifier rubyid_accounts_balance'>accounts_balance</span> <span class='op'>=</span> <span class='const'>BigDecimal</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>0</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_accounts'>accounts</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='symbol'>:all</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_accounts_balance'>accounts_balance</span> <span class='op'>=</span> <span class='const'>BigDecimal</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_accounts'>accounts</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span>
   <span class='id identifier rubyid_accounts'>accounts</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_equity'>equity</span><span class='op'>|</span>
     <span class='kw'>unless</span> <span class='id identifier rubyid_equity'>equity</span><span class='period'>.</span><span class='id identifier rubyid_contra'>contra</span>
       <span class='id identifier rubyid_accounts_balance'>accounts_balance</span> <span class='op'>+=</span> <span class='id identifier rubyid_equity'>equity</span><span class='period'>.</span><span class='id identifier rubyid_balance'>balance</span>
@@ -404,8 +356,8 @@ subtracted from debits</p>
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code">&gt;&gt; asset.balance
-=&gt; #&lt;BigDecimal:103259bb8,'0.2E4',4(12)&gt;</pre>
+      <pre class="example code"><code>&gt;&gt; asset.balance
+=&gt; #&lt;BigDecimal:103259bb8,&#39;0.2E4&#39;,4(12)&gt;</code></pre>
     
   </div>
 
@@ -434,16 +386,16 @@ subtracted from debits</p>
       <pre class="lines">
 
 
-53
-54
-55
-56
-57
-58
-59</pre>
+22
+23
+24
+25
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/plutus/equity.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'app/models/plutus/equity.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_balance'>balance</span>
   <span class='kw'>unless</span> <span class='id identifier rubyid_contra'>contra</span>
@@ -457,166 +409,14 @@ subtracted from debits</p>
 </table>
 </div>
     
-      <div class="method_details ">
-  <h3 class="signature " id="credits_balance-instance_method">
-  
-    - (<tt>BigDecimal</tt>) <strong>credits_balance</strong> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>The credit balance for the account.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  <div class="examples">
-    <p class="tag_title">Examples:</p>
-    
-      
-      <pre class="example code">&gt;&gt; equity.credits_balance
-=&gt; #&lt;BigDecimal:103259bb8,'0.3E4',4(12)&gt;</pre>
-    
-  </div>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>BigDecimal</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>The decimal value credit balance</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-19
-20
-21
-22
-23
-24
-25</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'app/models/plutus/equity.rb', line 19</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_credits_balance'>credits_balance</span>
-  <span class='id identifier rubyid_credits_balance'>credits_balance</span> <span class='op'>=</span> <span class='const'>BigDecimal</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>0</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_credit_amounts'>credit_amounts</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_credit_amount'>credit_amount</span><span class='op'>|</span>
-    <span class='id identifier rubyid_credits_balance'>credits_balance</span> <span class='op'>=</span> <span class='id identifier rubyid_credits_balance'>credits_balance</span> <span class='op'>+</span> <span class='id identifier rubyid_credit_amount'>credit_amount</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span>
-  <span class='kw'>end</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_credits_balance'>credits_balance</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="debits_balance-instance_method">
-  
-    - (<tt>BigDecimal</tt>) <strong>debits_balance</strong> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>The debit balance for the account.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  <div class="examples">
-    <p class="tag_title">Examples:</p>
-    
-      
-      <pre class="example code">&gt;&gt; equity.debits_balance
-=&gt; #&lt;BigDecimal:103259bb8,'0.1E4',4(12)&gt;</pre>
-    
-  </div>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>BigDecimal</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>The decimal value credit balance</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-34
-35
-36
-37
-38
-39
-40</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'app/models/plutus/equity.rb', line 34</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_debits_balance'>debits_balance</span>
-  <span class='id identifier rubyid_debits_balance'>debits_balance</span> <span class='op'>=</span> <span class='const'>BigDecimal</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>0</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_debit_amounts'>debit_amounts</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_debit_amount'>debit_amount</span><span class='op'>|</span>
-    <span class='id identifier rubyid_debits_balance'>debits_balance</span> <span class='op'>=</span> <span class='id identifier rubyid_debits_balance'>debits_balance</span> <span class='op'>+</span> <span class='id identifier rubyid_debit_amount'>debit_amount</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span>
-  <span class='kw'>end</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_debits_balance'>debits_balance</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
   </div>
 
 </div>
 
     <div id="footer">
-  Generated on Tue May 15 12:38:14 2012 by
+  Generated on Wed Jan 15 16:34:44 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.1 (ruby-1.9.3).
+  0.8.7.3 (ruby-2.1.0).
 </div>
 
   </body>
