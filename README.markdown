@@ -4,9 +4,13 @@ Plutus
 
 The Plutus plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.
 
-### NOTE: This version of Plutus is compatible with RAILS ~> 4.0
+Compatibility
+=============
 
-For the rails 3 version, you can go here (current master):
+* Ruby versions: MRI 1.9.3, MRI 2.0, MRI 2.1
+* Rails versions: ~> 4.0
+
+For the rails 3 version, you can go here:
 
 [https://github.com/mbulat/plutus](https://github.com/mbulat/plutus/tree/rails3)
 
@@ -15,6 +19,7 @@ For the rails 2 version, you can go here:
 [https://github.com/mbulat/plutus/tree/rails2](https://github.com/mbulat/plutus/tree/rails2)
 
 Gems in RubyGems.org >= 0.5.0 support Rails 3
+Gems in RubyGems.org >= 0.8.0 support Rails 4
 
 Installation
 ============
