@@ -30,8 +30,6 @@ module Plutus
   #
   # @author Michael Bulat
   class Account < ActiveRecord::Base
-    attr_accessible :name, :contra
-    
     has_many :credit_amounts, :extend => AmountsExtension
     has_many :debit_amounts, :extend => AmountsExtension
     has_many :credit_transactions, :through => :credit_amounts, :source => :transaction
