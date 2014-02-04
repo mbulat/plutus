@@ -3,3 +3,6 @@ spec/debug.log
 .DS_Store
 .yardoc/
 pkg/
+.ruby-version
+.rvmrc
+.ruby-gemset
