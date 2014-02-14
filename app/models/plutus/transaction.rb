@@ -23,10 +23,10 @@ module Plutus
   # @author Michael Bulat
   class Transaction < ActiveRecord::Base
     belongs_to :commercial_document, :polymorphic => true
-    has_many :credit_amounts, :extend => AmountsExtension
-    has_many :debit_amounts, :extend => AmountsExtension
-    has_many :credit_accounts, :through => :credit_amounts, :source => :account
-    has_many :debit_accounts, :through => :debit_amounts, :source => :account
+    has_many :credit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::CreditAmount'
+    has_many :debit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::DebitAmount'
+    has_many :credit_accounts, :through => :credit_amounts, :source => :account, :class_name => 'Plutus::Account'
+    has_many :debit_accounts, :through => :debit_amounts, :source => :account, :class_name => 'Plutus::Account'
 
     validates_presence_of :description
     validate :has_credit_amounts?
