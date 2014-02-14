@@ -6,8 +6,8 @@ module Plutus
   #
   # @author Michael Bulat
   class Amount < ActiveRecord::Base
-    belongs_to :transaction
-    belongs_to :account
+    belongs_to :transaction, :class_name => 'Plutus::Transaction'
+    belongs_to :account, :class_name => 'Plutus::Account'
 
     validates_presence_of :type, :amount, :transaction, :account
   end
