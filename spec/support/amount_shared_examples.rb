@@ -9,8 +9,8 @@ shared_examples_for 'a Plutus::Amount subtype' do |elements|
     amount.should_not be_valid
   end
 
-  it "should require a transaction" do
-    amount.transaction = nil
+  it "should require a entry" do
+    amount.entry = nil
     amount.should_not be_valid
   end
   

@@ -21,7 +21,7 @@
   </tr>
 </table>
 
-<h1>Credit Transactions</h1>
+<h1>Credit Entries</h1>
 
 <table>
   <tr>
@@ -30,16 +30,16 @@
     <th>Date</th>
   </tr>
 
-<% @account.credit_transactions.each do |transaction| %>
+<% @account.credit_entries.each do |entry| %>
   <tr class="<%= cycle("even", "odd") -%>">
-    <td><%=h transaction.id %></td>
-    <td><%=h transaction.description %></td>
-    <td><%=h transaction.created_at %></td>
+    <td><%=h entry.id %></td>
+    <td><%=h entry.description %></td>
+    <td><%=h entry.created_at %></td>
   </tr>
 <% end %>
 </table>
 
-<h1>Debit Transactions</h1>
+<h1>Debit Entries</h1>
 
 <table>
   <tr>
@@ -48,7 +48,7 @@
     <th>Date</th>
   </tr>
 
-<% @account.debit_transactions.each do |tr| %>
+<% @account.debit_entries.each do |tr| %>
   <tr class="<%= cycle("even", "odd") -%>">
     <td><%=h tr.id %></td>
     <td><%=h tr.description %></td>

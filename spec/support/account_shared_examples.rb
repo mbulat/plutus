@@ -16,8 +16,8 @@ shared_examples_for 'a Plutus::Account subtype' do |elements|
   describe "instance methods" do
     its(:balance) { should be_kind_of(BigDecimal) }
 
-    it { should respond_to(:credit_transactions) }
-    it { should respond_to(:debit_transactions) }
+    it { should respond_to(:credit_entries) }
+    it { should respond_to(:debit_entries) }
   end
 
   it "requires a name" do
