@@ -6,5 +6,5 @@ rvm:
   - ruby-head
   - jruby
   - jruby-head
-  - rbx
+  - rbx-2
 script: rake
