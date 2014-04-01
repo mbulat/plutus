@@ -31,7 +31,7 @@ Installation
 
 - run migrations `rake db:migrate`
 
-Upgrading from =< 0.8
+Upgrading from < 0.9
 =====================
 
 Versions of Plutus prior to 0.9 used a "Transaction" class to keep track of entries. Rails 4.1 introduced a change that
