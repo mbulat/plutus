@@ -1,11 +1,22 @@
 Description:
     Generator for Plutus Plugin
 
-Example:
+Installation:
     rails g plutus
 
-    This will create:
-        Create a migration in the application for the "Account" and Transaction" tables.
+    This will:
+        Create a migration in the application for the "Account",
+        "Entry" and "Amount" tables.
+
+    Once generated, simply run:
+        rake db:migrate
+
+Upgrade < 0.8 -> 0.9+:
+    rails g plutus:upgrade_plutus
+
+    This will:
+        Create a migration in the application for renaming the
+        "Transaction" table, columns and indexes to "Entry" tables.
         
     Once generated, simply run:
         rake db:migrate

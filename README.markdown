@@ -7,7 +7,7 @@ The Plutus plugin is a Ruby on Rails Engine which provides a double entry accoun
 Compatibility
 =============
 
-* Ruby versions: MRI 1.9.3, MRI 2.0, MRI 2.1
+* Ruby versions: MRI 1.9.3, MRI 2.0, MRI 2.1, Rubinius 2.2, JRuby 1.7+,f
 * Rails versions: ~> 4.0
 
 For the rails 3 version, you can go here:
@@ -18,8 +18,9 @@ For the rails 2 version, you can go here:
 
 [https://github.com/mbulat/plutus/tree/rails2](https://github.com/mbulat/plutus/tree/rails2)
 
-Gems in RubyGems.org >= 0.5.0 support Rails 3
-Gems in RubyGems.org >= 0.8.0 support Rails 4
+* Gems in RubyGems.org >= 0.5.0 support Rails 3
+* Gems in RubyGems.org >= 0.8.0 support Rails 4
+* Gems in RubyGems.org >= 0.9.0 support Rails ~> 4.1
 
 Installation
 ============
@@ -30,14 +31,25 @@ Installation
 
 - run migrations `rake db:migrate`
 
+Upgrading from < 0.9
+=====================
+
+Versions of Plutus prior to 0.9 used a "Transaction" class to keep track of entries. Rails 4.1 introduced a change that
+raises an error with Plutus due to an ActiveRecord method conflict with "transaction". Therefore the Transaction class
+has been renamed "Entry". To generate a migration which will update your database run the following:
+
+- `rails g plutus:upgrade_plutus` 
+
+You only need to do this when upgrading a previously installed version of Plutus.
+
 Overview
 ========
 
 The plutus plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general [Double Entry Bookkeeping](http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system) practices. All calculations are done using [BigDecimal](http://www.ensta.fr/~diam/ruby/online/ruby-doc-stdlib/libdoc/bigdecimal/rdoc/classes/BigDecimal.html) in order to prevent floating point rounding errors. The plugin requires a decimal type on your database as well.
 
-The system consists of tables that maintains your accounts, transactions and debits and credits. Each transaction can have many debits and credits. The transaction table, which records your business transactions is, essentially, your accounting  [Journal](http://en.wikipedia.org/wiki/Journal_entry).
+The system consists of tables that maintains your accounts, entries and debits and credits. Each entry can have many debits and credits. The entry table, which records your business transactions is, essentially, your accounting  [Journal](http://en.wikipedia.org/wiki/Journal_entry).
 
-Posting to a [Ledger](http://en.wikipedia.org/wiki/General_ledger) can be considered to happen automatically, since Accounts have the reverse `has_many` relationship to either its credit or debit transactions.
+Posting to a [Ledger](http://en.wikipedia.org/wiki/General_ledger) can be considered to happen automatically, since Accounts have the reverse `has_many` relationship to either its credit or debit entries.
 
 Accounts
 --------
@@ -52,7 +64,7 @@ The Account class represents accounts in the system. The Account table uses sing
     Revenue     | Credit            | Increases in owners equity
     Expense     | Debit             | Assets or services consumed in the generation of revenue
 
-Your Book of Accounts needs to be created prior to recording any transactions. The simplest method is to have a number of create methods in your db/seeds.rb file like so:
+Your Book of Accounts needs to be created prior to recording any entries. The simplest method is to have a number of create methods in your db/seeds.rb file like so:
 
     Plutus::Asset.create(:name => "Accounts Receivable")
     Plutus::Asset.create(:name => "Cash")
@@ -72,24 +84,24 @@ Equation](http://en.wikipedia.org/wiki/Accounting_equation)
 
     Assets = Liabilities + Owner's Equity
 
-Every account object has a `has_many` association of credit and debit transactions, which means that each account object also acts as its own [Ledger](http://en.wikipedia.org/wiki/General_ledger), and exposes a method to calculate the balance of the account.  
+Every account object has a `has_many` association of credit and debit entries, which means that each account object also acts as its own [Ledger](http://en.wikipedia.org/wiki/General_ledger), and exposes a method to calculate the balance of the account.  
 
-See the {Plutus::Account}, {Plutus::Transaction}, and {Plutus::Amount} classes for more information.
+See the {Plutus::Account}, {Plutus::Entry}, and {Plutus::Amount} classes for more information.
 
 Examples
 ========
 
-Recording a Transaction
------------------------
+Recording an Entry
+------------------
 
-Let's assume we're accounting on an [Accrual basis](http://en.wikipedia.org/wiki/Accounting_methods#Accrual_basis). We've just taken a customer's order for some widgets, which we've also billed him for. At this point we've actually added a liability to the company until we deliver the goods. To record this transaction we'd need two accounts:
+Let's assume we're accounting on an [Accrual basis](http://en.wikipedia.org/wiki/Accounting_methods#Accrual_basis). We've just taken a customer's order for some widgets, which we've also billed him for. At this point we've actually added a liability to the company until we deliver the goods. To record this entry we'd need two accounts:
 
     >> Plutus::Asset.create(:name => "Cash")
     >> Plutus::Liability.create(:name => "Unearned Revenue")
 
-Next we'll build the transaction we want to record. Plutus provides a simple interface to build the transaction. 
+Next we'll build the entry we want to record. Plutus provides a simple interface to build the entry. 
 
-    transaction = Plutus::Transaction.build(
+    entry = Plutus::Entry.build(
                     :description => "Order placed for widgets",
                     :debits => [
                       {:account => "Cash", :amount => 100.00}], 
@@ -98,44 +110,44 @@ Next we'll build the transaction we want to record. Plutus provides a simple int
 
 The build method takes a hash consisting of a description, and an array of debits and credits. Each debit and credit item is a hash that specifies the amount, and the account to be debited or credited. Simply pass in the string name you used when you created the account. 
 
-Finally, save the transaction.
+Finally, save the entry.
 
-    >> transaction.save
+    >> entry.save
 
-If there are any issues with your credit and debit amounts, the save will fail and return false. You can inspect the errors via `transaction.errors`. Because we are doing double-entry accounting, your credit and debit amounts must always cancel out to keep the accounts in balance.
+If there are any issues with your credit and debit amounts, the save will fail and return false. You can inspect the errors via `entry.errors`. Because we are doing double-entry accounting, your credit and debit amounts must always cancel out to keep the accounts in balance.
 
-Recording a Transaction with multiple accounts
-----------------------------------------------
+Recording an Entry with multiple accounts
+-----------------------------------------
 
-Often times a single transaction requires more than one type of account. A classic example would be a transaction in which a tax is charged. We'll assume that we have not yet received payment for the order, so we'll need an "Accounts Receivable" Asset:
+Often times a single entry requires more than one type of account. A classic example would be a entry in which a tax is charged. We'll assume that we have not yet received payment for the order, so we'll need an "Accounts Receivable" Asset:
 
     >> Plutus::Asset.create(:name => "Accounts Receivable")
     >> Plutus::Revenue.create(:name => "Sales Revenue")
     >> Plutus::Liability.create(:name => "Sales Tax Payable")
 
-And here's the transaction:
+And here's the entry:
 
-    transaction = Plutus::Transaction.build(
+    entry = Plutus::Entry.build(
                     :description => "Sold some widgets",
                     :debits => [
                       {:account => "Accounts Receivable", :amount => 50}], 
                     :credits => [
                       {:account => "Sales Revenue", :amount => 45},
                       {:account => "Sales Tax Payable", :amount => 5}])
-    transaction.save
+    entry.save
                        
 Associating Documents
 ---------------------
 
-Although Plutus does not provide a mechanism for generating invoices or orders, it is possible to associate any such commercial document with a given transaction.
+Although Plutus does not provide a mechanism for generating invoices or orders, it is possible to associate any such commercial document with a given entry.
 
-Suppose we pull up our latest invoice in order to generate a transaction for plutus (we'll assume you already have an Invoice model):
+Suppose we pull up our latest invoice in order to generate a entry for plutus (we'll assume you already have an Invoice model):
 
     >> invoice = Invoice.last
 
-Let's assume we're using the same transaction from the last example
+Let's assume we're using the same entry from the last example
 
-    transaction = Plutus::Transaction.build(
+    entry = Plutus::Entry.build(
                     :description => "Sold some widgets",
                     :commercial_document => invoice,
                     :debits => [
@@ -143,9 +155,9 @@ Let's assume we're using the same transaction from the last example
                     :credits => [
                       {:account => "Sales Revenue", :amount => invoice.sales_amount},
                       {:account => "Sales Tax Payable", :amount => invoice.tax_amount}])
-    transaction.save
+    entry.save
 
-The commercial document attribute on the transaction is a polymorphic association allowing you to associate any record from your models with a transaction (i.e. Bills, Invoices, Receipts, Returns, etc.)
+The commercial document attribute on the entry is a polymorphic association allowing you to associate any record from your models with a entry (i.e. Bills, Invoices, Receipts, Returns, etc.)
 
 Checking the Balance of an  Individual Account
 ----------------------------------------------
@@ -173,42 +185,42 @@ The [Trial Balance](http://en.wikipedia.org/wiki/Trial_balance) for all accounts
     >> Plutus::Account.trial_balance
     => #<BigDecimal:1031c0d28,'0.0',4(12)>
 
-Contra Accounts and Complex Transactions
-----------------------------------------
+Contra Accounts and Complex Entries
+-----------------------------------
 
-For complex transaction, you should always ensure that you are balancing your accounts via the [Accounting Equation](http://en.wikipedia.org/wiki/Accounting_equation).
+For complex entries, you should always ensure that you are balancing your accounts via the [Accounting Equation](http://en.wikipedia.org/wiki/Accounting_equation).
 
     Assets = Liabilities + Owner's Equity
 
-For example, let's assume the owner of a business wants to withdraw cash. First we'll assume that we have an asset account for "Cash" which the funds will be drawn from. We'll then need an Equity account to record where the funds are going, however, in this case, we can't simply create a regular Equity account. The "Cash" account must be credited for the decrease in its balance since it's an Asset. Likewise, Equity accounts are typically credited when there is an increase in their balance. Equity is considered an owner's rights to Assets in the business. In this case however, we are not simply increasing the owner's rights to assets within the business; we are actually removing capital from the business altogether. Hence both sides of our accounting equation will see a decrease. In order to accomplish this, we need to create a Contra-Equity account we'll call "Drawings". Since Equity accounts normally have credit balances, a Contra-Equity account will have a debit balance, which is what we need for our transaction. 
+For example, let's assume the owner of a business wants to withdraw cash. First we'll assume that we have an asset account for "Cash" which the funds will be drawn from. We'll then need an Equity account to record where the funds are going, however, in this case, we can't simply create a regular Equity account. The "Cash" account must be credited for the decrease in its balance since it's an Asset. Likewise, Equity accounts are typically credited when there is an increase in their balance. Equity is considered an owner's rights to Assets in the business. In this case however, we are not simply increasing the owner's rights to assets within the business; we are actually removing capital from the business altogether. Hence both sides of our accounting equation will see a decrease. In order to accomplish this, we need to create a Contra-Equity account we'll call "Drawings". Since Equity accounts normally have credit balances, a Contra-Equity account will have a debit balance, which is what we need for our entry. 
 
     >> Plutus::Equity.create(:name => "Drawing", :contra => true)
     >> Plutus::Asset.create(:name => "Cash")
 
-We would then create the following transaction:
+We would then create the following entry:
 
-    transaction = Plutus::Transaction.build(
+    entry = Plutus::Entry.build(
                     :description => "Owner withdrawing cash",
                     :debits => [
                       {:account => "Drawing", :amount => 1000}], 
                     :credits => [
                       {:account => "Cash", :amount => 1000}])
-    transaction.save
+    entry.save
 
 To make the example clearer, imagine instead that the owner decides to invest his money into the business in exchange for some type of equity security. In this case we might have the following accounts:
 
     >> Plutus::Equity.create(:name => "Common Stock")
     >> Plutus::Asset.create(:name => "Cash")
 
-And out transaction would be:
+And out entry would be:
 
-    transaction = Plutus::Transaction.build(
+    entry = Plutus::Entry.build(
                     :description => "Owner investing cash",
                     :debits => [
                       {:account => "Cash", :amount => 1000}], 
                     :credits => [
                       {:account => "Common Stock", :amount => 1000}])
-    transaction.save
+    entry.save
 
 In this case, we've increase our cash Asset, and simultaneously increased the other side of our accounting equation in
 Equity, keeping everything balanced.
@@ -216,9 +228,9 @@ Equity, keeping everything balanced.
 Access & Security
 =================
 
-The Engine provides controllers and views for viewing Accounts and Transactions via the {Plutus::AccountsController} and {Plutus::TransactionsController} classes. The controllers will render HTML, XML and JSON, and are compatible with [ActiveResource](http://api.rubyonrails.org/classes/ActiveResource/Base.html)
+The Engine provides controllers and views for viewing Accounts and Entries via the {Plutus::AccountsController} and {Plutus::EntriesController} classes. The controllers will render HTML, XML and JSON, and are compatible with [ActiveResource](http://api.rubyonrails.org/classes/ActiveResource/Base.html)
 
-These controllers are read-only for reporting purposes. It is assumed transaction creation will occur within your applications code.
+These controllers are read-only for reporting purposes. It is assumed entry creation will occur within your applications code.
 
 Routing is supplied via an engine mount point. Plutus can be mounted on a subpath in your existing Rails 3 app by adding the following to your routes.rb:
 
@@ -240,11 +252,22 @@ Community and where to get help
 
 * Join the [mailing list](https://groups.google.com/d/forum/plutus-gem) (Google Group)
 
+Bitcoins
+========
+
+Plutus is free software, but if you'd like to support development, feel free to send some bitcoins:
+
+`1QFSdJheyFkLcsV8X428J8e3pYqX1nmW39`
+
+![bitcoin](https://dl.dropboxusercontent.com/u/8428240/plutus_tip.png)
+
+Also, if anyone is using Plutus for bitcoin related accounting, I'd love to hear about it! Drop me a line.
+
 ToDo
 ====
 
 * Better views, including paging and ledgers
-* Reference for common accounting transactions
+* Reference for common accounting entries
 
 Reference
 =========

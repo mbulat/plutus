@@ -1,6 +1,16 @@
 language: ruby
 rvm:
   - 1.9.3
-  - 2.0
-  - 2.1
+  - 2.0.0
+  - 2.1.0
+  - ruby-head
+  - jruby
+  - jruby-head
+  - rbx-2
+
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+    - rvm: jruby-head
+
 script: rake
