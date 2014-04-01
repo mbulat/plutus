@@ -6,3 +6,5 @@ pkg/
 .ruby-version
 .rvmrc
 .ruby-gemset
+Gemfile.lock
+*.gem
