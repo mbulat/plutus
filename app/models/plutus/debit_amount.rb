@@ -1,5 +1,5 @@
 module Plutus
-  # The DebitAmount class represents debit entries in the transaction journal.
+  # The DebitAmount class represents debit entries in the entry journal.
   #
   # @example
   #     debit_amount = Plutus::DebitAmount.new(:account => cash, :amount => 1000)

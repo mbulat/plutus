@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
-  Class: Plutus::Transaction
+  Class: Plutus::Entry
   
     &mdash; Documentation by YARD 0.8.7.3
   
@@ -31,10 +31,10 @@
     <div id="header">
       <div id="menu">
   
-    <a href="../_index.html">Index (T)</a> &raquo;
+    <a href="../_index.html">Index (E)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../Plutus.html" title="Plutus (module)">Plutus</a></span></span>
      &raquo; 
-    <span class="title">Transaction</span>
+    <span class="title">Entry</span>
   
 
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
@@ -63,7 +63,7 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><h1>Class: Plutus::Transaction
+    <div id="content"><h1>Class: Plutus::Entry
   
   
   
@@ -80,7 +80,7 @@
           
             <li class="next">ActiveRecord::Base</li>
           
-            <li class="next">Plutus::Transaction</li>
+            <li class="next">Plutus::Entry</li>
           
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
@@ -96,7 +96,7 @@
   
   
     <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">app/models/plutus/transaction.rb</dd>
+    <dd class="r2 last">app/models/plutus/entry.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -104,12 +104,12 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Transactions are the recording of debits and credits to various accounts.
-This table can be thought of as a traditional accounting Journal.</p>
+<p>Entries are the recording of debits and credits to various accounts. This
+table can be thought of as a traditional accounting Journal.</p>
 
 <p>Posting to a Ledger can be considered to happen automatically, since
 Accounts have the reverse &#39;has_many&#39; relationship to either
-it&#39;s credit or debit transactions</p>
+it&#39;s credit or debit entries</p>
 
 
   </div>
@@ -126,10 +126,10 @@ it&#39;s credit or debit transactions</p>
 <span class='id identifier rubyid_debit_amount'>debit_amount</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>DebitAmount</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:account</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_cash'>cash</span><span class='comma'>,</span> <span class='symbol'>:amount</span> <span class='op'>=&gt;</span> <span class='int'>1000</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_credit_amount'>credit_amount</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>CreditAmount</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:account</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_accounts_receivable'>accounts_receivable</span><span class='comma'>,</span> <span class='symbol'>:amount</span> <span class='op'>=&gt;</span> <span class='int'>1000</span><span class='rparen'>)</span>
 
-<span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Receiving payment on an invoice</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_transaction'>transaction</span><span class='period'>.</span><span class='id identifier rubyid_debit_amounts'>debit_amounts</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_debit_amount'>debit_amount</span>
-<span class='id identifier rubyid_transaction'>transaction</span><span class='period'>.</span><span class='id identifier rubyid_credit_amounts'>credit_amounts</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_credit_amount'>credit_amount</span>
-<span class='id identifier rubyid_transaction'>transaction</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span></code></pre>
+<span class='id identifier rubyid_entry'>entry</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Entry</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Receiving payment on an invoice</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_entry'>entry</span><span class='period'>.</span><span class='id identifier rubyid_debit_amounts'>debit_amounts</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_debit_amount'>debit_amount</span>
+<span class='id identifier rubyid_entry'>entry</span><span class='period'>.</span><span class='id identifier rubyid_credit_amounts'>credit_amounts</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_credit_amount'>credit_amount</span>
+<span class='id identifier rubyid_entry'>entry</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span></code></pre>
     
   </div>
 
@@ -175,7 +175,7 @@ it&#39;s credit or debit transactions</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#build-class_method" title="build (class method)">+ (Plutus::Transaction) <strong>build</strong>(hash) </a>
+      <a href="#build-class_method" title="build (class method)">+ (Plutus::Entry) <strong>build</strong>(hash) </a>
     
 
     
@@ -190,8 +190,7 @@ it&#39;s credit or debit transactions</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Simple API for building a transaction and associated debit and credit
-amounts.</p>
+<p>Simple API for building a entry and associated debit and credit amounts.</p>
 </div></span>
   
 </li>
@@ -210,7 +209,7 @@ amounts.</p>
       <div class="method_details first">
   <h3 class="signature first" id="build-class_method">
   
-    + (<tt><span class='object_link'><a href="" title="Plutus::Transaction (class)">Plutus::Transaction</a></span></tt>) <strong>build</strong>(hash) 
+    + (<tt><span class='object_link'><a href="" title="Plutus::Entry (class)">Plutus::Entry</a></span></tt>) <strong>build</strong>(hash) 
   
 
   
@@ -219,8 +218,7 @@ amounts.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Simple API for building a transaction and associated debit and credit
-amounts</p>
+<p>Simple API for building a entry and associated debit and credit amounts</p>
 
 
   </div>
@@ -231,7 +229,7 @@ amounts</p>
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><code><span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span>
+      <pre class="example code"><code><span class='id identifier rubyid_entry'>entry</span> <span class='op'>=</span> <span class='const'>Plutus</span><span class='op'>::</span><span class='const'>Entry</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span>
   <span class='label'>description:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Sold some widgets</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='label'>debits:</span> <span class='lbracket'>[</span>
     <span class='lbrace'>{</span><span class='label'>account:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Accounts Receivable</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>amount:</span> <span class='int'>50</span><span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span> 
@@ -247,13 +245,13 @@ amounts</p>
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="" title="Plutus::Transaction (class)">Plutus::Transaction</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Plutus::Entry (class)">Plutus::Entry</a></span></tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>A Transaction with built credit and debit objects ready for saving</p>
+<p>A Entry with built credit and debit objects ready for saving</p>
 </div>
       
     </li>
@@ -280,19 +278,19 @@ amounts</p>
 60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/plutus/transaction.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'app/models/plutus/entry.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_transaction'>transaction</span> <span class='op'>=</span> <span class='const'>Transaction</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:description</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:commercial_document</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:commercial_document</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_entry'>entry</span> <span class='op'>=</span> <span class='const'>Entry</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:description</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:commercial_document</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:commercial_document</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:debits</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_debit'>debit</span><span class='op'>|</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='const'>Account</span><span class='period'>.</span><span class='id identifier rubyid_find_by_name'>find_by_name</span><span class='lparen'>(</span><span class='id identifier rubyid_debit'>debit</span><span class='lbracket'>[</span><span class='symbol'>:account</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_transaction'>transaction</span><span class='period'>.</span><span class='id identifier rubyid_debit_amounts'>debit_amounts</span> <span class='op'>&lt;&lt;</span> <span class='const'>DebitAmount</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:account</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='symbol'>:amount</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_debit'>debit</span><span class='lbracket'>[</span><span class='symbol'>:amount</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:transaction</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_transaction'>transaction</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_entry'>entry</span><span class='period'>.</span><span class='id identifier rubyid_debit_amounts'>debit_amounts</span> <span class='op'>&lt;&lt;</span> <span class='const'>DebitAmount</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:account</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='symbol'>:amount</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_debit'>debit</span><span class='lbracket'>[</span><span class='symbol'>:amount</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:entry</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_entry'>entry</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='symbol'>:credits</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_credit'>credit</span><span class='op'>|</span>
     <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='const'>Account</span><span class='period'>.</span><span class='id identifier rubyid_find_by_name'>find_by_name</span><span class='lparen'>(</span><span class='id identifier rubyid_credit'>credit</span><span class='lbracket'>[</span><span class='symbol'>:account</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_transaction'>transaction</span><span class='period'>.</span><span class='id identifier rubyid_credit_amounts'>credit_amounts</span> <span class='op'>&lt;&lt;</span> <span class='const'>CreditAmount</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:account</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='symbol'>:amount</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_credit'>credit</span><span class='lbracket'>[</span><span class='symbol'>:amount</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:transaction</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_transaction'>transaction</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_entry'>entry</span><span class='period'>.</span><span class='id identifier rubyid_credit_amounts'>credit_amounts</span> <span class='op'>&lt;&lt;</span> <span class='const'>CreditAmount</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:account</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='symbol'>:amount</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_credit'>credit</span><span class='lbracket'>[</span><span class='symbol'>:amount</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:entry</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_entry'>entry</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_transaction'>transaction</span>
+  <span class='id identifier rubyid_entry'>entry</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -304,7 +302,7 @@ amounts</p>
 </div>
 
     <div id="footer">
-  Generated on Wed Jan 15 16:34:44 2014 by
+  Generated on Mon Feb 24 19:41:13 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.3 (ruby-2.1.0).
 </div>

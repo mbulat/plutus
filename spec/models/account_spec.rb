@@ -24,11 +24,11 @@ module Plutus
       subject { Account.trial_balance }
       it { should be_kind_of BigDecimal }
       
-      context "when given no transactions" do
+      context "when given no entries" do
         it { should == 0 }
       end
       
-      context "when given correct transactions" do
+      context "when given correct entries" do
         before {
           # credit accounts
           liability = FactoryGirl.create(:liability)
@@ -56,11 +56,11 @@ module Plutus
           da4 = FactoryGirl.build(:debit_amount, :account => contra_equity, :amount => 2)
           da5 = FactoryGirl.build(:debit_amount, :account => contra_revenue, :amount => 333)
 
-          FactoryGirl.create(:transaction, :credit_amounts => [ca1], :debit_amounts => [da1])
-          FactoryGirl.create(:transaction, :credit_amounts => [ca2], :debit_amounts => [da2]) 
-          FactoryGirl.create(:transaction, :credit_amounts => [ca3], :debit_amounts => [da3])
-          FactoryGirl.create(:transaction, :credit_amounts => [ca4], :debit_amounts => [da4])
-          FactoryGirl.create(:transaction, :credit_amounts => [ca5], :debit_amounts => [da5])
+          FactoryGirl.create(:entry, :credit_amounts => [ca1], :debit_amounts => [da1])
+          FactoryGirl.create(:entry, :credit_amounts => [ca2], :debit_amounts => [da2]) 
+          FactoryGirl.create(:entry, :credit_amounts => [ca3], :debit_amounts => [da3])
+          FactoryGirl.create(:entry, :credit_amounts => [ca4], :debit_amounts => [da4])
+          FactoryGirl.create(:entry, :credit_amounts => [ca5], :debit_amounts => [da5])
         }
         
         it { should == 0 }

@@ -1,5 +1,5 @@
 <div class="plutus_container">
-<h1><%=h @transaction.description %> Transaction</h1>
+<h1><%=h @entry.description %> Entry</h1>
 
 <table cellspacing="0">
   <thead>
@@ -13,13 +13,13 @@
   </thead>
   <tbody>
     <tr class="<%= cycle("even", "odd") -%>">
-      <td><%=link_to(@transaction.id, transaction_path(@transaction)) %></td>
-      <td><%=h @transaction.description %></td>
+      <td><%=link_to(@entry.id, entry_path(@entry)) %></td>
+      <td><%=h @entry.description %></td>
       <td></td>
       <td></td>
-      <td><%=h @transaction.created_at %></td>
+      <td><%=h @entry.created_at %></td>
     </tr>
-    <% @transaction.debit_amounts.each do |debit_amount| %>
+    <% @entry.debit_amounts.each do |debit_amount| %>
       <tr class="<%= cycle("odd", "odd") -%>">
         <td></td>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=h "#{debit_amount.account.name}" %></td>
@@ -28,7 +28,7 @@
         <td></td>
       </tr>
     <% end %>
-    <% @transaction.credit_amounts.each do |credit_amount| %>
+    <% @entry.credit_amounts.each do |credit_amount| %>
       <tr class="<%= cycle("odd", "odd") -%>">
         <td></td>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=h "#{credit_amount.account.name}" %></td>

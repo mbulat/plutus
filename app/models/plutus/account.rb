@@ -32,8 +32,8 @@ module Plutus
   class Account < ActiveRecord::Base
     has_many :credit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::CreditAmount'
     has_many :debit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::DebitAmount'
-    has_many :credit_transactions, :through => :credit_amounts, :source => :transaction, :class_name => 'Plutus::Transaction'
-    has_many :debit_transactions, :through => :debit_amounts, :source => :transaction, :class_name => 'Plutus::Transaction'
+    has_many :credit_entries, :through => :credit_amounts, :source => :entry, :class_name => 'Plutus::Entry'
+    has_many :debit_entries, :through => :debit_amounts, :source => :entry, :class_name => 'Plutus::Entry'
 
     validates_presence_of :type, :name
     validates_uniqueness_of :name
