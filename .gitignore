@@ -1,8 +1,14 @@
 test.sqlite3
 spec/debug.log
 .DS_Store
-.yardoc/
 pkg/
+
+## Documentation cache and generated files:
+/.yardoc/
+/_yardoc/
+/doc/
+/rdoc/
+
 .ruby-version
 .rvmrc
 .ruby-gemset
