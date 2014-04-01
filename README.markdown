@@ -7,7 +7,7 @@ The Plutus plugin is a Ruby on Rails Engine which provides a double entry accoun
 Compatibility
 =============
 
-* Ruby versions: MRI 1.9.3, MRI 2.0, MRI 2.1
+* Ruby versions: MRI 1.9.3, MRI 2.0, MRI 2.1, Rubinius 2.2, JRuby 1.7+,f
 * Rails versions: ~> 4.0
 
 For the rails 3 version, you can go here:
@@ -251,6 +251,17 @@ Community and where to get help
 ===============================
 
 * Join the [mailing list](https://groups.google.com/d/forum/plutus-gem) (Google Group)
+
+Bitcoins
+========
+
+Plutus is free software, but if you'd like to support development, feel free to send some bitcoins:
+
+`1QFSdJheyFkLcsV8X428J8e3pYqX1nmW39`
+
+![bitcoin](https://dl.dropboxusercontent.com/u/8428240/plutus_tip.png)
+
+Also, if anyone is using Plutus for bitcoin related accounting, I'd love to hear about it! Drop me a line.
 
 ToDo
 ====
