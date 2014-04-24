@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
     "README.markdown"
   ]
   s.add_dependency("rails", "~> 4.0")
+  s.add_dependency("money", "~> 6.1")
+  s.add_dependency("google_currency", "~> 3.0")
   s.add_development_dependency("yard")
   s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.markdown"]
   s.homepage = %q{http://github.com/mbulat/plutus}

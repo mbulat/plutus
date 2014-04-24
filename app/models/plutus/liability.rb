@@ -32,17 +32,12 @@ module Plutus
     # @example
     #   >> Plutus::Liability.balance
     #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
-    def self.balance
-      accounts_balance = BigDecimal.new('0')
-      accounts = self.all
-      accounts.each do |liability|
-        unless liability.contra
-          accounts_balance += liability.balance
-        else
-          accounts_balance -= liability.balance
-        end
-      end
-      accounts_balance
+    #   >> Plutus::Asset.balance(commodity)
+    #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
+    #
+    # @param commodity [Commodity] of balanced accounts or nil
+    def self.balance(commodity = nil)
+      super
     end
   end
 end

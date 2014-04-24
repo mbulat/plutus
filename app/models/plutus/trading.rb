@@ -1,18 +1,18 @@
 module Plutus
-  # The Asset class is an account type used to represents resources owned by the business entity.
+  # The Equity class is an account type used to represents owners rights to the assets.
   #
   # === Normal Balance
-  # The normal balance on Asset accounts is a *Debit*.
+  # The normal balance on Equity accounts is a *Credit*.
   #
-  # @see http://en.wikipedia.org/wiki/Asset Assets
+  # @see http://en.wikipedia.org/wiki/Equity_(finance) Equity
   #
   # @author Michael Bulat
-  class Asset < Account
+  class Trading < Account
 
     # The balance of the account.
     #
-    # Assets have normal debit balances, so the credits are subtracted from the debits
-    # unless this is a contra account, in which debits are subtracted from credits
+    # Equity accounts have normal credit balances, so the debits are subtracted from the credits
+    # unless this is a contra account, in which credits are subtracted from debits
     #
     # @example
     #   >> asset.balance
@@ -21,24 +21,25 @@ module Plutus
     # @return [BigDecimal] The decimal value balance
     def balance
       unless contra
-        debits_balance - credits_balance
-      else
         credits_balance - debits_balance
+      else
+        debits_balance - credits_balance
       end
     end
 
     # This class method is used to return
-    # the balance of all Asset accounts.
+    # the balance of all Equity accounts.
     #
     # Contra accounts are automatically subtracted from the balance.
     #
     # @example
-    #   >> Plutus::Asset.balance
+    #   >> Plutus::Equity.balance
     #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
     #   >> Plutus::Asset.balance(commodity)
     #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
     #
     # @param commodity [Commodity] of balanced accounts or nil
+    #
     # @return [BigDecimal] The decimal value balance
     def self.balance(commodity = nil)
       super

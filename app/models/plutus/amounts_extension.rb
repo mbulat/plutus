@@ -2,16 +2,13 @@ module Plutus
   # Association extension for has_many :amounts relations. Internal.
   module AmountsExtension
     # Returns a sum of the referenced Amount objects.
-    def balance
-      balance = BigDecimal.new('0')
-      each do |amount_record|
-        if amount_record.amount
-          balance += amount_record.amount
-        else
-          balance = nil
-        end
+    def balance(direct = true)
+      balanced_field = direct ? :amount : :value
+      if all?(&:new_record?)
+        map(&balanced_field).compact.reduce(BigDecimal.new('0'), :+)
+      else
+        sum(balanced_field)
       end
-      return balance
     end
   end
 end
