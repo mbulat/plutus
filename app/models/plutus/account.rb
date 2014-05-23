@@ -30,6 +30,8 @@ module Plutus
   #
   # @author Michael Bulat
   class Account < ActiveRecord::Base
+
+    belongs_to :commodity
     has_many :credit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::CreditAmount'
     has_many :debit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::DebitAmount'
     has_many :credit_entries, :through => :credit_amounts, :source => :entry, :class_name => 'Plutus::Entry'
@@ -46,7 +48,17 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value credit balance
     def credits_balance
-      credit_amounts.balance
+      if commodity_id
+        credits_balance_interim = credit_amounts.joins(:entry).
+          where("plutus_entries.commodity_id = ?", commodity_id).balance
+
+        credits_balance_interim += credit_amounts.joins(:entry).
+          where("plutus_entries.commodity_id <> ?", commodity_id).balance(false)
+
+        credits_balance_interim
+      else
+        credit_amounts.balance
+      end
     end
 
     # The debit balance for the account.
@@ -57,7 +69,38 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value credit balance
     def debits_balance
-      debit_amounts.balance
+      if commodity_id
+        debits_balance_interim = debit_amounts.joins(:entry).
+          where("plutus_entries.commodity_id = ?", commodity_id).balance
+        debits_balance_interim += debit_amounts.joins(:entry).
+          where("plutus_entries.commodity_id <> ?", commodity_id).balance(false)
+
+        debits_balance_interim
+      else
+        debit_amounts.balance
+      end
+    end
+
+    # This class method is used to return the balance for subclasses accounts.
+    # It could not be used directly for this class.
+    # Take a look on this method of subclasses for examples.
+    #
+    # @return [BigDecimal] The decimal value balance
+    def self.balance(commodity = nil)
+      if self == Account
+        raise(NoMethodError, "undefined method 'balance'")
+      else
+        accounts_balance = BigDecimal.new('0')
+        accounts = commodity ? where(commodity: commodity) : self.all
+        accounts.each do |account|
+          unless account.contra
+            accounts_balance += account.balance
+          else
+            accounts_balance -= account.balance
+          end
+        end
+        accounts_balance
+      end
     end
 
     # The trial balance of all accounts in the system. This should always equal zero,
@@ -69,10 +112,19 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value balance of all accounts
     def self.trial_balance
-      unless self.new.class == Account
+      unless self == Account
         raise(NoMethodError, "undefined method 'trial_balance'")
       else
-        Asset.balance - (Liability.balance + Equity.balance + Revenue.balance - Expense.balance)
+        if Commodity.count > 1
+          commodity_balances = Commodity.all.map do |commodity|
+            Asset.balance(commodity) - Liability.balance(commodity) -
+              Equity.balance(commodity) - Revenue.balance(commodity) +
+              Expense.balance(commodity) - Trading.balance(commodity)
+          end
+          commodity_balances.reduce(:+)
+        else
+          Asset.balance - (Liability.balance + Equity.balance + Revenue.balance - Expense.balance)
+        end
       end
     end
 

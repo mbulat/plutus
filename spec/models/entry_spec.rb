@@ -10,7 +10,7 @@ module Plutus
     context "with credit and debit" do
       let(:entry) { FactoryGirl.build(:entry_with_credit_and_debit) }
       it { should be_valid }
-      
+
       it "should require a description" do
         entry.description = nil
         entry.should_not be_valid
@@ -77,7 +77,7 @@ module Plutus
         description: "Sold some widgets",
         commercial_document: mock_document,
         debits: [
-          {account: "Accounts Receivable", amount: 50}], 
+          {account: "Accounts Receivable", amount: 50}],
         credits: [
           {account: "Sales Revenue", amount: 45},
           {account: "Sales Tax Payable", amount: 5}])
@@ -85,6 +85,29 @@ module Plutus
 
       saved_entry = Entry.find(entry.id)
       saved_entry.commercial_document.should == mock_document
+    end
+
+    it "should allow building an entry with multiple commodities" do
+      eur = FactoryGirl.create(:commodity, iso_code: "EUR")
+      usd = FactoryGirl.create(:commodity, iso_code: "USD")
+      FactoryGirl.create(:price, commodity_one: eur, commodity_two: usd, value: 2)
+
+      accounts_receivable = FactoryGirl.create(:asset, name: "Accounts Receivable", commodity: eur)
+      sales_revenue = FactoryGirl.create(:revenue, name: "Sales Revenue", commodity: usd)
+      sales_tax_payable = FactoryGirl.create(:liability, name: "Sales Tax Payable", commodity: usd)
+      entry = Entry.build(
+        description: "Sold some widgets",
+        debits: [
+          {account: "Accounts Receivable", amount: 100}],
+        credits: [
+          {account: "Sales Revenue", amount: 90},
+          {account: "Sales Tax Payable", amount: 10}])
+      entry.save!
+
+      accounts_receivable.balance.should == BigDecimal('100')
+      sales_revenue.balance.should == BigDecimal('180')
+      sales_tax_payable.balance.should == BigDecimal('20')
+      Account.trial_balance.should == 0
     end
 
   end
