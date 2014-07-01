@@ -40,14 +40,14 @@ module Plutus
     #   entry = Plutus::Entry.build(
     #     description: "Sold some widgets",
     #     debits: [
-    #       {account: "Accounts Receivable", amount: 50}], 
+    #       {account: "Accounts Receivable", amount: 50}],
     #     credits: [
     #       {account: "Sales Revenue", amount: 45},
     #       {account: "Sales Tax Payable", amount: 5}])
     #
     # @return [Plutus::Entry] A Entry with built credit and debit objects ready for saving
     def self.build(hash)
-      entry = Entry.new(:description => hash[:description], :commercial_document => hash[:commercial_document])
+      entry = Entry.new(:description => hash[:description], :commercial_document => hash[:commercial_document], :transaction_date => hash[:transaction_date])
       hash[:debits].each do |debit|
         a = Account.find_by_name(debit[:account])
         entry.debit_amounts << DebitAmount.new(:account => a, :amount => debit[:amount], :entry => entry)

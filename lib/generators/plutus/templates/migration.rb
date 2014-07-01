@@ -13,6 +13,7 @@ class CreatePlutusTables < ActiveRecord::Migration
       t.string :description
       t.integer :commercial_document_id
       t.string :commercial_document_type
+      t.date :transaction_date
 
       t.timestamps
     end
@@ -23,7 +24,7 @@ class CreatePlutusTables < ActiveRecord::Migration
       t.references :account
       t.references :entry
       t.decimal :amount, :precision => 20, :scale => 10
-    end 
+    end
     add_index :plutus_amounts, :type
     add_index :plutus_amounts, [:account_id, :entry_id]
     add_index :plutus_amounts, [:entry_id, :account_id]
