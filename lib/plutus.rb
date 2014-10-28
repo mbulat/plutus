@@ -10,7 +10,7 @@ module Plutus
   # ------------------------------ tenancy ------------------------------
   # configuration to enable or disable tenancy
   mattr_accessor :enable_tenancy
-  enable_tenancy = true
+  enable_tenancy = false
 
   mattr_accessor :tenant_class
   tenant_class = nil
