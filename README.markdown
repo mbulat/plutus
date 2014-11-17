@@ -42,6 +42,29 @@ has been renamed "Entry". To generate a migration which will update your databas
 
 You only need to do this when upgrading a previously installed version of Plutus.
 
+
+Multi-tenancy support
+=====================
+
+Plutus supports tenancy. All the accounts i.e `Plutus::Account` can be scoped to a
+tenant. You have to follow these steps.
+
+- Run a migration which adds `tenant_id` to all plutus accounts
+
+```sh
+  bundle exec rails g plutus:tenancy
+```
+
+- Add an initializer which sets 2 variables on which plutus depends.
+
+```ruby
+  Plutus.config do |config|
+    config.enable_tenancy = true
+    config.tenant_class = 'Tenant'
+  end
+```
+
+
 Overview
 ========
 
