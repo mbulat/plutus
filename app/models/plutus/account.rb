@@ -35,8 +35,13 @@ module Plutus
     has_many :credit_entries, :through => :credit_amounts, :source => :entry, :class_name => 'Plutus::Entry'
     has_many :debit_entries, :through => :debit_amounts, :source => :entry, :class_name => 'Plutus::Entry'
 
-    validates_presence_of :type, :name
-    validates_uniqueness_of :name
+    validates_presence_of :type
+
+    if Plutus.enable_tenancy
+      include Tenancy
+    else
+      include NoTenancy
+    end
 
     # The credit balance for the account.
     #
