@@ -7,20 +7,10 @@ The Plutus plugin is a Ruby on Rails Engine which provides a double entry accoun
 Compatibility
 =============
 
-* Ruby versions: MRI 1.9.3, MRI 2.0, MRI 2.1, Rubinius 2.2, JRuby 1.7+,f
+* Ruby versions: MRI 1.9.3, MRI 2.0, MRI 2.1, Rubinius 2.2, JRuby 1.7+
 * Rails versions: ~> 4.0
 
-For the rails 3 version, you can go here:
-
-[https://github.com/mbulat/plutus](https://github.com/mbulat/plutus/tree/rails3)
-
-For the rails 2 version, you can go here:
-
-[https://github.com/mbulat/plutus/tree/rails2](https://github.com/mbulat/plutus/tree/rails2)
-
-* Gems in RubyGems.org >= 0.5.0 support Rails 3
-* Gems in RubyGems.org >= 0.8.0 support Rails 4
-* Gems in RubyGems.org >= 0.9.0 support Rails ~> 4.1
+For earlier versions, and upgrading, please see the section titled [Previous Versions](https://github.com/mbulat/plutus#previous-versions)
 
 Installation
 ============
@@ -30,40 +20,6 @@ Installation
 - generate migration files `rails g plutus`
 
 - run migrations `rake db:migrate`
-
-Upgrading from < 0.9
-=====================
-
-Versions of Plutus prior to 0.9 used a "Transaction" class to keep track of entries. Rails 4.1 introduced a change that
-raises an error with Plutus due to an ActiveRecord method conflict with "transaction". Therefore the Transaction class
-has been renamed "Entry". To generate a migration which will update your database run the following:
-
-- `rails g plutus:upgrade_plutus` 
-
-You only need to do this when upgrading a previously installed version of Plutus.
-
-
-Multi-tenancy support
-=====================
-
-Plutus supports tenancy. All the accounts i.e `Plutus::Account` can be scoped to a
-tenant. You have to follow these steps.
-
-- Run a migration which adds `tenant_id` to all plutus accounts
-
-```sh
-  bundle exec rails g plutus:tenancy
-```
-
-- Add an initializer which sets 2 variables on which plutus depends.
-
-```ruby
-  Plutus.config do |config|
-    config.enable_tenancy = true
-    config.tenant_class = 'Tenant'
-  end
-```
-
 
 Overview
 ========
@@ -158,7 +114,7 @@ And here's the entry:
                       {:account => "Sales Revenue", :amount => 45},
                       {:account => "Sales Tax Payable", :amount => 5}])
     entry.save
-                       
+
 Associating Documents
 ---------------------
 
@@ -248,6 +204,32 @@ And out entry would be:
 In this case, we've increase our cash Asset, and simultaneously increased the other side of our accounting equation in
 Equity, keeping everything balanced.
 
+Multitenancy Support
+=====================
+
+Plutus supports multitenant applications. Multitenancy is acheived by associating all Accounts under `Plutus::Account` with a "Tenant" object (typically some model in your Rails application). To add multi-tenancy support to Plutus, you must do the following:
+
+- Generate the migration which will add `tenant_id` to the plutus accounts table
+
+```sh
+  bundle exec rails g plutus:tenancy
+```
+
+- Run the migration
+
+```sh
+  rake db:migrate
+```
+
+- Add an initializer to your Rails application, i.e. `config/initializers/plutus.rb`
+
+```ruby
+  Plutus.config do |config|
+    config.enable_tenancy = true
+    config.tenant_class = 'Tenant'
+  end
+```
+
 Access & Security
 =================
 
@@ -265,10 +247,43 @@ Sample stylesheets can also be applied by adding the following to your applicati
 
     <%= stylesheet_link_tag    "plutus/application" %>
 
+Previous Versions
+=================
+
+For the rails 3 version, you can go here:
+
+[https://github.com/mbulat/plutus](https://github.com/mbulat/plutus/tree/rails3)
+
+For the rails 2 version, you can go here:
+
+[https://github.com/mbulat/plutus/tree/rails2](https://github.com/mbulat/plutus/tree/rails2)
+
+* Gems in RubyGems.org >= 0.5.0 support Rails 3
+* Gems in RubyGems.org >= 0.8.0 support Rails 4
+* Gems in RubyGems.org >= 0.9.0 support Rails ~> 4.1
+
+Upgrading from < 0.9
+--------------------
+
+Versions of Plutus prior to 0.9 used a "Transaction" class to keep track of entries. Rails 4.1 introduced a change that
+raises an error with Plutus due to an ActiveRecord method conflict with "transaction". Therefore the Transaction class
+has been renamed "Entry". To generate a migration which will update your database run the following:
+
+- `rails g plutus:upgrade_plutus` 
+
+You only need to do this when upgrading a previously installed version of Plutus.
+
 Testing
 =======
 
 [Rspec](http://rspec.info/) tests are provided. Run `bundle install` then `rake`.  
+
+Contributors
+============
+
+Many thanks to all our contributors! Check them all at:
+
+https://github.com/mbulat/plutus/graphs/contributors
 
 Community and where to get help
 ===============================
