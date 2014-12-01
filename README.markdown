@@ -24,7 +24,7 @@ Installation
 Overview
 ========
 
-The plutus plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general [Double Entry Bookkeeping](http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system) practices. All calculations are done using [BigDecimal](http://www.ensta.fr/~diam/ruby/online/ruby-doc-stdlib/libdoc/bigdecimal/rdoc/classes/BigDecimal.html) in order to prevent floating point rounding errors. The plugin requires a decimal type on your database as well.
+The plutus plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general [Double Entry Bookkeeping](http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system) practices. All calculations are done using [BigDecimal](http://www.ruby-doc.org/stdlib-2.1.0/libdoc/bigdecimal/rdoc/BigDecimal.html) in order to prevent floating point rounding errors. The plugin requires a decimal type on your database as well.
 
 The system consists of tables that maintains your accounts, entries and debits and credits. Each entry can have many debits and credits. The entry table, which records your business transactions is, essentially, your accounting  [Journal](http://en.wikipedia.org/wiki/Journal_entry).
 
@@ -233,7 +233,7 @@ Plutus supports multitenant applications. Multitenancy is acheived by associatin
 Access & Security
 =================
 
-The Engine provides controllers and views for viewing Accounts and Entries via the `Plutus::AccountsController` and `Plutus::EntriesController` classes. The controllers will render HTML, XML and JSON, and are compatible with [ActiveResource](http://api.rubyonrails.org/classes/ActiveResource/Base.html)
+The Engine provides controllers and views for viewing Accounts and Entries via the `Plutus::AccountsController` and `Plutus::EntriesController` classes. The controllers will render HTML, XML and JSON.
 
 These controllers are read-only for reporting purposes. It is assumed entry creation will occur within your applications code.
 
