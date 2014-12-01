@@ -65,7 +65,7 @@ Equation](http://en.wikipedia.org/wiki/Accounting_equation)
 
 Every account object has a `has_many` association of credit and debit entries, which means that each account object also acts as its own [Ledger](http://en.wikipedia.org/wiki/General_ledger), and exposes a method to calculate the balance of the account.  
 
-See the {Plutus::Account}, {Plutus::Entry}, and {Plutus::Amount} classes for more information.
+See the `Plutus::Account`, `Plutus::Entry`, and `Plutus::Amount` classes for more information.
 
 Examples
 ========
@@ -233,7 +233,7 @@ Plutus supports multitenant applications. Multitenancy is acheived by associatin
 Access & Security
 =================
 
-The Engine provides controllers and views for viewing Accounts and Entries via the {Plutus::AccountsController} and {Plutus::EntriesController} classes. The controllers will render HTML, XML and JSON, and are compatible with [ActiveResource](http://api.rubyonrails.org/classes/ActiveResource/Base.html)
+The Engine provides controllers and views for viewing Accounts and Entries via the `Plutus::AccountsController` and `Plutus::EntriesController` classes. The controllers will render HTML, XML and JSON, and are compatible with [ActiveResource](http://api.rubyonrails.org/classes/ActiveResource/Base.html)
 
 These controllers are read-only for reporting purposes. It is assumed entry creation will occur within your applications code.
 
