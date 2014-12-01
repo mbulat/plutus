@@ -63,7 +63,7 @@ Equation](http://en.wikipedia.org/wiki/Accounting_equation)
 
     Assets = Liabilities + Owner's Equity
 
-Every account object has a `has_many` association of credit and debit entries, which means that each account object also acts as its own [Ledger](http://en.wikipedia.org/wiki/General_ledger), and exposes a method to calculate the balance of the account.  
+Every account object has a `has_many` association of credit and debit entries, which means that each account object also acts as its own [Ledger](http://en.wikipedia.org/wiki/General_ledger), and exposes a method to calculate the balance of the account.
 
 See the `Plutus::Account`, `Plutus::Entry`, and `Plutus::Amount` classes for more information.
 
@@ -78,16 +78,16 @@ Let's assume we're accounting on an [Accrual basis](http://en.wikipedia.org/wiki
     >> Plutus::Asset.create(:name => "Cash")
     >> Plutus::Liability.create(:name => "Unearned Revenue")
 
-Next we'll build the entry we want to record. Plutus provides a simple interface to build the entry. 
+Next we'll build the entry we want to record. Plutus provides a simple interface to build the entry.
 
     entry = Plutus::Entry.build(
                     :description => "Order placed for widgets",
                     :debits => [
-                      {:account => "Cash", :amount => 100.00}], 
+                      {:account => "Cash", :amount => 100.00}],
                     :credits => [
                       {:account => "Unearned Revenue", :amount => 100.00}])
 
-The build method takes a hash consisting of a description, and an array of debits and credits. Each debit and credit item is a hash that specifies the amount, and the account to be debited or credited. Simply pass in the string name you used when you created the account. 
+The build method takes a hash consisting of a description, and an array of debits and credits. Each debit and credit item is a hash that specifies the amount, and the account to be debited or credited. Simply pass in the string name you used when you created the account.
 
 Finally, save the entry.
 
@@ -109,7 +109,7 @@ And here's the entry:
     entry = Plutus::Entry.build(
                     :description => "Sold some widgets",
                     :debits => [
-                      {:account => "Accounts Receivable", :amount => 50}], 
+                      {:account => "Accounts Receivable", :amount => 50}],
                     :credits => [
                       {:account => "Sales Revenue", :amount => 45},
                       {:account => "Sales Tax Payable", :amount => 5}])
@@ -130,7 +130,7 @@ Let's assume we're using the same entry from the last example
                     :description => "Sold some widgets",
                     :commercial_document => invoice,
                     :debits => [
-                      {:account => "Accounts Receivable", :amount => invoice.total_amount}], 
+                      {:account => "Accounts Receivable", :amount => invoice.total_amount}],
                     :credits => [
                       {:account => "Sales Revenue", :amount => invoice.sales_amount},
                       {:account => "Sales Tax Payable", :amount => invoice.tax_amount}])
@@ -140,22 +140,22 @@ The commercial document attribute on the entry is a polymorphic association allo
 
 Checking the Balance of an  Individual Account
 ----------------------------------------------
-  
+
 Each account can report on its own balance. This number should normally be positive. If the number is negative, you may have a problem.
 
     >> cash = Plutus::Asset.find_by_name("Cash")
     >> cash.balance
     => #<BigDecimal:103259bb8,'0.2E4',4(12)>
 
-    
+
 Checking the Balance of an Account Type
 ---------------------------------------
 
 Each subclass of accounts can report on the total balance of all the accounts of that type. This number should normally be positive. If the number is negative, you may have a problem.
 
     >> Plutus::Asset.balance
-    => #<BigDecimal:103259bb8,'0.2E4',4(12)>    
-    
+    => #<BigDecimal:103259bb8,'0.2E4',4(12)>
+
 Calculating the Trial Balance
 -----------------------------
 
@@ -171,7 +171,7 @@ For complex entries, you should always ensure that you are balancing your accoun
 
     Assets = Liabilities + Owner's Equity
 
-For example, let's assume the owner of a business wants to withdraw cash. First we'll assume that we have an asset account for "Cash" which the funds will be drawn from. We'll then need an Equity account to record where the funds are going, however, in this case, we can't simply create a regular Equity account. The "Cash" account must be credited for the decrease in its balance since it's an Asset. Likewise, Equity accounts are typically credited when there is an increase in their balance. Equity is considered an owner's rights to Assets in the business. In this case however, we are not simply increasing the owner's rights to assets within the business; we are actually removing capital from the business altogether. Hence both sides of our accounting equation will see a decrease. In order to accomplish this, we need to create a Contra-Equity account we'll call "Drawings". Since Equity accounts normally have credit balances, a Contra-Equity account will have a debit balance, which is what we need for our entry. 
+For example, let's assume the owner of a business wants to withdraw cash. First we'll assume that we have an asset account for "Cash" which the funds will be drawn from. We'll then need an Equity account to record where the funds are going, however, in this case, we can't simply create a regular Equity account. The "Cash" account must be credited for the decrease in its balance since it's an Asset. Likewise, Equity accounts are typically credited when there is an increase in their balance. Equity is considered an owner's rights to Assets in the business. In this case however, we are not simply increasing the owner's rights to assets within the business; we are actually removing capital from the business altogether. Hence both sides of our accounting equation will see a decrease. In order to accomplish this, we need to create a Contra-Equity account we'll call "Drawings". Since Equity accounts normally have credit balances, a Contra-Equity account will have a debit balance, which is what we need for our entry.
 
     >> Plutus::Equity.create(:name => "Drawing", :contra => true)
     >> Plutus::Asset.create(:name => "Cash")
@@ -181,7 +181,7 @@ We would then create the following entry:
     entry = Plutus::Entry.build(
                     :description => "Owner withdrawing cash",
                     :debits => [
-                      {:account => "Drawing", :amount => 1000}], 
+                      {:account => "Drawing", :amount => 1000}],
                     :credits => [
                       {:account => "Cash", :amount => 1000}])
     entry.save
@@ -196,7 +196,7 @@ And out entry would be:
     entry = Plutus::Entry.build(
                     :description => "Owner investing cash",
                     :debits => [
-                      {:account => "Cash", :amount => 1000}], 
+                      {:account => "Cash", :amount => 1000}],
                     :credits => [
                       {:account => "Common Stock", :amount => 1000}])
     entry.save
@@ -269,14 +269,14 @@ Versions of Plutus prior to 0.9 used a "Transaction" class to keep track of entr
 raises an error with Plutus due to an ActiveRecord method conflict with "transaction". Therefore the Transaction class
 has been renamed "Entry". To generate a migration which will update your database run the following:
 
-- `rails g plutus:upgrade_plutus` 
+- `rails g plutus:upgrade_plutus`
 
 You only need to do this when upgrading a previously installed version of Plutus.
 
 Testing
 =======
 
-[Rspec](http://rspec.info/) tests are provided. Run `bundle install` then `rake`.  
+[Rspec](http://rspec.info/) tests are provided. Run `bundle install` then `rake`.
 
 Contributors
 ============
@@ -310,7 +310,7 @@ ToDo
 Reference
 =========
 
-For a complete reference on Accounting principles, we recommend the following textbook 
+For a complete reference on Accounting principles, we recommend the following textbook
 
 [http://amzn.com/0324662963](http://amzn.com/0324662963)
 
