@@ -26,7 +26,7 @@ Overview
 
 The plutus plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general [Double Entry Bookkeeping](http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system) practices. All calculations are done using [BigDecimal](http://www.ruby-doc.org/stdlib-2.1.0/libdoc/bigdecimal/rdoc/BigDecimal.html) in order to prevent floating point rounding errors. The plugin requires a decimal type on your database as well.
 
-The system consists of tables that maintains your accounts, entries and debits and credits. Each entry can have many debits and credits. The entry table, which records your business transactions is, essentially, your accounting  [Journal](http://en.wikipedia.org/wiki/Journal_entry).
+Plutus consists of tables that maintain your accounts, entries and debits and credits. Each entry can have many debits and credits. The entry table, which records your business transactions is, essentially, your accounting  [Journal](http://en.wikipedia.org/wiki/Journal_entry).
 
 Posting to a [Ledger](http://en.wikipedia.org/wiki/General_ledger) can be considered to happen automatically, since Accounts have the reverse `has_many` relationship to either its credit or debit entries.
 
@@ -43,7 +43,7 @@ The Account class represents accounts in the system. The Account table uses sing
     Revenue     | Credit            | Increases in owners equity
     Expense     | Debit             | Assets or services consumed in the generation of revenue
 
-Your Book of Accounts needs to be created prior to recording any entries. The simplest method is to have a number of create methods in your db/seeds.rb file like so:
+Your Book of Accounts needs to be created prior to recording any entries. The simplest method is to have a number of `create` methods in your db/seeds.rb file like so:
 
     Plutus::Asset.create(:name => "Accounts Receivable")
     Plutus::Asset.create(:name => "Cash")
