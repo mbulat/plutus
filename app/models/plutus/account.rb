@@ -38,9 +38,9 @@ module Plutus
     validates_presence_of :type
 
     if Plutus.enable_tenancy
-      include Tenancy
+      include Plutus::Tenancy
     else
-      include NoTenancy
+      include Plutus::NoTenancy
     end
 
     # The credit balance for the account.
@@ -74,10 +74,10 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value balance of all accounts
     def self.trial_balance
-      unless self.new.class == Account
+      unless self.new.class == Plutus::Account
         raise(NoMethodError, "undefined method 'trial_balance'")
       else
-        Asset.balance - (Liability.balance + Equity.balance + Revenue.balance - Expense.balance)
+        Plutus::Asset.balance - (Plutus::Liability.balance + Plutus::Equity.balance + Plutus::Revenue.balance - Plutus::Expense.balance)
       end
     end
 
