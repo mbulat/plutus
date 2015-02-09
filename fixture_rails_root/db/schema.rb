@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20141027103120) do
     t.string   "name"
     t.string   "type"
     t.boolean  "contra"
+    t.string   "currency",   :default => "USD", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "tenant_id"
@@ -28,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20141027103120) do
     t.string  "type"
     t.integer "account_id"
     t.integer "entry_id"
-    t.decimal "amount",     :precision => 20, :scale => 10
+    t.integer "amount_cents"
   end
 
   add_index "plutus_amounts", ["account_id", "entry_id"], :name => "index_plutus_amounts_on_account_id_and_entry_id"
