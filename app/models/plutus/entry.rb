@@ -59,6 +59,10 @@ module Plutus
       entry
     end
 
+    def currency
+      credit_amounts.first.try(:currency) || debit_amounts.first.try(:currency) || "USD"
+    end
+
     private
       def has_credit_amounts?
         errors[:base] << "Entry must have at least one credit amount" if self.credit_amounts.blank?

@@ -4,6 +4,7 @@ class CreatePlutusTables < ActiveRecord::Migration
       t.string :name
       t.string :type
       t.boolean :contra
+      t.string  :currency, default: "USD", null: false
 
       t.timestamps
     end
@@ -22,8 +23,8 @@ class CreatePlutusTables < ActiveRecord::Migration
       t.string :type
       t.references :account
       t.references :entry
-      t.decimal :amount, :precision => 20, :scale => 10
-    end 
+      t.integer :amount_cents
+    end
     add_index :plutus_amounts, :type
     add_index :plutus_amounts, [:account_id, :entry_id]
     add_index :plutus_amounts, [:entry_id, :account_id]
