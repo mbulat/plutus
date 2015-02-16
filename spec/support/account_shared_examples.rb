@@ -5,7 +5,7 @@ shared_examples_for 'a Plutus::Account subtype' do |elements|
 
   describe "class methods" do
     subject { account.class }
-    its(:balance) { should be_kind_of(BigDecimal) }
+    its(:balance) { should be_kind_of(Integer) }
     describe "trial_balance" do
       it "should raise NoMethodError" do
         lambda { subject.trial_balance }.should raise_error NoMethodError
@@ -14,7 +14,7 @@ shared_examples_for 'a Plutus::Account subtype' do |elements|
   end
 
   describe "instance methods" do
-    its(:balance) { should be_kind_of(BigDecimal) }
+    its(:balance) { should be_kind_of(Money) }
 
     it { should respond_to(:credit_entries) }
     it { should respond_to(:debit_entries) }

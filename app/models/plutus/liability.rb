@@ -16,9 +16,9 @@ module Plutus
     #
     # @example
     #   >> liability.balance
-    #   => #<BigDecimal:103259bb8,'0.2E4',4(12)>
+    #   => #<Money fractional:250 currency:USD>
     #
-    # @return [BigDecimal] The decimal value balance
+    # @return [Money] The balance as a Money object
     def balance
       unless contra
         credits_balance - debits_balance
@@ -31,15 +31,17 @@ module Plutus
     #
     # @example
     #   >> Plutus::Liability.balance
-    #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
+    #   => 20
+    #
+    # @return [Integer] The fractional value as an integer
     def self.balance
-      accounts_balance = BigDecimal.new('0')
+      accounts_balance = 0
       accounts = self.all
       accounts.each do |liability|
         unless liability.contra
-          accounts_balance += liability.balance
+          accounts_balance += liability.balance.fractional
         else
-          accounts_balance -= liability.balance
+          accounts_balance -= liability.balance.fractional
         end
       end
       accounts_balance

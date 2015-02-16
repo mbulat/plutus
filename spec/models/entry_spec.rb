@@ -10,7 +10,7 @@ module Plutus
     context "with credit and debit" do
       let(:entry) { FactoryGirl.build(:entry_with_credit_and_debit) }
       it { should be_valid }
-      
+
       it "should require a description" do
         entry.description = nil
         entry.should_not be_valid
@@ -60,6 +60,15 @@ module Plutus
       entry.errors['base'].should == ["The credit and debit amounts are not equal"]
     end
 
+    it "should require the debits and credits to all be in the same currency" do
+      entry = FactoryGirl.build(:entry)
+      #account = FactoryGirl.build(:revenue, currency: "GBP")
+      entry.credit_amounts << FactoryGirl.build(:credit_amount, :entry => entry)
+      entry.debit_amounts << FactoryGirl.build(:debit_amount, :account => account, :entry => entry)
+      entry.should_not be_valid
+      entry.errors["base"].should == ["An entry can only have one currency"]
+    end
+
     it "should have a polymorphic commercial document associations" do
       mock_document = FactoryGirl.create(:asset) # one would never do this, but it allows us to not require a migration for the test
       entry = FactoryGirl.build(:entry_with_credit_and_debit, commercial_document: mock_document)
@@ -77,7 +86,7 @@ module Plutus
         description: "Sold some widgets",
         commercial_document: mock_document,
         debits: [
-          {account: "Accounts Receivable", amount: 50}], 
+          {account: "Accounts Receivable", amount: 50}],
         credits: [
           {account: "Sales Revenue", amount: 45},
           {account: "Sales Tax Payable", amount: 5}])

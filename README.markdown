@@ -1,6 +1,7 @@
-Plutus
+Sport Ngin fork of [Plutus](http://github.com/mbulat/plutus)
 =================
-[![Build Status](https://secure.travis-ci.org/mbulat/plutus.png?branch=master)](http://travis-ci.org/mbulat/plutus)
+
+This fork adds replaces BigDecimal with [Money](https://github.com/RubyMoney/money) objects to add support for curencies.
 
 The Plutus plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.
 
@@ -24,7 +25,7 @@ Installation
 Overview
 ========
 
-The plutus plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general [Double Entry Bookkeeping](http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system) practices. All calculations are done using [BigDecimal](http://www.ruby-doc.org/stdlib-2.1.0/libdoc/bigdecimal/rdoc/BigDecimal.html) in order to prevent floating point rounding errors. The plugin requires a decimal type on your database as well.
+The plutus plugin provides a complete double entry accounting system for use in any Ruby on Rails application. The plugin follows general [Double Entry Bookkeeping](http://en.wikipedia.org/wiki/Double-entry_bookkeeping_system) practices. All calculations are done using [Money](https://github.com/RubyMoney/money) objects in order to prevent floating point rounding errors.
 
 Plutus consists of tables that maintain your accounts, entries and debits and credits. Each entry can have many debits and credits. The entry table, which records your business transactions is, essentially, your accounting  [Journal](http://en.wikipedia.org/wiki/Journal_entry).
 
@@ -145,7 +146,7 @@ Each account can report on its own balance. This number should normally be posit
 
     >> cash = Plutus::Asset.find_by_name("Cash")
     >> cash.balance
-    => #<BigDecimal:103259bb8,'0.2E4',4(12)>
+    => #<Money fractional:250 currency:USD>
 
 
 Checking the Balance of an Account Type
@@ -154,7 +155,7 @@ Checking the Balance of an Account Type
 Each subclass of accounts can report on the total balance of all the accounts of that type. This number should normally be positive. If the number is negative, you may have a problem.
 
     >> Plutus::Asset.balance
-    => #<BigDecimal:103259bb8,'0.2E4',4(12)>
+    => #<Money fractional:250 currency:USD>
 
 Calculating the Trial Balance
 -----------------------------
@@ -162,7 +163,7 @@ Calculating the Trial Balance
 The [Trial Balance](http://en.wikipedia.org/wiki/Trial_balance) for all accounts on the system can be found through the abstract Account class. This value should be 0 unless there is an error in the system.
 
     >> Plutus::Account.trial_balance
-    => #<BigDecimal:1031c0d28,'0.0',4(12)>
+    => #<Money fractional:250 currency:USD>
 
 Contra Accounts and Complex Entries
 -----------------------------------

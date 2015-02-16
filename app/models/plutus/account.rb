@@ -47,9 +47,9 @@ module Plutus
     #
     # @example
     #   >> asset.credits_balance
-    #   => #<BigDecimal:103259bb8,'0.1E4',4(12)>
+    #   => #<Money fractional:250 currency:USD>
     #
-    # @return [BigDecimal] The decimal value credit balance
+    # @return [Money] The credit balance as a Money object
     def credits_balance
       credit_amounts.balance
     end
@@ -58,9 +58,9 @@ module Plutus
     #
     # @example
     #   >> asset.debits_balance
-    #   => #<BigDecimal:103259bb8,'0.3E4',4(12)>
+    #   => #<Money fractional:250 currency:USD>
     #
-    # @return [BigDecimal] The decimal value credit balance
+    # @return [Money] The credit balance as a Money object
     def debits_balance
       debit_amounts.balance
     end
@@ -72,7 +72,7 @@ module Plutus
     #   >> Account.trial_balance.to_i
     #   => 0
     #
-    # @return [BigDecimal] The decimal value balance of all accounts
+    # @return [Money] The balance of all accounts as a Money object
     def self.trial_balance
       unless self.new.class == Plutus::Account
         raise(NoMethodError, "undefined method 'trial_balance'")

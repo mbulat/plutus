@@ -59,6 +59,10 @@ module Plutus
       entry
     end
 
+    def currency
+      credit_amounts.first.try(:currency) || debit_amounts.first.try(:currency) || "USD"
+    end
+
     private
       def has_credit_amounts?
         errors[:base] << "Entry must have at least one credit amount" if self.credit_amounts.blank?
@@ -69,6 +73,10 @@ module Plutus
       end
 
       def amounts_cancel?
+        if (credit_amounts.map(&:currency) + debit_amounts.map(&:currency)).uniq.count > 1
+          errors[:base] << "An entry can only have one currency"
+          return
+        end
         errors[:base] << "The credit and debit amounts are not equal" if credit_amounts.balance != debit_amounts.balance
       end
   end
