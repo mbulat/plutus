@@ -45,18 +45,21 @@ The Account class represents accounts in the system. The Account table uses sing
 
 Your Book of Accounts needs to be created prior to recording any entries. The simplest method is to have a number of `create` methods in your db/seeds.rb file like so:
 
-    Plutus::Asset.create(:name => "Accounts Receivable")
-    Plutus::Asset.create(:name => "Cash")
-    Plutus::Revenue.create(:name => "Sales Revenue")
-    Plutus::Liability.create(:name => "Unearned Revenue")
-    Plutus::Liability.create(:name => "Sales Tax Payable")
-    etc...
+```ruby
+Plutus::Asset.create(:name => "Accounts Receivable")
+Plutus::Asset.create(:name => "Cash")
+Plutus::Revenue.create(:name => "Sales Revenue")
+Plutus::Liability.create(:name => "Unearned Revenue")
+Plutus::Liability.create(:name => "Sales Tax Payable")
+```
 
 Then simply run `rake db:seed`
 
 Each account can also be marked as a "Contra Account". A contra account will have its normal balance swapped. For example, to remove equity, a "Drawing" account may be created as a contra equity account as follows:
 
-    Plutus::Equity.create(:name => "Drawing", :contra => true)
+```ruby
+Plutus::Equity.create(:name => "Drawing", :contra => true)
+```
 
 At all times the balance of all accounts should conform to the [Accounting
 Equation](http://en.wikipedia.org/wiki/Accounting_equation)
@@ -75,23 +78,29 @@ Recording an Entry
 
 Let's assume we're accounting on an [Accrual basis](http://en.wikipedia.org/wiki/Accounting_methods#Accrual_basis). We've just taken a customer's order for some widgets, which we've also billed him for. At this point we've actually added a liability to the company until we deliver the goods. To record this entry we'd need two accounts:
 
-    >> Plutus::Asset.create(:name => "Cash")
-    >> Plutus::Liability.create(:name => "Unearned Revenue")
+```ruby
+>> Plutus::Asset.create(:name => "Cash")
+>> Plutus::Liability.create(:name => "Unearned Revenue")
+```
 
 Next we'll build the entry we want to record. Plutus provides a simple interface to build the entry.
 
-    entry = Plutus::Entry.build(
-                    :description => "Order placed for widgets",
-                    :debits => [
-                      {:account => "Cash", :amount => 100.00}],
-                    :credits => [
-                      {:account => "Unearned Revenue", :amount => 100.00}])
+```ruby
+entry = Plutus::Entry.build(
+                :description => "Order placed for widgets",
+                :debits => [
+                  {:account => "Cash", :amount => 100.00}],
+                :credits => [
+                  {:account => "Unearned Revenue", :amount => 100.00}])
+```
 
 The build method takes a hash consisting of a description, and an array of debits and credits. Each debit and credit item is a hash that specifies the amount, and the account to be debited or credited. Simply pass in the string name you used when you created the account.
 
 Finally, save the entry.
 
-    >> entry.save
+```ruby
+>> entry.save
+```
 
 If there are any issues with your credit and debit amounts, the save will fail and return false. You can inspect the errors via `entry.errors`. Because we are doing double-entry accounting, your credit and debit amounts must always cancel out to keep the accounts in balance.
 
@@ -100,20 +109,24 @@ Recording an Entry with multiple accounts
 
 Often times a single entry requires more than one type of account. A classic example would be a entry in which a tax is charged. We'll assume that we have not yet received payment for the order, so we'll need an "Accounts Receivable" Asset:
 
-    >> Plutus::Asset.create(:name => "Accounts Receivable")
-    >> Plutus::Revenue.create(:name => "Sales Revenue")
-    >> Plutus::Liability.create(:name => "Sales Tax Payable")
+```ruby
+>> Plutus::Asset.create(:name => "Accounts Receivable")
+>> Plutus::Revenue.create(:name => "Sales Revenue")
+>> Plutus::Liability.create(:name => "Sales Tax Payable")
+```
 
 And here's the entry:
 
-    entry = Plutus::Entry.build(
-                    :description => "Sold some widgets",
-                    :debits => [
-                      {:account => "Accounts Receivable", :amount => 50}],
-                    :credits => [
-                      {:account => "Sales Revenue", :amount => 45},
-                      {:account => "Sales Tax Payable", :amount => 5}])
-    entry.save
+```ruby
+entry = Plutus::Entry.build(
+                :description => "Sold some widgets",
+                :debits => [
+                  {:account => "Accounts Receivable", :amount => 50}],
+                :credits => [
+                  {:account => "Sales Revenue", :amount => 45},
+                  {:account => "Sales Tax Payable", :amount => 5}])
+entry.save
+```
 
 Associating Documents
 ---------------------
@@ -122,19 +135,23 @@ Although Plutus does not provide a mechanism for generating invoices or orders, 
 
 Suppose we pull up our latest invoice in order to generate a entry for plutus (we'll assume you already have an Invoice model):
 
-    >> invoice = Invoice.last
+```ruby
+>> invoice = Invoice.last
+```
 
 Let's assume we're using the same entry from the last example
 
-    entry = Plutus::Entry.build(
-                    :description => "Sold some widgets",
-                    :commercial_document => invoice,
-                    :debits => [
-                      {:account => "Accounts Receivable", :amount => invoice.total_amount}],
-                    :credits => [
-                      {:account => "Sales Revenue", :amount => invoice.sales_amount},
-                      {:account => "Sales Tax Payable", :amount => invoice.tax_amount}])
-    entry.save
+```ruby
+entry = Plutus::Entry.build(
+                :description => "Sold some widgets",
+                :commercial_document => invoice,
+                :debits => [
+                  {:account => "Accounts Receivable", :amount => invoice.total_amount}],
+                :credits => [
+                  {:account => "Sales Revenue", :amount => invoice.sales_amount},
+                  {:account => "Sales Tax Payable", :amount => invoice.tax_amount}])
+entry.save
+```
 
 The commercial document attribute on the entry is a polymorphic association allowing you to associate any record from your models with a entry (i.e. Bills, Invoices, Receipts, Returns, etc.)
 
@@ -143,9 +160,11 @@ Checking the Balance of an  Individual Account
 
 Each account can report on its own balance. This number should normally be positive. If the number is negative, you may have a problem.
 
-    >> cash = Plutus::Asset.find_by_name("Cash")
-    >> cash.balance
-    => #<BigDecimal:103259bb8,'0.2E4',4(12)>
+```ruby
+>> cash = Plutus::Asset.find_by_name("Cash")
+>> cash.balance
+=> #<BigDecimal:103259bb8,'0.2E4',4(12)>
+```
 
 
 Checking the Balance of an Account Type
@@ -153,16 +172,20 @@ Checking the Balance of an Account Type
 
 Each subclass of accounts can report on the total balance of all the accounts of that type. This number should normally be positive. If the number is negative, you may have a problem.
 
-    >> Plutus::Asset.balance
-    => #<BigDecimal:103259bb8,'0.2E4',4(12)>
+```ruby
+>> Plutus::Asset.balance
+=> #<BigDecimal:103259bb8,'0.2E4',4(12)>
+```
 
 Calculating the Trial Balance
 -----------------------------
 
 The [Trial Balance](http://en.wikipedia.org/wiki/Trial_balance) for all accounts on the system can be found through the abstract Account class. This value should be 0 unless there is an error in the system.
 
-    >> Plutus::Account.trial_balance
-    => #<BigDecimal:1031c0d28,'0.0',4(12)>
+```ruby
+>> Plutus::Account.trial_balance
+=> #<BigDecimal:1031c0d28,'0.0',4(12)>
+```
 
 Contra Accounts and Complex Entries
 -----------------------------------
@@ -173,36 +196,60 @@ For complex entries, you should always ensure that you are balancing your accoun
 
 For example, let's assume the owner of a business wants to withdraw cash. First we'll assume that we have an asset account for "Cash" which the funds will be drawn from. We'll then need an Equity account to record where the funds are going, however, in this case, we can't simply create a regular Equity account. The "Cash" account must be credited for the decrease in its balance since it's an Asset. Likewise, Equity accounts are typically credited when there is an increase in their balance. Equity is considered an owner's rights to Assets in the business. In this case however, we are not simply increasing the owner's rights to assets within the business; we are actually removing capital from the business altogether. Hence both sides of our accounting equation will see a decrease. In order to accomplish this, we need to create a Contra-Equity account we'll call "Drawings". Since Equity accounts normally have credit balances, a Contra-Equity account will have a debit balance, which is what we need for our entry.
 
-    >> Plutus::Equity.create(:name => "Drawing", :contra => true)
-    >> Plutus::Asset.create(:name => "Cash")
+```ruby
+>> Plutus::Equity.create(:name => "Drawing", :contra => true)
+>> Plutus::Asset.create(:name => "Cash")
+```
 
 We would then create the following entry:
 
-    entry = Plutus::Entry.build(
-                    :description => "Owner withdrawing cash",
-                    :debits => [
-                      {:account => "Drawing", :amount => 1000}],
-                    :credits => [
-                      {:account => "Cash", :amount => 1000}])
-    entry.save
+```ruby
+entry = Plutus::Entry.build(
+                :description => "Owner withdrawing cash",
+                :debits => [
+                  {:account => "Drawing", :amount => 1000}],
+                :credits => [
+                  {:account => "Cash", :amount => 1000}])
+entry.save
+```
 
 To make the example clearer, imagine instead that the owner decides to invest his money into the business in exchange for some type of equity security. In this case we might have the following accounts:
 
-    >> Plutus::Equity.create(:name => "Common Stock")
-    >> Plutus::Asset.create(:name => "Cash")
+```ruby
+>> Plutus::Equity.create(:name => "Common Stock")
+>> Plutus::Asset.create(:name => "Cash")
+```
 
 And out entry would be:
 
-    entry = Plutus::Entry.build(
-                    :description => "Owner investing cash",
-                    :debits => [
-                      {:account => "Cash", :amount => 1000}],
-                    :credits => [
-                      {:account => "Common Stock", :amount => 1000}])
-    entry.save
+```ruby
+entry = Plutus::Entry.build(
+                :description => "Owner investing cash",
+                :debits => [
+                  {:account => "Cash", :amount => 1000}],
+                :credits => [
+                  {:account => "Common Stock", :amount => 1000}])
+entry.save
+```
 
 In this case, we've increase our cash Asset, and simultaneously increased the other side of our accounting equation in
 Equity, keeping everything balanced.
+
+Money & Currency Support
+========================
+
+Plutus aims to be agnostic about the values used for amounts. All fields are maintained as BigDecimal values, with `:precision => 20, :scale => 10`, which means that any currency can be safely stored in the tables.
+
+Plutus is also compatible with the [Money](https://github.com/RubyMoney/money) gem. With Money versions greater than 6.0, the `money.amount` will returns a BigDecimal which you can use with plutus as follows:
+
+```ruby
+entry = Plutus::Entry.build(
+                :description => "Order placed for widgets",
+                :debits => [
+                  {:account => "Cash", :amount => money.amount}],
+                :credits => [
+                  {:account => "Unearned Revenue", :amount => money.amount}])
+```
 
 Multitenancy Support
 =====================
@@ -212,22 +259,22 @@ Plutus supports multitenant applications. Multitenancy is acheived by associatin
 - Generate the migration which will add `tenant_id` to the plutus accounts table
 
 ```sh
-  bundle exec rails g plutus:tenancy
+bundle exec rails g plutus:tenancy
 ```
 
 - Run the migration
 
 ```sh
-  rake db:migrate
+rake db:migrate
 ```
 
 - Add an initializer to your Rails application, i.e. `config/initializers/plutus.rb`
 
 ```ruby
-  Plutus.config do |config|
-    config.enable_tenancy = true
-    config.tenant_class = 'Tenant'
-  end
+Plutus.config do |config|
+  config.enable_tenancy = true
+  config.tenant_class = 'Tenant'
+end
 ```
 
 Access & Security
@@ -239,7 +286,9 @@ These controllers are read-only for reporting purposes. It is assumed entry crea
 
 Routing is supplied via an engine mount point. Plutus can be mounted on a subpath in your existing Rails 3 app by adding the following to your routes.rb:
 
-    mount Plutus::Engine => "/plutus", :as => "plutus"
+```ruby
+mount Plutus::Engine => "/plutus", :as => "plutus"
+```
 
 *NOTE: If you enable routing, you should ensure that your ApplicationController enforces its own authentication and authorization, which this controller will inherit.*
 
