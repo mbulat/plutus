@@ -59,6 +59,18 @@ module Plutus
       entry
     end
 
+    # Support construction using 'credits' and 'debits' keys
+    accepts_nested_attributes_for :credit_amounts, :debit_amounts
+    alias_method :credits=, :credit_amounts_attributes=
+    alias_method :debits=, :debit_amounts_attributes=
+    attr_accessible :credits, :debits
+    
+    # Support the deprecated .build method
+    def self.build(hash)
+      ActiveSupport::Deprecation.warn('Plutus::Transaction.build() is deprecated (use new instead)', caller)
+      new(hash)
+    end
+
     private
       def has_credit_amounts?
         errors[:base] << "Entry must have at least one credit amount" if self.credit_amounts.blank?
