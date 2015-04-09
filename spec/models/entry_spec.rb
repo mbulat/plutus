@@ -74,7 +74,7 @@ module Plutus
       let!(:sales_revenue) { FactoryGirl.create(:revenue, name: "Sales Revenue") }
       let!(:sales_tax_payable) { FactoryGirl.create(:liability, name: "Sales Tax Payable") }
 
-      shared_examples_for 'a built-from-hash Plutus::Transaction' do
+      shared_examples_for 'a built-from-hash Plutus::Entry' do
         its(:credit_amounts) { should_not be_empty }
         its(:debit_amounts) { should_not be_empty }
         it { should be_valid }
@@ -84,7 +84,7 @@ module Plutus
           its(:id) { should_not be_nil }
 
           context "when reloaded" do
-            let(:saved_transaction) { Transaction.find(entry.id) }
+            let(:saved_transaction) { Entry.find(entry.id) }
             subject { saved_transaction }
             it("should have the correct commercial document") {
               saved_transaction.commercial_document == mock_document
@@ -94,7 +94,7 @@ module Plutus
       end
 
       describe ".new" do
-        let(:entry) { Transaction.new(hash) }
+        let(:entry) { Entry.new(hash) }
         subject { entry }
 
         context "when given a credit/debits hash with :account => Account" do
@@ -109,7 +109,7 @@ module Plutus
                 ]
             }
           }
-          include_examples 'a built-from-hash Plutus::Transaction'
+          include_examples 'a built-from-hash Plutus::Entry'
         end
 
         context "when given a credit/debits hash with :account_name => String" do
@@ -124,7 +124,7 @@ module Plutus
                 ]
             }
           }
-          include_examples 'a built-from-hash Plutus::Transaction'
+          include_examples 'a built-from-hash Plutus::Entry'
         end
 
         context "when given a credit/debits hash with :account => String" do
@@ -149,12 +149,12 @@ module Plutus
             entry
           }
 
-          include_examples 'a built-from-hash Plutus::Transaction'
+          include_examples 'a built-from-hash Plutus::Entry'
         end
       end
 
       describe ".build" do
-        let(:entry) { Transaction.build(hash) }
+        let(:entry) { Entry.build(hash) }
         subject { entry }
 
         before { ::ActiveSupport::Deprecation.silenced = true }
@@ -189,7 +189,7 @@ module Plutus
             entry
           }
 
-          include_examples 'a built-from-hash Plutus::Transaction'
+          include_examples 'a built-from-hash Plutus::Entry'
         end
       end
     end

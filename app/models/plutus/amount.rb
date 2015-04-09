@@ -10,7 +10,7 @@ module Plutus
     belongs_to :account, :class_name => 'Plutus::Account'
 
     validates_presence_of :type, :amount, :entry, :account
-    attr_accessible :account, :account_name, :amount, :entry
+    # attr_accessible :account, :account_name, :amount, :entry
 
     # Assign an account by name
     def account_name=(name)
