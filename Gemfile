@@ -10,4 +10,5 @@ group :development, :test do
   gem 'factory_girl_rails', "~> 1.1"
   gem 'rspec', "~> 2.6"
   gem 'rspec-rails', "~> 2.6"
+  gem 'simplecov', :require => false
 end
