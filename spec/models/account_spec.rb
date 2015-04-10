@@ -4,30 +4,30 @@ module Plutus
   describe Account do
     let(:account) { FactoryGirl.build(:account) }
     subject { account }
-    
+
     it { should_not be_valid }  # must construct a child type instead
 
     describe "when using a child type" do
       let(:account) { FactoryGirl.create(:account, type: "Finance::Asset") }
       it { should be_valid }
-      
+
       it "should be unique per name" do
         conflict = FactoryGirl.build(:account, name: account.name, type: account.type)
         conflict.should_not be_valid
         conflict.errors[:name].should == ["has already been taken"]
       end
     end
-    
+
     it { should_not respond_to(:balance) }
-    
+
     describe ".trial_balance" do
       subject { Account.trial_balance }
       it { should be_kind_of BigDecimal }
-      
+
       context "when given no entries" do
         it { should == 0 }
       end
-      
+
       context "when given correct entries" do
         before {
           # credit accounts
@@ -57,12 +57,12 @@ module Plutus
           da5 = FactoryGirl.build(:debit_amount, :account => contra_revenue, :amount => 333)
 
           FactoryGirl.create(:entry, :credit_amounts => [ca1], :debit_amounts => [da1])
-          FactoryGirl.create(:entry, :credit_amounts => [ca2], :debit_amounts => [da2]) 
+          FactoryGirl.create(:entry, :credit_amounts => [ca2], :debit_amounts => [da2])
           FactoryGirl.create(:entry, :credit_amounts => [ca3], :debit_amounts => [da3])
           FactoryGirl.create(:entry, :credit_amounts => [ca4], :debit_amounts => [da4])
           FactoryGirl.create(:entry, :credit_amounts => [ca5], :debit_amounts => [da5])
         }
-        
+
         it { should == 0 }
       end
     end
