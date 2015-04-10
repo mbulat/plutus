@@ -83,18 +83,16 @@ Let's assume we're accounting on an [Accrual basis](http://en.wikipedia.org/wiki
 >> Plutus::Liability.create(:name => "Unearned Revenue")
 ```
 
-Next we'll build the entry we want to record. Plutus provides a simple interface to build the entry.
+Next we'll build the entry we want to record. Plutus uses ActiveRecord conventions to build the transaction and its associated amounts.
 
-```ruby
-entry = Plutus::Entry.build(
-                :description => "Order placed for widgets",
-                :debits => [
-                  {:account => "Cash", :amount => 100.00}],
-                :credits => [
-                  {:account => "Unearned Revenue", :amount => 100.00}])
-```
+    entry = Plutus::Entry.new(
+                    :description => "Order placed for widgets",
+                    :debits => [
+                      {:account_name => "Cash", :amount => 100.00}],
+                    :credits => [
+                      {:account_name => "Unearned Revenue", :amount => 100.00}])
 
-The build method takes a hash consisting of a description, and an array of debits and credits. Each debit and credit item is a hash that specifies the amount, and the account to be debited or credited. Simply pass in the string name you used when you created the account.
+Entries must specify a description, as well as at least one credit and debit amount. `Amount`s must specify an amount value as well as an account, either by providing a `Plutus::Account` to `account` or by passing in an `account_name` string.
 
 Finally, save the entry.
 
@@ -142,14 +140,14 @@ Suppose we pull up our latest invoice in order to generate a entry for plutus (w
 Let's assume we're using the same entry from the last example
 
 ```ruby
-entry = Plutus::Entry.build(
+entry = Plutus::Entry.new(
                 :description => "Sold some widgets",
                 :commercial_document => invoice,
                 :debits => [
-                  {:account => "Accounts Receivable", :amount => invoice.total_amount}],
+                  {:account_name => "Accounts Receivable", :amount => invoice.total_amount}],
                 :credits => [
-                  {:account => "Sales Revenue", :amount => invoice.sales_amount},
-                  {:account => "Sales Tax Payable", :amount => invoice.tax_amount}])
+                  {:account_name => "Sales Revenue", :amount => invoice.sales_amount},
+                  {:account_name => "Sales Tax Payable", :amount => invoice.tax_amount}])
 entry.save
 ```
 
@@ -204,12 +202,12 @@ For example, let's assume the owner of a business wants to withdraw cash. First 
 We would then create the following entry:
 
 ```ruby
-entry = Plutus::Entry.build(
+entry = Plutus::Entry.new(
                 :description => "Owner withdrawing cash",
                 :debits => [
-                  {:account => "Drawing", :amount => 1000}],
+                  {:account_name => "Drawing", :amount => 1000}],
                 :credits => [
-                  {:account => "Cash", :amount => 1000}])
+                  {:account_name => "Cash", :amount => 1000}])
 entry.save
 ```
 
@@ -223,12 +221,12 @@ To make the example clearer, imagine instead that the owner decides to invest hi
 And out entry would be:
 
 ```ruby
-entry = Plutus::Entry.build(
+entry = Plutus::Entry.new(
                 :description => "Owner investing cash",
                 :debits => [
-                  {:account => "Cash", :amount => 1000}],
+                  {:account_name => "Cash", :amount => 1000}],
                 :credits => [
-                  {:account => "Common Stock", :amount => 1000}])
+                  {:account_name => "Common Stock", :amount => 1000}])
 entry.save
 ```
 
