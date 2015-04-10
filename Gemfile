@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-# Specify your gem's dependencies in valkyrie.gemspec
+# Specify your gem's dependencies in plutus.gemspec
 gemspec
 
 group :development, :test do
