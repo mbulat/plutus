@@ -83,12 +83,12 @@ Let's assume we're accounting on an [Accrual basis](http://en.wikipedia.org/wiki
 >> Plutus::Liability.create(:name => "Unearned Revenue")
 ```
 
-Next we'll build the entry we want to record. Plutus uses ActiveRecord conventions build the transaction and its associated amounts.
+Next we'll build the entry we want to record. Plutus uses ActiveRecord conventions to build the transaction and its associated amounts.
 
     entry = Plutus::Entry.new(
                     :description => "Order placed for widgets",
                     :debits => [
-                      {:account_name => "Cash", :amount => 100.00}], 
+                      {:account_name => "Cash", :amount => 100.00}],
                     :credits => [
                       {:account_name => "Unearned Revenue", :amount => 100.00}])
 
