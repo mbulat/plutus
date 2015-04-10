@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-# Specify your gem's dependencies in valkyrie.gemspec
+# Specify your gem's dependencies in plutus.gemspec
 gemspec
 
 group :development, :test do
@@ -10,4 +10,5 @@ group :development, :test do
   gem 'factory_girl_rails', "~> 1.1"
   gem 'rspec', "~> 2.6"
   gem 'rspec-rails', "~> 2.6"
+  gem 'simplecov', :require => false
 end

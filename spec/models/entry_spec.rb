@@ -10,7 +10,7 @@ module Plutus
     context "with credit and debit" do
       let(:entry) { FactoryGirl.build(:entry_with_credit_and_debit) }
       it { should be_valid }
-      
+
       it "should require a description" do
         entry.description = nil
         entry.should_not be_valid

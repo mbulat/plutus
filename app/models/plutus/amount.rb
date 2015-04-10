@@ -2,7 +2,7 @@ module Plutus
   # The Amount class represents debit and credit amounts in the system.
   #
   # @abstract
-  #   An amount must be a subclass as either a debit or a credit to be saved to the database. 
+  #   An amount must be a subclass as either a debit or a credit to be saved to the database.
   #
   # @author Michael Bulat
   class Amount < ActiveRecord::Base
@@ -16,9 +16,9 @@ module Plutus
     def account_name=(name)
       self.account = Account.find_by_name!(name)
     end
-    
+
     protected
-    
+
     # Support constructing amounts with account = "name" syntax
     def account_with_name_lookup=(v)
       if v.kind_of?(String)
