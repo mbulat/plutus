@@ -119,10 +119,10 @@ And here's the entry:
 entry = Plutus::Entry.build(
                 :description => "Sold some widgets",
                 :debits => [
-                  {:account => "Accounts Receivable", :amount => 50}],
+                  {:account_name => "Accounts Receivable", :amount => 50}],
                 :credits => [
-                  {:account => "Sales Revenue", :amount => 45},
-                  {:account => "Sales Tax Payable", :amount => 5}])
+                  {:account_name => "Sales Revenue", :amount => 45},
+                  {:account_name => "Sales Tax Payable", :amount => 5}])
 entry.save
 ```
 
@@ -244,9 +244,9 @@ Plutus is also compatible with the [Money](https://github.com/RubyMoney/money) g
 entry = Plutus::Entry.build(
                 :description => "Order placed for widgets",
                 :debits => [
-                  {:account => "Cash", :amount => money.amount}],
+                  {:account_name => "Cash", :amount => money.amount}],
                 :credits => [
-                  {:account => "Unearned Revenue", :amount => money.amount}])
+                  {:account_name => "Unearned Revenue", :amount => money.amount}])
 ```
 
 Multitenancy Support
