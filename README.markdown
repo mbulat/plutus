@@ -7,7 +7,7 @@ The Plutus plugin is a Ruby on Rails Engine which provides a double entry accoun
 Compatibility
 =============
 
-* Ruby versions: MRI 1.9.3, MRI 2.0, MRI 2.1, Rubinius 2.2, JRuby 1.7+
+* Ruby versions: MRI 1.9.3 - 2.2, Rubinius 2.2, JRuby 1.7+
 * Rails versions: ~> 4.0
 
 For earlier versions, and upgrading, please see the section titled [Previous Versions](https://github.com/mbulat/plutus#previous-versions)
@@ -83,14 +83,16 @@ Let's assume we're accounting on an [Accrual basis](http://en.wikipedia.org/wiki
 >> Plutus::Liability.create(:name => "Unearned Revenue")
 ```
 
-Next we'll build the entry we want to record. Plutus uses ActiveRecord conventions build the transaction and its associated amounts.
+Next we'll build the entry we want to record. Plutus uses ActiveRecord conventions to build the transaction and its associated amounts.
 
-    entry = Plutus::Entry.new(
-                    :description => "Order placed for widgets",
-                    :debits => [
-                      {:account_name => "Cash", :amount => 100.00}], 
-                    :credits => [
-                      {:account_name => "Unearned Revenue", :amount => 100.00}])
+```ruby
+entry = Plutus::Entry.new(
+                :description => "Order placed for widgets",
+                :debits => [
+                  {:account_name => "Cash", :amount => 100.00}],
+                :credits => [
+                  {:account_name => "Unearned Revenue", :amount => 100.00}])
+```
 
 Entries must specify a description, as well as at least one credit and debit amount. `Amount`s must specify an amount value as well as an account, either by providing a `Plutus::Account` to `account` or by passing in an `account_name` string.
 
@@ -325,8 +327,10 @@ Testing
 
 [Rspec](http://rspec.info/) tests are provided. Run `bundle install` then `rake`.
 
-Contributors
-============
+Contributing and Contributors
+=============================
+
+There's a guide to contributing to Plutus (both code and general help) over in [CONTRIBUTING](https://github.com/mbulat/plutus/blob/master/CONTRIBUTING.md)
 
 Many thanks to all our contributors! Check them all at:
 
