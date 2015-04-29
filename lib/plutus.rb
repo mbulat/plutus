@@ -10,11 +10,12 @@ module Plutus
   # ------------------------------ tenancy ------------------------------
   # configuration to enable or disable tenancy
   mattr_accessor :enable_tenancy
-  enable_tenancy = false
-
   mattr_accessor :tenant_class
-  tenant_class = nil
+  mattr_accessor :tenant_attribute_name
 
+  # set defaults
+  self.enable_tenancy = false
+  self.tenant_attribute_name = 'tenant'
 
   # provide hook to configure attributes
   def self.config
