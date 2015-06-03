@@ -27,11 +27,16 @@ module Plutus
       end
     end
 
-    # Balance of all Liability accounts
+    # This class method is used to return
+    # the balance of all Liability accounts.
+    #
+    # Contra accounts are automatically subtracted from the balance.
     #
     # @example
     #   >> Plutus::Liability.balance
     #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
+    #
+    # @return [BigDecimal] The decimal value balance
     def self.balance
       accounts_balance = BigDecimal.new('0')
       accounts = self.all
