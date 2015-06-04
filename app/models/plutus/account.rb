@@ -30,6 +30,8 @@ module Plutus
   #
   # @author Michael Bulat
   class Account < ActiveRecord::Base
+    class_attribute :normal_credit_balance
+
     has_many :credit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::CreditAmount'
     has_many :debit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::DebitAmount'
     has_many :credit_entries, :through => :credit_amounts, :source => :entry, :class_name => 'Plutus::Entry'
@@ -41,6 +43,32 @@ module Plutus
       include Plutus::Tenancy
     else
       include Plutus::NoTenancy
+    end
+
+    # The balance of the account. This instance method is intended for use only
+    # on instances of account subclasses.
+    #
+    # If the account has a normal credit balance, the debits are subtracted from the credits
+    # unless this is a contra account, in which case credits are substracted from debits.
+    #
+    # For a normal debit balance, the credits are subtracted from the debits
+    # unless this is a contra account, in which case debits are subtracted from credits.
+    #
+    # @example
+    #   >> liability.balance
+    #   => #<BigDecimal:103259bb8,'0.2E4',4(12)>
+    #
+    # @return [BigDecimal] The decimal value balance
+    def balance
+      unless self.class == Plutus::Account
+        if self.normal_credit_balance ^ contra
+          credits_balance - debits_balance
+        else
+          debits_balance - credits_balance
+        end
+      else
+        raise(NoMethodError, "undefined method 'balance'")
+      end
     end
 
     # The credit balance for the account.
@@ -63,6 +91,33 @@ module Plutus
     # @return [BigDecimal] The decimal value credit balance
     def debits_balance
       debit_amounts.balance
+    end
+
+    # This class method is used to return the balance of all accounts
+    # for a given class and is intended for use only on account subclasses.
+    #
+    # Contra accounts are automatically subtracted from the balance.
+    #
+    # @example
+    #   >> Plutus::Liability.balance
+    #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
+    #
+    # @return [BigDecimal] The decimal value balance
+    def self.balance
+      unless self.new.class == Plutus::Account
+        accounts_balance = BigDecimal.new('0')
+        accounts = self.all
+        accounts.each do |account|
+          unless account.contra
+            accounts_balance += account.balance
+          else
+            accounts_balance -= account.balance
+          end
+        end
+        accounts_balance
+      else
+        raise(NoMethodError, "undefined method 'balance'")
+      end
     end
 
     # The trial balance of all accounts in the system. This should always equal zero,
