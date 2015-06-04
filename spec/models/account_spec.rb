@@ -18,7 +18,13 @@ module Plutus
       end
     end
 
-    it { should_not respond_to(:balance) }
+    it "calling the instance method #balance should raise a NoMethodError" do
+      expect { subject.balance }.to raise_error NoMethodError, "undefined method 'balance'"
+    end
+
+    it "calling the class method ::balance should raise a NoMethodError" do
+      expect { subject.class.balance }.to raise_error NoMethodError, "undefined method 'balance'"
+    end
 
     describe ".trial_balance" do
       subject { Account.trial_balance }
