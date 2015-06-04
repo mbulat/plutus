@@ -9,6 +9,8 @@ module Plutus
   # @author Michael Bulat
   class Asset < Account
 
+    self.normal_credit_balance = false
+
     # The balance of the account.
     #
     # Assets have normal debit balances, so the credits are subtracted from the debits
@@ -20,11 +22,7 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value balance
     def balance
-      unless contra
-        debits_balance - credits_balance
-      else
-        credits_balance - debits_balance
-      end
+      super
     end
 
     # This class method is used to return
@@ -38,16 +36,7 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value balance
     def self.balance
-      accounts_balance = BigDecimal.new('0')
-      accounts = self.all
-      accounts.each do |asset|
-        unless asset.contra
-          accounts_balance += asset.balance
-        else
-          accounts_balance -= asset.balance
-        end
-      end
-      accounts_balance
+      super
     end
   end
 end
