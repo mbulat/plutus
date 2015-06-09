@@ -325,8 +325,10 @@ Testing
 
 [Rspec](http://rspec.info/) tests are provided. Run `bundle install` then `rake`.
 
-Contributors
-============
+Contributing and Contributors
+=============================
+
+There's a guide to contributing to Plutus (both code and general help) over in [CONTRIBUTING](https://github.com/mbulat/plutus/blob/master/CONTRIBUTING.md)
 
 Many thanks to all our contributors! Check them all at:
 
