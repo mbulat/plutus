@@ -9,6 +9,8 @@ module Plutus
   # @author Michael Bulat
   class Liability < Account
 
+    self.normal_credit_balance = true
+
     # The balance of the account.
     #
     # Liability accounts have normal credit balances, so the debits are subtracted from the credits
@@ -20,29 +22,21 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value balance
     def balance
-      unless contra
-        credits_balance - debits_balance
-      else
-        debits_balance - credits_balance
-      end
+      super
     end
 
-    # Balance of all Liability accounts
+    # This class method is used to return
+    # the balance of all Liability accounts.
+    #
+    # Contra accounts are automatically subtracted from the balance.
     #
     # @example
     #   >> Plutus::Liability.balance
     #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
+    #
+    # @return [BigDecimal] The decimal value balance
     def self.balance
-      accounts_balance = BigDecimal.new('0')
-      accounts = self.all
-      accounts.each do |liability|
-        unless liability.contra
-          accounts_balance += liability.balance
-        else
-          accounts_balance -= liability.balance
-        end
-      end
-      accounts_balance
+      super
     end
   end
 end
