@@ -110,10 +110,10 @@ module Plutus
         accounts_balance = BigDecimal.new('0')
         accounts = self.all
         accounts.each do |account|
-          unless account.contra
-            accounts_balance += account.balance
-          else
+          if account.contra
             accounts_balance -= account.balance
+          else
+            accounts_balance += account.balance
           end
         end
         accounts_balance
