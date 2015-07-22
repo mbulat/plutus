@@ -18,25 +18,13 @@ If you would like to add a new feature to Plutus, please follow these steps:
 
   1. First, check [github issues](https://github.com/mbulat/plutus/issues) to see if the feature has been discussed
   2. For complex features or questions, [Discuss the issue](https://groups.google.com/d/forum/plutus-gem) at the plutus mailing list.
-  3. Open an [enhancement issues](https://github.com/mbulat/plutus/labels/enhancement) and make sure to add the enhancement label
-  4. Base your commits on the 'develop' branch, since we follow [Git Flow](http://nvie.com/posts/a-successful-git-branching-model/), and don't add new features to old releases.
-  5. Commit the code and at least one test covering your changes to a feature branch in your fork.
+  3. Open an [issue](https://github.com/mbulat/plutus/issues)
+  4. Fork plutus, and create a feature branch on your fork for your changes.
+  5. Commit the code and at least one test covering your changes to the feature branch in your fork.
   5. Don't commit any changes to gemspec or change the version number
   6. Send us a [pull request](https://help.github.com/articles/using-pull-requests) from your feature branch.
 
 If you don't hear back immediately, don’t get discouraged! We all have day jobs, but we respond to most tickets within a day or two.
-
-If the pull request is merged, testing will commence on our staging systems to ensure that the new feature doesn't cause any problems for anyone in production. We'll then merge the code into the master branch and push a new gem version!
-
-# Release cycle
-
-Plutus follows a [Git Flow](http://nvie.com/posts/a-successful-git-branching-model/) model for branching and release of code.
-When you issue a pull request, please ensure that you base your commit on the 'develop' branch. Once the pull has been merged, you won't see
-your changes in master until a "release" has been issued, which will merge the develop branch back into master.
-
-Prior to release, Plutus is run through a full suite of integration tests with our application. Depending on the size and number of
-updates to the code base, releases might not happen for a while. Typically though, if there is a significant change to functionality, or a bug is fixed,
-a release or "hotfix" will be pushed out ASAP.
 
 # Discussing Plutus
 
