@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20141027103120) do
     t.boolean  "contra"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "tenant_id"
+    t.integer  "tenant_id"
   end
 
   add_index "plutus_accounts", ["name", "type"], :name => "index_plutus_accounts_on_name_and_type"
