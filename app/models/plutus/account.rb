@@ -60,14 +60,14 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value balance
     def balance
-      unless self.class == Plutus::Account
+      if self.class == Plutus::Account
+        raise(NoMethodError, "undefined method 'balance'")
+      else
         if self.normal_credit_balance ^ contra
           credits_balance - debits_balance
         else
           debits_balance - credits_balance
         end
-      else
-        raise(NoMethodError, "undefined method 'balance'")
       end
     end
 
@@ -104,19 +104,19 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value balance
     def self.balance
-      unless self.new.class == Plutus::Account
+      if self.new.class == Plutus::Account
+        raise(NoMethodError, "undefined method 'balance'")
+      else
         accounts_balance = BigDecimal.new('0')
         accounts = self.all
         accounts.each do |account|
-          unless account.contra
-            accounts_balance += account.balance
-          else
+          if account.contra
             accounts_balance -= account.balance
+          else
+            accounts_balance += account.balance
           end
         end
         accounts_balance
-      else
-        raise(NoMethodError, "undefined method 'balance'")
       end
     end
 
@@ -129,10 +129,10 @@ module Plutus
     #
     # @return [BigDecimal] The decimal value balance of all accounts
     def self.trial_balance
-      unless self.new.class == Plutus::Account
-        raise(NoMethodError, "undefined method 'trial_balance'")
-      else
+      if self.new.class == Plutus::Account
         Plutus::Asset.balance - (Plutus::Liability.balance + Plutus::Equity.balance + Plutus::Revenue.balance - Plutus::Expense.balance)
+      else
+        raise(NoMethodError, "undefined method 'trial_balance'")
       end
     end
 
