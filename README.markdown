@@ -95,7 +95,7 @@ entry = Plutus::Entry.new(
                   {:account_name => "Unearned Revenue", :amount => 100.00}])
 ```
 
-Entries must specify a description, as well as at least one credit and debit amount. Specifying the date is optional; by default, the current date will be assigned to the entry before the record is saved. `Amount`s must specify an amount value as well as an account, either by providing a `Plutus::Account` to `account` or by passing in an `account_name` string.
+Entries must specify a description, as well as at least one credit and debit amount. Specifying the date is optional; by default, the current date will be assigned to the entry before the record is saved. `debits` and `credits` must specify an array of hashes, with an amount value as well as an account, either by providing a `Plutus::Account` to `account` or by passing in an `account_name` string.
 
 Finally, save the entry.
 
@@ -103,7 +103,7 @@ Finally, save the entry.
 >> entry.save
 ```
 
-If there are any issues with your credit and debit amounts, the save will fail and return false. You can inspect the errors via `entry.errors`. Because we are doing double-entry accounting, your credit and debit amounts must always cancel out to keep the accounts in balance.
+If there are any issues with your credit and debit amounts, the save will fail and return false. You can inspect the errors via `entry.errors`. Because we are doing double-entry accounting, the sum total of your credit and debit amounts must always cancel out to keep the accounts in balance.
 
 Recording an Entry with multiple accounts
 -----------------------------------------
