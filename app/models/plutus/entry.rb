@@ -22,6 +22,7 @@ module Plutus
   #
   # @author Michael Bulat
   class Entry < ActiveRecord::Base
+    before_save :default_date
     belongs_to :commercial_document, :polymorphic => true
     has_many :credit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::CreditAmount', :inverse_of => :entry
     has_many :debit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::DebitAmount', :inverse_of => :entry
@@ -50,6 +51,10 @@ module Plutus
     end
 
     private
+      def default_date
+        self.date ||= Date.today
+      end
+
       def has_credit_amounts?
         errors[:base] << "Entry must have at least one credit amount" if self.credit_amounts.blank?
       end

@@ -45,6 +45,15 @@ module Plutus
       end
     end
 
+    context "without a date" do
+      let(:entry) { FactoryGirl.build(:entry_with_credit_and_debit, date: nil) }
+
+      context "should assign a default date before being saved" do
+        before { entry.save! }
+        its(:date) { should == Date.today }
+      end
+    end
+
     it "should require the debit and credit amounts to cancel" do
       entry.credit_amounts << FactoryGirl.build(:credit_amount, :amount => 100, :entry => entry)
       entry.debit_amounts << FactoryGirl.build(:debit_amount, :amount => 200, :entry => entry)
