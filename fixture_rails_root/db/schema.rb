@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141027103120) do
+ActiveRecord::Schema.define(:version => 20150722204422) do
 
   create_table "plutus_accounts", :force => true do |t|
     t.string   "name"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20141027103120) do
 
   create_table "plutus_entries", :force => true do |t|
     t.string   "description"
+    t.date     "date"
     t.integer  "commercial_document_id"
     t.string   "commercial_document_type"
     t.datetime "created_at"
