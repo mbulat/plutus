@@ -45,5 +45,6 @@ ActiveRecord::Schema.define(:version => 20150722204422) do
   end
 
   add_index "plutus_entries", ["commercial_document_id", "commercial_document_type"], :name => "index_entries_on_commercial_doc"
+  add_index "plutus_entries", ["date"], :name => "index_plutus_entries_on_date"
 
 end
