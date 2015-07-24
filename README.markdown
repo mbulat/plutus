@@ -312,16 +312,14 @@ For the rails 2 version, you can go here:
 * Gems in RubyGems.org >= 0.8.0 support Rails 4
 * Gems in RubyGems.org >= 0.9.0 support Rails ~> 4.1
 
-Upgrading from < 0.9
---------------------
+Upgrading from older versions
+-----------------------------
 
-Versions of Plutus prior to 0.9 used a "Transaction" class to keep track of entries. Rails 4.1 introduced a change that
-raises an error with Plutus due to an ActiveRecord method conflict with "transaction". Therefore the Transaction class
-has been renamed "Entry". To generate a migration which will update your database run the following:
+As Plutus is still in alpha, there have been some breaking changes with previous versions.
 
-- `rails g plutus:upgrade_plutus`
+If you are upgrading, please check the Wiki for guides on how to properly upgrade plutus to deal with the changes:
 
-You only need to do this when upgrading a previously installed version of Plutus.
+[Upgrade Notes](https://github.com/mbulat/plutus/wiki/Updrade-Notes)
 
 Testing
 =======
