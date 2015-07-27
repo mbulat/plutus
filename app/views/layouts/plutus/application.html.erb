@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plutus</title>
+  <%= stylesheet_link_tag    "plutus/application", media: "all" %>
+  <%= javascript_include_tag "plutus/application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+    <header>
+      <%= render 'layouts/plutus/navigation' %>
+    </header>
+    <main role="main">
+       <%= render 'layouts/plutus/messages' %>
+       <%= yield %>
+    </main>
+</body>
+</html>

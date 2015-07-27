@@ -10,7 +10,7 @@ module Plutus
   # controller will inherit.
   #
   # @author Michael Bulat
-  class EntriesController < ApplicationController
+  class EntriesController <  Plutus::ApplicationController
     unloadable
     # @example
     #   GET /entries
