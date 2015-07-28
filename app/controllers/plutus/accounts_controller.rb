@@ -26,20 +26,5 @@ module Plutus
         format.json  { render :json => @accounts }
       end
     end
-
-    # @example
-    #   GET /accounts/1
-    #   GET /accounts/1.xml
-    #   GET /accounts/1.json
-    def show
-      @account = Account.find(params[:id])
-
-      respond_to do |format|
-        format.html # show.html.erb
-        format.xml  { render :xml => @account }
-        format.json  { render :json => @account }
-      end
-    end
-
   end
 end

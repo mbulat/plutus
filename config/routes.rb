@@ -3,6 +3,6 @@ Plutus::Engine.routes.draw do
 
   get 'reports/balance_sheet' => 'reports#balance_sheet'
 
-  resources :accounts, only: [:show, :index]
-  resources :entries, only: [:show, :index]
+  resources :accounts, only: [:index]
+  resources :entries, only: [:index]
 end
