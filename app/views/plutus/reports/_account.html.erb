@@ -11,7 +11,7 @@
     <% accounts.each do |account| %>
       <tr class="<%= cycle("even", "odd") -%>">
         <td><%=h account.name %></td>
-        <td><%=h account.balance %></td>
+        <td><%=h account.balance(:from_date => "2000-01-01", :to_date => @date) %></td>
       </tr>
     <% end %>
   </tbody>
