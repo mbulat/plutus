@@ -1,0 +1,21 @@
+<div class="container">
+  <center>
+    <h1>Balance Sheet</h1>
+
+    <%= form_tag({:action => 'balance_sheet'}, {:method => :get, :class => 'form-inline'}) do%>
+      <div class="form-group">
+      <%= label_tag :date, nil, class: 'sr-only'%>
+      <%= text_field_tag :date, @to_date, :class => 'datepicker form-control' %>
+      </div>
+      <button type="submit" class="btn btn-default">Get Report</button>
+    <% end %>
+  </center>
+
+  <br>
+
+  <%= render 'account', :name => "Assets", :accounts => @assets %>
+  <%= render 'account', :name => "Liabilities", :accounts => @liabilities %>
+  <%= render 'account', :name => "Equity", :accounts => @equity %>
+
+
+</div>

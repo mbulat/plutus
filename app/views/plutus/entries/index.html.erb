@@ -1,10 +1,12 @@
 <div class="container">
-<h1>Entries</h1>
+  <center>
+    <h1>Journal</h1>
+    <br>
+  </center>
 
 <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th class="nobg">ID</th>
       <th>Description</th>
       <th>Debits</th>
       <th>Credits</th>
@@ -14,7 +16,6 @@
   <tbody>
   <% @entries.each do |entry| %>
     <tr class="<%= cycle("even", "odd") -%>">
-      <td><%=link_to(entry.id, entry_path(entry)) %></td>
       <td><%=h entry.description %></td>
       <td></td>
       <td></td>
@@ -22,7 +23,6 @@
     </tr>
     <% entry.debit_amounts.each do |debit_amount| %>
       <tr class="<%= cycle("odd", "odd") -%>">
-        <td></td>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=h "#{debit_amount.account.name}" %></td>
         <td><%=h debit_amount.amount %></td>
         <td></td>
@@ -31,18 +31,20 @@
     <% end %>
     <% entry.credit_amounts.each do |credit_amount| %>
       <tr class="<%= cycle("odd", "odd") -%>">
-        <td></td>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=h "#{credit_amount.account.name}" %></td>
         <td></td>
         <td><%=h credit_amount.amount %></td>
         <td></td>
       </tr>
     <% end %>
+    <tr class="<%= cycle("odd", "odd") -%>">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
   <% end %>
   </tbody>
 </table>
 
-<br />
-
-<h3>Go to <%= link_to 'Accounts', accounts_path %></h3>
 </div>

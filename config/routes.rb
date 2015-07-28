@@ -1,6 +1,9 @@
 Plutus::Engine.routes.draw do
-  root :to => "accounts#index"
+  root :to => 'reports#balance_sheet'
 
-  resources :accounts, only: [:show, :index]
-  resources :entries, only: [:show, :index]
+  get 'reports/balance_sheet' => 'reports#balance_sheet'
+  get 'reports/income_statement' => 'reports#income_statement'
+
+  resources :accounts, only: [:index]
+  resources :entries, only: [:index]
 end

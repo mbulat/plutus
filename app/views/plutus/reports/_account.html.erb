@@ -1,0 +1,19 @@
+<table class="table table-striped table-hover">
+  <caption class="text-left"><b><%=name%></b></caption>
+  <thead>
+  <tr>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+<% if accounts.count > 0%>
+  <tbody>
+    <% accounts.each do |account| %>
+      <tr class="<%= cycle("even", "odd") -%>">
+        <td><%=h account.name %></td>
+        <td><%=h account.balance(:from_date => @from_date, :to_date => @to_date) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+<% end %>
+</table>
