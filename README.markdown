@@ -292,12 +292,12 @@ Plutus.config do |config|
 end
 ```
 
-Access & Security
-=================
+Reporting Views
+===============
 
-The Engine provides controllers and views for viewing Accounts and Entries via the `Plutus::AccountsController` and `Plutus::EntriesController` classes. The controllers will render HTML, XML and JSON.
+The Engine provides controllers and views for rendering basic reports, including a Balance Sheet and Income Statement.
 
-These controllers are read-only for reporting purposes. It is assumed entry creation will occur within your applications code.
+These views and controllers are read-only for reporting purposes. It is assumed entry creation will occur within your applications code.
 
 Routing is supplied via an engine mount point. Plutus can be mounted on a subpath in your existing Rails 3 app by adding the following to your routes.rb:
 
@@ -305,11 +305,10 @@ Routing is supplied via an engine mount point. Plutus can be mounted on a subpat
 mount Plutus::Engine => "/plutus", :as => "plutus"
 ```
 
-*NOTE: If you enable routing, you should ensure that your ApplicationController enforces its own authentication and authorization, which this controller will inherit.*
+*NOTE: The `Plutus::ApplicationController` does not currently support authentication. If you enable routing, the views will be publicly available on your mount point. Authentication can be added by overriding the controller.*
 
-Sample stylesheets can also be applied by adding the following to your application layout:
+*Future versions of plutus will allow for customization of authentication.*
 
-    <%= stylesheet_link_tag    "plutus/application" %>
 
 Previous Versions
 =================
@@ -368,7 +367,7 @@ Also, if anyone is using Plutus for bitcoin related accounting, I'd love to hear
 ToDo
 ====
 
-* Better views, including paging and ledgers
+* Better views, including paging
 * Reference for common accounting entries
 
 Reference
