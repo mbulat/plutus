@@ -167,6 +167,13 @@ Each account can report on its own balance. This number should normally be posit
 => #<BigDecimal:103259bb8,'0.2E4',4(12)>
 ```
 
+The balance can also be calculated within a specified date range. Dates can be strings in the format of "yyyy-mm-dd" or Ruby Date objects.
+
+```ruby
+>> cash = Plutus::Asset.find_by_name("Cash")
+>> cash.balance(:from_date => "2014-01-01", to_date => Date.today)
+=> #<BigDecimal:103259bb8,'0.2E4',4(12)>
+```
 
 Checking the Balance of an Account Type
 ---------------------------------------
@@ -175,6 +182,13 @@ Each subclass of accounts can report on the total balance of all the accounts of
 
 ```ruby
 >> Plutus::Asset.balance
+=> #<BigDecimal:103259bb8,'0.2E4',4(12)>
+```
+
+Again, a date range can be given
+
+```ruby
+>> Plutus::Asset.balance(:from_date => "2014-01-01", to_date => Date.today)
 => #<BigDecimal:103259bb8,'0.2E4',4(12)>
 ```
 
