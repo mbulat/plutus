@@ -10,7 +10,7 @@ module Plutus
   # controller will inherit.
   #
   # @author Michael Bulat
-  class AccountsController < ApplicationController
+  class AccountsController < Plutus::ApplicationController
     unloadable
 
     # @example
