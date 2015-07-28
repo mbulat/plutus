@@ -17,7 +17,7 @@ module Plutus
     #   GET /entries.xml
     #   GET /entries.json
     def index
-      @entries = Entry.all
+      @entries = Entry.limit(100).order('date DESC')
 
       respond_to do |format|
         format.html # index.html.erb
