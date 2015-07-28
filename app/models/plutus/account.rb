@@ -54,6 +54,13 @@ module Plutus
     # For a normal debit balance, the credits are subtracted from the debits
     # unless this is a contra account, in which case debits are subtracted from credits.
     #
+    # Takes an optional hash specifying :from_date and :to_date for calculating balances during periods.
+    # :from_date and :to_date may be strings of the form "yyyy-mm-dd" or Ruby Date objects
+    #
+    # @example
+    #   >> liability.balance({:from_date => "2000-01-01", :to_date => Date.today})
+    #   => #<BigDecimal:103259bb8,'0.1E4',4(12)>
+    #
     # @example
     #   >> liability.balance
     #   => #<BigDecimal:103259bb8,'0.2E4',4(12)>
@@ -73,6 +80,13 @@ module Plutus
 
     # The credit balance for the account.
     #
+    # Takes an optional hash specifying :from_date and :to_date for calculating balances during periods.
+    # :from_date and :to_date may be strings of the form "yyyy-mm-dd" or Ruby Date objects
+    #
+    # @example
+    #   >> asset.credits_balance({:from_date => "2000-01-01", :to_date => Date.today})
+    #   => #<BigDecimal:103259bb8,'0.1E4',4(12)>
+    #
     # @example
     #   >> asset.credits_balance
     #   => #<BigDecimal:103259bb8,'0.1E4',4(12)>
@@ -83,6 +97,13 @@ module Plutus
     end
 
     # The debit balance for the account.
+    #
+    # Takes an optional hash specifying :from_date and :to_date for calculating balances during periods.
+    # :from_date and :to_date may be strings of the form "yyyy-mm-dd" or Ruby Date objects
+    #
+    # @example
+    #   >> asset.debits_balance({:from_date => "2000-01-01", :to_date => Date.today})
+    #   => #<BigDecimal:103259bb8,'0.1E4',4(12)>
     #
     # @example
     #   >> asset.debits_balance
@@ -97,6 +118,13 @@ module Plutus
     # for a given class and is intended for use only on account subclasses.
     #
     # Contra accounts are automatically subtracted from the balance.
+    #
+    # Takes an optional hash specifying :from_date and :to_date for calculating balances during periods.
+    # :from_date and :to_date may be strings of the form "yyyy-mm-dd" or Ruby Date objects
+    #
+    # @example
+    #   >> Plutus::Liability.balance({:from_date => "2000-01-01", :to_date => Date.today})
+    #   => #<BigDecimal:103259bb8,'0.1E4',4(12)>
     #
     # @example
     #   >> Plutus::Liability.balance

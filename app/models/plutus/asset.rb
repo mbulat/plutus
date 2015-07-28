@@ -16,6 +16,13 @@ module Plutus
     # Assets have normal debit balances, so the credits are subtracted from the debits
     # unless this is a contra account, in which debits are subtracted from credits
     #
+    # Takes an optional hash specifying :from_date and :to_date for calculating balances during periods.
+    # :from_date and :to_date may be strings of the form "yyyy-mm-dd" or Ruby Date objects
+    #
+    # @example
+    #   >> asset.balance({:from_date => "2000-01-01", :to_date => Date.today})
+    #   => #<BigDecimal:103259bb8,'0.1E4',4(12)>
+    #
     # @example
     #   >> asset.balance
     #   => #<BigDecimal:103259bb8,'0.2E4',4(12)>
@@ -29,6 +36,13 @@ module Plutus
     # the balance of all Asset accounts.
     #
     # Contra accounts are automatically subtracted from the balance.
+    #
+    # Takes an optional hash specifying :from_date and :to_date for calculating balances during periods.
+    # :from_date and :to_date may be strings of the form "yyyy-mm-dd" or Ruby Date objects
+    #
+    # @example
+    #   >> Plutus::Asset.balance({:from_date => "2000-01-01", :to_date => Date.today})
+    #   => #<BigDecimal:103259bb8,'0.1E4',4(12)>
     #
     # @example
     #   >> Plutus::Asset.balance

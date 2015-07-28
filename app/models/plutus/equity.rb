@@ -16,8 +16,15 @@ module Plutus
     # Equity accounts have normal credit balances, so the debits are subtracted from the credits
     # unless this is a contra account, in which credits are subtracted from debits
     #
+    # Takes an optional hash specifying :from_date and :to_date for calculating balances during periods.
+    # :from_date and :to_date may be strings of the form "yyyy-mm-dd" or Ruby Date objects
+    #
     # @example
-    #   >> asset.balance
+    #   >> equity.balance({:from_date => "2000-01-01", :to_date => Date.today})
+    #   => #<BigDecimal:103259bb8,'0.1E4',4(12)>
+    #
+    # @example
+    #   >> equity.balance
     #   => #<BigDecimal:103259bb8,'0.2E4',4(12)>
     #
     # @return [BigDecimal] The decimal value balance
@@ -29,6 +36,13 @@ module Plutus
     # the balance of all Equity accounts.
     #
     # Contra accounts are automatically subtracted from the balance.
+    #
+    # Takes an optional hash specifying :from_date and :to_date for calculating balances during periods.
+    # :from_date and :to_date may be strings of the form "yyyy-mm-dd" or Ruby Date objects
+    #
+    # @example
+    #   >> Plutus::Equity.balance({:from_date => "2000-01-01", :to_date => Date.today})
+    #   => #<BigDecimal:103259bb8,'0.1E4',4(12)>
     #
     # @example
     #   >> Plutus::Equity.balance
