@@ -5,7 +5,7 @@ module Plutus
     routes { Plutus::Engine.routes }
 
     def mock_account(stubs={})
-      @mock_account ||= mock_model(Account, stubs)
+      @mock_account ||= FactoryGirl.create(:asset)
     end
 
     describe "GET index" do
@@ -15,14 +15,5 @@ module Plutus
         assigns[:accounts].should == [mock_account]
       end
     end
-
-    describe "GET show" do
-      it "assigns the requested account as @account" do
-        Account.stub(:find).with("37").and_return(mock_account)
-        get :show, :id => "37"
-        assigns[:account].should equal(mock_account)
-      end
-    end
-
   end
 end
