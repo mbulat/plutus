@@ -1,0 +1,19 @@
+<% if accounts.count > 0%>
+<table class="table table-striped table-hover">
+  <caption class="text-left"><b><%=name%></b></caption>
+  <thead>
+  <tr>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <% accounts.each do |account| %>
+      <tr class="<%= cycle("even", "odd") -%>">
+        <td><%=h account.name %></td>
+        <td><%=h account.balance %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
