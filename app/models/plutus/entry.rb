@@ -64,7 +64,7 @@ module Plutus
       end
 
       def amounts_cancel?
-        errors[:base] << "The credit and debit amounts are not equal" if credit_amounts.balance != debit_amounts.balance
+        errors[:base] << "The credit and debit amounts are not equal" if credit_amounts.balance_for_new_record != debit_amounts.balance_for_new_record
       end
   end
 end

@@ -21,8 +21,8 @@ module Plutus
     #   => #<BigDecimal:103259bb8,'0.2E4',4(12)>
     #
     # @return [BigDecimal] The decimal value balance
-    def balance
-      super
+    def balance(options={})
+      super(options)
     end
 
     # This class method is used to return
@@ -35,8 +35,8 @@ module Plutus
     #   => #<BigDecimal:1030fcc98,'0.82875E5',8(20)>
     #
     # @return [BigDecimal] The decimal value balance
-    def self.balance
-      super
+    def self.balance(options={})
+      super(options)
     end
   end
 end
