@@ -17,7 +17,7 @@ shared_examples_for 'a Plutus::Account subtype' do |elements|
     its(:balance) { should be_kind_of(BigDecimal) }
 
     it "reports a balance with date range" do
-      account.balance(:from_date => Date.today - 1.year, :to_date => Date.today).should be_kind_of(BigDecimal)
+      account.balance(:from_date => "2014-01-01", :to_date => Date.today).should be_kind_of(BigDecimal)
     end
 
     it { should respond_to(:credit_entries) }
