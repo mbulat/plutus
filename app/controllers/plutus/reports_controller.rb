@@ -11,7 +11,8 @@ module Plutus
     # @example
     #   GET /reports/balance_sheet
     def balance_sheet
-      @from_date = Plutus::Entry.order('date ASC').first.date
+      first_entry = Plutus::Entry.order('date ASC').first
+      @from_date = first_entry ? first_entry.date: Date.today
       @to_date = params[:date] ? Date.parse(params[:date]) : Date.today
       @assets = Plutus::Asset.all
       @liabilities = Plutus::Liability.all
