@@ -17,9 +17,9 @@
   <tr class="<%= cycle("even", "odd") -%>">
     <td><%=h account.name %></td>
     <td><%=h account.type.sub('Plutus::','') %></td>
-    <td><%=h account.credits_balance %></td>
-    <td><%=h account.debits_balance %></td>
-    <td><%=h account.balance %></td>
+    <td><%=h account.credits_balance.round(2) %></td>
+    <td><%=h account.debits_balance.round(2) %></td>
+    <td><%=h account.balance.round(2) %></td>
   </tr>
 <% end %>
 </table>
