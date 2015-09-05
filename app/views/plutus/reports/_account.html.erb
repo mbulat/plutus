@@ -8,12 +8,21 @@
   </thead>
 <% if accounts.count > 0%>
   <tbody>
+    <% running_total = 0 %>
     <% accounts.each do |account| %>
+      <% balance = account.balance(:from_date => @from_date, :to_date => @to_date) %>
       <tr class="<%= cycle("even", "odd") -%>">
         <td><%=h account.name %></td>
-        <td><%=h account.balance(:from_date => @from_date, :to_date => @to_date) %></td>
+        <td><%=h balance.round(2) %></td>
+        <% running_total += balance %>
       </tr>
     <% end %>
+    <tr class="<%= cycle("even", "odd") -%>">
+      <strong>
+        <td>Total <%= name %></td>
+        <td><%= running_total.round(2) %></td>
+      </strong>
+    </tr>
   </tbody>
 <% end %>
 </table>
