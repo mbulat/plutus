@@ -24,7 +24,7 @@
     <% entry.debit_amounts.each do |debit_amount| %>
       <tr class="<%= cycle("odd", "odd") -%>">
         <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=h "#{debit_amount.account.name}" %></td>
-        <td><%=h debit_amount.amount %></td>
+        <td><%=h debit_amount.amount.round(2) %></td>
         <td></td>
         <td></td>
       </tr>
@@ -33,7 +33,7 @@
       <tr class="<%= cycle("odd", "odd") -%>">
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=h "#{credit_amount.account.name}" %></td>
         <td></td>
-        <td><%=h credit_amount.amount %></td>
+        <td><%=h credit_amount.amount.round(2) %></td>
         <td></td>
       </tr>
     <% end %>
