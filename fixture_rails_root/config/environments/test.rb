@@ -40,4 +40,7 @@ FixtureRailsRoot::Application.configure do
 
   # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
   config.assets.allow_debugging = true
+
+  config.serve_static_files = true
+  config.static_cache_control = 'public, max-age=3600'
 end
