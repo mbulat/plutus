@@ -13,7 +13,7 @@
  *= require_tree .
  *= require bootstrap.min
  *= require bootstrap-theme.min
- *= require jquery.ui.datepicker
+ *= require jquery-ui/datepicker
  *= require_self
  */
 body { padding-top: 60px; }
