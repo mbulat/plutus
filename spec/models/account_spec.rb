@@ -72,5 +72,62 @@ module Plutus
         it { should == 0 }
       end
     end
+
+    describe "#amounts" do
+      it "returns all credit and debit amounts" do
+        equity = FactoryGirl.create(:equity)
+        asset = FactoryGirl.create(:asset)
+        expense = FactoryGirl.create(:expense)
+
+        investment = Entry.new(
+          description: "Initial investment",
+          date: Date.today,
+          debits: [{ account_name: equity.name, amount: 1000 }],
+          credits: [{ account_name: asset.name, amount: 1000 }],
+        )
+        investment.save
+
+        purchase = Entry.new(
+          description: "First computer",
+          date: Date.today,
+          debits: [{ account_name: asset.name, amount: 900 }],
+          credits: [{ account_name: expense.name, amount: 900 }],
+        )
+        purchase.save
+
+        expect(equity.amounts.size).to eq 1
+        expect(asset.amounts.size).to eq 2
+        expect(expense.amounts.size).to eq 1
+      end
+    end
+
+    describe "#entries" do
+      it "returns all credit and debit entries" do
+        equity = FactoryGirl.create(:equity)
+        asset = FactoryGirl.create(:asset)
+        expense = FactoryGirl.create(:expense)
+
+        investment = Entry.new(
+          description: "Initial investment",
+          date: Date.today,
+          debits: [{ account_name: equity.name, amount: 1000 }],
+          credits: [{ account_name: asset.name, amount: 1000 }],
+        )
+        investment.save
+
+        purchase = Entry.new(
+          description: "First computer",
+          date: Date.today,
+          debits: [{ account_name: asset.name, amount: 900 }],
+          credits: [{ account_name: expense.name, amount: 900 }],
+        )
+        purchase.save
+
+        expect(equity.entries.size).to eq 1
+        expect(asset.entries.size).to eq 2
+        expect(expense.entries.size).to eq 1
+      end
+    end
+
   end
 end
