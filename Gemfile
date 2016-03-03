@@ -12,4 +12,6 @@ group :development, :test do
   gem 'rspec-rails', "~> 2.6"
   gem 'rspec-its'
   gem 'simplecov', :require => false
+  gem "pry"
+  gem "pry-byebug"
 end
