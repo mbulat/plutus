@@ -195,4 +195,8 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
+<<<<<<< HEAD
    1.15.1
+=======
+   1.11.2
+>>>>>>> 14e61c8... Always support tenancy

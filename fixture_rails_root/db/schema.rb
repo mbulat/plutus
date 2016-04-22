@@ -18,8 +18,10 @@ ActiveRecord::Schema.define(version: 20170710174915) do
     t.boolean "contra"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "tenant_id"
+    t.integer  "tenant_id"
+    t.string   "tenant_type"
     t.index ["name", "type"], name: "index_plutus_accounts_on_name_and_type"
+    t.index ["tenant_id", "tenant_type"], name: "index_plutus_accounts_on_tenant_name_and_tenant_type"
   end
 
   create_table "plutus_amounts", force: :cascade do |t|
