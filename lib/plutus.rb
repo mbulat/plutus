@@ -2,11 +2,6 @@
 require "rails"
 
 module Plutus
-  class Engine < Rails::Engine
-    isolate_namespace Plutus
-  end
-
-
   # ------------------------------ tenancy ------------------------------
   # configuration to enable or disable tenancy
   mattr_accessor :enable_tenancy
@@ -21,3 +16,5 @@ module Plutus
     yield(self)
   end
 end
+
+require "plutus/engine"
