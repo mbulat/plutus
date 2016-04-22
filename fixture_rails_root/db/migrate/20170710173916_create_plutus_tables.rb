@@ -1,5 +1,5 @@
 class CreatePlutusTables < ActiveRecord::Migration[4.2]
-  def self.up
+  def change
     create_table :plutus_accounts do |t|
       t.string :name
       t.string :type
@@ -29,11 +29,5 @@ class CreatePlutusTables < ActiveRecord::Migration[4.2]
     add_index :plutus_amounts, :type
     add_index :plutus_amounts, [:account_id, :entry_id]
     add_index :plutus_amounts, [:entry_id, :account_id]
-  end
-
-  def self.down
-    drop_table :plutus_accounts
-    drop_table :plutus_entries
-    drop_table :plutus_amounts
   end
 end
