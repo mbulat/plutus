@@ -17,7 +17,7 @@ Installation
 
 - Add the gem to your Gemfile `gem "plutus"`
 
-- generate migration files `rails g plutus`
+- generate migration files `rails g plutus:install:migrations`
 
 - run migrations `rake db:migrate`
 
