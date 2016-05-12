@@ -18,4 +18,4 @@ matrix:
     - rvm: jruby-head
     - rvm: rbx-2.3
 
-script: rake
+script: bundle exec rake
