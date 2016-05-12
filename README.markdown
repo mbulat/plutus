@@ -392,4 +392,4 @@ For a complete reference on Accounting principles, we recommend the following te
 
 * * *
 
-Copyright (c) 2010-2012 Michael Bulat
+Copyright (c) 2010-2016 Michael Bulat
