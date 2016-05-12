@@ -291,7 +291,7 @@ Plutus.config do |config|
   config.tenant_class = 'Tenant'
 end
 ```
-*NOTE: When building entries, be sure to specify the account directly, rather than use the 'account_name' feature. Otherwise if you'll probably end up with the wrong account.*
+*NOTE: When building entries, be sure to specify the account directly, rather than use the `account_name` feature. Otherwise you'll probably end up with the wrong account.*
 
 ```ruby
 debit_account = Plutus::Acount.where(:name => "Cash", :tenant => my_tenant).last
