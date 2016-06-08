@@ -69,6 +69,15 @@ module Plutus
       entry.errors['base'].should == ["The credit and debit amounts are not equal"]
     end
 
+    it "should ignore debit and credit amounts marked for destruction to cancel" do
+      entry.credit_amounts << FactoryGirl.build(:credit_amount, :amount => 100, :entry => entry)
+      debit_amount = FactoryGirl.build(:debit_amount, :amount => 100, :entry => entry)
+      debit_amount.mark_for_destruction
+      entry.debit_amounts << debit_amount
+      entry.should_not be_valid
+      entry.errors['base'].should == ["The credit and debit amounts are not equal"]
+    end
+
     it "should have a polymorphic commercial document associations" do
       mock_document = FactoryGirl.create(:asset) # one would never do this, but it allows us to not require a migration for the test
       entry = FactoryGirl.build(:entry_with_credit_and_debit, commercial_document: mock_document)
