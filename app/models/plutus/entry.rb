@@ -35,7 +35,7 @@ module Plutus
     validate :amounts_cancel?
 
     # Support construction using 'credits' and 'debits' keys
-    accepts_nested_attributes_for :credit_amounts, :debit_amounts
+    accepts_nested_attributes_for :credit_amounts, :debit_amounts, allow_destroy: true
     alias_method :credits=, :credit_amounts_attributes=
     alias_method :debits=, :debit_amounts_attributes=
     # attr_accessible :credits, :debits
