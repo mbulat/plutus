@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency("jquery-ui-rails", ">= 4.2.2")
   s.add_dependency("kaminari", "~> 1.0")
   s.add_development_dependency("yard")
+  s.add_development_dependency "shoulda-matchers"
   s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.markdown"]
   s.homepage = %q{http://github.com/mbulat/plutus}
   s.require_paths = ["lib"]
