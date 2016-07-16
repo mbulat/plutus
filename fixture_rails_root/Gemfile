@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'plutus', path: '../'
-gem 'rails', '>= 4.0'
+gem 'rails', '4.2.4'
 gem 'sqlite3'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -12,9 +12,10 @@ gem 'uglifier'
 
 group :test do
   # Pretty printed test output
-  gem 'turn', :require => false
+  gem 'turn', require: false
 end
 
 group :development do
-  gem 'web-console', '~> 2.0'
+  gem 'spring'
+  gem 'web-console', '~> 3.1.1'
 end
