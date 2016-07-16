@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'plutus', path: '../'
-gem 'rails', '4.2.4'
+gem 'rails', '5.0.0'
 gem 'sqlite3'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
