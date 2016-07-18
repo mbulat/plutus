@@ -5,6 +5,6 @@ module Plutus
   #     credit_amount = Plutus::CreditAmount.new(:account => revenue, :amount => 1000)
   #
   # @author Michael Bulat
-  class CreditAmount < Amount
+  class CreditAmount < ::Plutus::Amount
   end
 end

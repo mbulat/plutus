@@ -5,7 +5,7 @@ module Plutus
   # controller will inherit.
   #
   # @author Michael Bulat
-  class ReportsController <  Plutus::ApplicationController
+  class ReportsController < ::Plutus::ApplicationController
     unloadable
 
     # @example
