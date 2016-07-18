@@ -7,6 +7,13 @@ module Plutus
 
     it { is_expected.not_to be_valid }  # must construct a child type instead
 
+    describe ".types" do
+      it "lists the available types" do
+        expect(described_class.types).
+          to match_array([Asset, Equity, Expense, Liability, Revenue])
+      end
+    end
+
     describe "when using a child type" do
       let(:account) { FactoryGirl.create(:account, type: "Finance::Asset") }
       it { is_expected.to be_valid }
