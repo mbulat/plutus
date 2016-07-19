@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :entry, class: 'Plutus::Entry' do# |entry|
+  factory :entry, class: 'Plutus::Entry' do
     description "Entry description"
 
     factory :entry_with_credit_and_debit, class: 'Plutus::Entry' do
