@@ -83,7 +83,7 @@ module Plutus
       entry = FactoryGirl.build(:entry_with_credit_and_debit, commercial_document: mock_document)
       entry.save!
       saved_entry = Entry.find(entry.id)
-      saved_entry.commercial_document.should == mock_document
+      expect(saved_entry.commercial_document.id).to match(mock_document.id)
     end
 
     context "given a set of accounts" do

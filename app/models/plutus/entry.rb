@@ -23,11 +23,11 @@ module Plutus
   # @author Michael Bulat
   class Entry < ActiveRecord::Base
     before_save :default_date
-    belongs_to :commercial_document, :polymorphic => true
-    has_many :credit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::CreditAmount', :inverse_of => :entry
-    has_many :debit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::DebitAmount', :inverse_of => :entry
-    has_many :credit_accounts, :through => :credit_amounts, :source => :account, :class_name => 'Plutus::Account'
-    has_many :debit_accounts, :through => :debit_amounts, :source => :account, :class_name => 'Plutus::Account'
+    belongs_to :commercial_document, polymorphic: true
+    has_many :credit_amounts, extend: AmountsExtension, class_name: 'Plutus::CreditAmount', inverse_of: :entry
+    has_many :debit_amounts, extend: AmountsExtension, class_name: 'Plutus::DebitAmount', inverse_of: :entry
+    has_many :credit_accounts, through: :credit_amounts, source: :account, class_name: 'Plutus::Account'
+    has_many :debit_accounts, through: :debit_amounts, source: :account, class_name: 'Plutus::Account'
 
     validates_presence_of :description
     validate :has_credit_amounts?

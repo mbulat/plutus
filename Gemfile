@@ -14,4 +14,6 @@ group :development, :test do
   gem 'rspec-rails',              '~> 3.5', '>= 3.5.1'
   gem 'shoulda-matchers',         '~> 3.1', '>= 3.1.1'
   gem 'rspec-its',                '~> 1.2'
+  gem 'pry-rails',                '~> 0.3.4'
+  gem 'database_cleaner'
 end
