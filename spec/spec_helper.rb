@@ -33,10 +33,10 @@ RSpec.configure do |config|
 
   config.before(:all) do
     FactoryGirl.reload
-    # FactoryGirl.factories.clear
+    FactoryGirl.factories.clear
     FactoryGirl.sequences.clear
     FactoryGirl.traits.clear
-    # FactoryGirl.find_definitions
+    FactoryGirl.find_definitions
   end
 
   config.after(:each) do
