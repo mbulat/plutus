@@ -52,7 +52,8 @@ module Plutus
 
     private
       def default_date
-        self.date ||= Date.today
+        todays_date = ActiveRecord::Base.default_timezone == :utc ? Time.now.utc : Time.now
+        self.date ||= todays_date
       end
 
       def has_credit_amounts?
