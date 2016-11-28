@@ -16,9 +16,7 @@ Installation
 ============
 
 - Add the gem to your Gemfile `gem "plutus"`
-
-- generate migration files `rails g plutus`
-
+- generate migration files `rake plutus:install:migrations`
 - run migrations `rake db:migrate`
 
 Overview
@@ -269,41 +267,11 @@ entry = Plutus::Entry.build(
 Multitenancy Support
 =====================
 
-Plutus supports multitenant applications. Multitenancy is acheived by associating all Accounts under `Plutus::Account` with a "Tenant" object (typically some model in your Rails application). To add multi-tenancy support to Plutus, you must do the following:
+Each account may belong to a polymorphic `tenant`. In previous versions plutus, the tenant code and tenant column had to be explicitly included by the developer. This complicated future changes (migrations, code testing) though and has since changed.
 
-- Generate the migration which will add `tenant_id` to the plutus accounts table
+In current versions of plutus, the accounts table have `tenant_id` and `tenant_type`. If you do not need accounts to belong to tenants, then you need not set these. The data storage overhead for empty columns with relational databases is negligible.
 
-```sh
-bundle exec rails g plutus:tenancy
-```
-
-- Run the migration
-
-```sh
-rake db:migrate
-```
-
-- Add an initializer to your Rails application, i.e. `config/initializers/plutus.rb`
-
-```ruby
-Plutus.config do |config|
-  config.enable_tenancy = true
-  config.tenant_class = 'Tenant'
-end
-```
-*NOTE: When building entries, be sure to specify the account directly, rather than use the `account_name` feature. Otherwise you'll probably end up with the wrong account.*
-
-```ruby
-debit_account = Plutus::Acount.where(:name => "Cash", :tenant => my_tenant).last
-credit_account = Plutus::Acount.where(:name => "Unearned Revenue", :tenant => my_tenant).last
-entry = Plutus::Entry.new(
-                :description => "Order placed for widgets",
-                :date => Date.yesterday,
-                :debits => [
-                  {:account => debit_account, :amount => 100.00}],
-                :credits => [
-                  {:account => credit_account, :amount => 100.00}])
-```
+See "Previous Versions" on how to upgrade.
 
 Reporting Views
 ===============
@@ -325,6 +293,11 @@ mount Plutus::Engine => "/plutus", :as => "plutus"
 
 Previous Versions
 =================
+
+If you're upgrading from older versions prior to the tenancy changes, you need to:
+
+1. `rake plutus:install:migrations`
+2. `rake db:migrate`
 
 For the rails 3 version, you can go here:
 
