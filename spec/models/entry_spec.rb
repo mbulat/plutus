@@ -7,6 +7,14 @@ module Plutus
 
     it { should_not be_valid }
 
+    it "should not require description when commercial_document present" do
+      mock_document = FactoryGirl.create(:asset) # one would never do this, but it allows us to not require a migration for the test
+      entry = FactoryGirl.build(:entry_no_description, commercial_document: mock_document)
+      expect(entry.description).to be_nil
+      entry.save!
+    end
+
+
     context "with credit and debit" do
       let(:entry) { FactoryGirl.build(:entry_with_credit_and_debit) }
       it { should be_valid }

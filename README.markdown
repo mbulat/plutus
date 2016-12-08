@@ -274,6 +274,7 @@ rake db:migrate
 Plutus.config do |config|
   config.enable_tenancy = true
   config.tenant_class = 'Tenant'
+  config.tenant_attribute_name = 'tenant' # (optional) default 'tenant', allows for a different name such as `books` using the `book_id` column
 end
 ```
 
