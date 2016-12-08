@@ -28,7 +28,7 @@ module Plutus
     has_many :credit_accounts, :through => :credit_amounts, :source => :account, :class_name => 'Plutus::Account'
     has_many :debit_accounts, :through => :debit_amounts, :source => :account, :class_name => 'Plutus::Account'
 
-    validates_presence_of :description
+    validates_presence_of :description, if: -> (entry) { entry.commercial_document_id.nil? }
     validate :has_credit_amounts?
     validate :has_debit_amounts?
     validate :amounts_cancel?
