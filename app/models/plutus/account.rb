@@ -41,11 +41,8 @@ module Plutus
 
     validates_presence_of :type
 
-    if Plutus.enable_tenancy
-      include Plutus::Tenancy
-    else
-      include Plutus::NoTenancy
-    end
+    validates :name, presence: true, uniqueness: { scope: [:tenant_id, :tenant_type] }
+    belongs_to :tenant, polymorphic: true
 
     # The balance of the account. This instance method is intended for use only
     # on instances of account subclasses.
