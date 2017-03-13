@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
     "LICENSE",
     "README.markdown"
   ]
-  s.add_dependency('rails',           '5.0.0')
+  s.add_dependency('rails',           '~> 5.0')
   s.add_dependency('jquery-rails',    '~> 4.1', '>= 4.1.1')
   s.add_dependency('jquery-ui-rails', '~> 5.0', '>= 5.0.5')
   s.add_development_dependency("yard")
