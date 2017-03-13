@@ -1,5 +1,8 @@
 language: ruby
 
+before_install:
+  - bundle update && git submodule update --init --recursive
+
 sudo: false
 cache: bundler
 

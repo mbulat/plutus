@@ -8,7 +8,6 @@ module Plutus
   #
   # @author Michael Bulat
   class Asset < Account
-
     self.normal_credit_balance = false
 
     # The balance of the account.

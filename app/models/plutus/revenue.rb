@@ -8,7 +8,6 @@ module Plutus
   #
   # @author Michael Bulat
   class Revenue < Account
-
     self.normal_credit_balance = true
 
     # The balance of the account.

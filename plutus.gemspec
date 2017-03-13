@@ -19,9 +19,9 @@ Gem::Specification.new do |s|
     "LICENSE",
     "README.markdown"
   ]
-  s.add_dependency("rails", "~> 4.0")
-  s.add_dependency("jquery-rails", ">= 3.0")
-  s.add_dependency("jquery-ui-rails", ">= 4.2.2")
+  s.add_dependency('rails',           '~> 5.0')
+  s.add_dependency('jquery-rails',    '~> 4.1', '>= 4.1.1')
+  s.add_dependency('jquery-ui-rails', '~> 5.0', '>= 5.0.5')
   s.add_development_dependency("yard")
   s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.markdown"]
   s.homepage = %q{http://github.com/mbulat/plutus}

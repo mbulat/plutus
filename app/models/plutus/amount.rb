@@ -6,8 +6,8 @@ module Plutus
   #
   # @author Michael Bulat
   class Amount < ActiveRecord::Base
-    belongs_to :entry, :class_name => 'Plutus::Entry'
-    belongs_to :account, :class_name => 'Plutus::Account'
+    belongs_to :entry,   class_name: 'Plutus::Entry'
+    belongs_to :account, class_name: 'Plutus::Account'
 
     validates_presence_of :type, :amount, :entry, :account
     # attr_accessible :account, :account_name, :amount, :entry
@@ -28,6 +28,7 @@ module Plutus
         self.account_without_name_lookup = v
       end
     end
+    # alias_method_chain is deprecated
     alias_method_chain :account=, :name_lookup
   end
 end
