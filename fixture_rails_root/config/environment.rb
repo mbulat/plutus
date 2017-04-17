@@ -1,5 +1,5 @@
-# Load the rails application
-require File.expand_path('../application', __FILE__)
-require File.expand_path('../../../lib/plutus', __FILE__)
-# Initialize the rails application
-FixtureRailsRoot::Application.initialize!
+# Load the Rails application.
+require_relative 'application'
+
+# Initialize the Rails application.
+Rails.application.initialize!
