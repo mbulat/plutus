@@ -7,8 +7,8 @@ The Plutus plugin is a Ruby on Rails Engine which provides a double entry accoun
 Compatibility
 =============
 
-* Ruby versions: MRI 1.9.3 - 2.2, Rubinius 2.2, JRuby 1.7+
-* Rails versions: ~> 4.0
+* Ruby versions: MRI 2.2.2+ (should work with earlier versions if using Rails 4)
+* Rails versions: ~> 5.0, ~> 4.0
 
 For earlier versions, and upgrading, please see the section titled [Previous Versions](https://github.com/mbulat/plutus#previous-versions)
 
@@ -328,7 +328,7 @@ Previous Versions
 
 For the rails 3 version, you can go here:
 
-[https://github.com/mbulat/plutus](https://github.com/mbulat/plutus/tree/rails3)
+[https://github.com/mbulat/plutus/tree/rails3](https://github.com/mbulat/plutus/tree/rails3)
 
 For the rails 2 version, you can go here:
 
