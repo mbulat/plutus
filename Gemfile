@@ -10,6 +10,7 @@ group :development, :test do
   gem 'factory_girl_rails', "~> 1.1"
   gem 'rspec', "~> 3"
   gem 'rspec-rails', "~> 3"
+  gem 'rails-controller-testing'
   gem 'rspec-its'
   gem 'simplecov', :require => false
 end
