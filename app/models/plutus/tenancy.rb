@@ -5,7 +5,7 @@ module Plutus
     included do
       validates :name, presence: true, uniqueness: { scope: :tenant_id }
 
-      belongs_to :tenant, class_name: Plutus.tenant_class
+      belongs_to :tenant, class_name: Plutus.tenant_class, optional: true
     end
   end
 end
