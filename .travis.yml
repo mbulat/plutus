@@ -4,18 +4,12 @@ sudo: false
 cache: bundler
 
 rvm:
-  - 2.0.0
-  - 2.1.0
-  - 2.2.0
+  - 2.2.2
   - 2.2.3
   - ruby-head
-  - jruby-9.0.0.0
-  - rbx-2
 
 matrix:
   allow_failures:
     - rvm: ruby-head
-    - rvm: jruby-9.0.0.0
-    - rvm: rbx-2
 
 script: bundle exec rake
