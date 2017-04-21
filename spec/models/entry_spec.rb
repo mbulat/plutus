@@ -144,31 +144,6 @@ module Plutus
           }
           include_examples 'a built-from-hash Plutus::Entry'
         end
-
-        context "when given a credit/debits hash with :account => String" do
-          let(:hash) {
-            {
-                description: "Sold some widgets",
-                commercial_document: mock_document,
-                debits: [{account: accounts_receivable.name, amount: 50}],
-                credits: [
-                    {account: sales_revenue.name, amount: 45},
-                    {account: sales_tax_payable.name, amount: 5}
-                ]
-            }
-          }
-
-          before { ::ActiveSupport::Deprecation.silenced = true }
-          after { ::ActiveSupport::Deprecation.silenced = false }
-
-          it("should be deprecated") {
-            # one deprecation per account looked up
-            ::ActiveSupport::Deprecation.should_receive(:warn).exactly(3).times
-            entry
-          }
-
-          include_examples 'a built-from-hash Plutus::Entry'
-        end
       end
 
       describe ".build" do
@@ -188,27 +163,6 @@ module Plutus
           }
         end
 
-        context "when given a credit/debits hash with :account => String" do
-          let(:hash) {
-            {
-                description: "Sold some widgets",
-                commercial_document: mock_document,
-                debits: [{account: accounts_receivable.name, amount: 50}],
-                credits: [
-                    {account: sales_revenue.name, amount: 45},
-                    {account: sales_tax_payable.name, amount: 5}
-                ]
-            }
-          }
-
-          it("should be deprecated") {
-            # one deprecation for build, plus three for accounts as strings
-            ::ActiveSupport::Deprecation.should_receive(:warn).exactly(4).times
-            entry
-          }
-
-          include_examples 'a built-from-hash Plutus::Entry'
-        end
       end
     end
 
