@@ -9,6 +9,7 @@ require 'rspec/rails'
 
 $: << File.expand_path(File.dirname(__FILE__) + '/../lib/')
 require 'plutus'
+require 'kaminari'
 
 Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
 

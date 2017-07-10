@@ -10,7 +10,7 @@ module Plutus
 
     describe "GET index" do
       it "assigns all entries as @entries" do
-        Entry.stub_chain(:limit, :order).and_return([mock_entry])
+        Entry.stub_chain(:per, :order).and_return([mock_entry])
         get :index
         assigns[:entries].should == [mock_entry]
       end
