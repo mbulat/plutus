@@ -10,9 +10,9 @@ module Plutus
 
     describe "GET index" do
       it "assigns all accounts as @accounts" do
-        Account.stub(:all).and_return([mock_account])
+        allow(Account).to receive(:all).and_return([mock_account])
         get :index
-        assigns[:accounts].should == [mock_account]
+        expect(assigns[:accounts]).to eq([mock_account])
       end
     end
   end

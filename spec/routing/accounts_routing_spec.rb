@@ -6,7 +6,7 @@ module Plutus
 
     describe "routing" do
       it "recognizes and generates #index" do
-        { :get => "/accounts" }.should route_to(:controller => "plutus/accounts", :action => "index")
+        expect(:get => "/accounts").to route_to(:controller => "plutus/accounts", :action => "index")
       end
     end
   end
