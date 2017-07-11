@@ -1,6 +1,6 @@
 Plutus
 =================
-[![Build Status](https://secure.travis-ci.org/mbulat/plutus.png?branch=master)](http://travis-ci.org/mbulat/plutus)
+[![Build Status](https://secure.travis-ci.org/mbulat/plutus.png?branch=master)](http://travis-ci.org/mbulat/plutus) [![Coverage Status](https://coveralls.io/repos/github/mbulat/plutus/badge.svg?branch=master)](https://coveralls.io/github/mbulat/plutus?branch=master)
 
 The Plutus plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.
 
@@ -337,6 +337,7 @@ For the rails 2 version, you can go here:
 * Gems in RubyGems.org >= 0.5.0 support Rails 3
 * Gems in RubyGems.org >= 0.8.0 support Rails 4
 * Gems in RubyGems.org >= 0.9.0 support Rails ~> 4.1
+* Gems in RubyGems.org >= 0.13.0 support Rails ~> 5.0
 
 Upgrading from older versions
 -----------------------------
@@ -372,8 +373,6 @@ Bitcoins
 Plutus is free software, but if you'd like to support development, feel free to send some bitcoins:
 
 `1QFSdJheyFkLcsV8X428J8e3pYqX1nmW39`
-
-![bitcoin](https://dl.dropboxusercontent.com/u/8428240/plutus_tip.png)
 
 Also, if anyone is using Plutus for bitcoin related accounting, I'd love to hear about it! Drop me a line.
 
