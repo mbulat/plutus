@@ -12,5 +12,5 @@ group :development, :test do
   gem 'rspec-rails', "~> 3"
   gem 'rails-controller-testing'
   gem 'rspec-its'
-  gem 'simplecov', :require => false
+  gem 'coveralls', require: false
 end
