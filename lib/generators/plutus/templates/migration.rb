@@ -3,7 +3,7 @@ class CreatePlutusTables < ActiveRecord::Migration[4.2]
     create_table :plutus_accounts do |t|
       t.string :name
       t.string :type
-      t.boolean :contra
+      t.boolean :contra, default: true
 
       t.timestamps
     end
