@@ -294,8 +294,8 @@ end
 *NOTE: When building entries, be sure to specify the account directly, rather than use the `account_name` feature. Otherwise you'll probably end up with the wrong account.*
 
 ```ruby
-debit_account = Plutus::Acount.where(:name => "Cash", :tenant => my_tenant).last
-credit_account = Plutus::Acount.where(:name => "Unearned Revenue", :tenant => my_tenant).last
+debit_account = Plutus::Account.where(:name => "Cash", :tenant => my_tenant).last
+credit_account = Plutus::Account.where(:name => "Unearned Revenue", :tenant => my_tenant).last
 entry = Plutus::Entry.new(
                 :description => "Order placed for widgets",
                 :date => Date.yesterday,
