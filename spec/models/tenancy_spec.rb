@@ -30,15 +30,15 @@ module Plutus
         account = FactoryGirl.create(:asset, tenant_id: 10)
 
         record = FactoryGirl.build(:asset, name: account.name, tenant_id: 10)
-        record.should_not be_valid
-        record.errors[:name].should == ['has already been taken']
+        expect(record).not_to be_valid
+        expect(record.errors[:name]).to eq(['has already been taken'])
       end
 
       it 'allows same name scoped under a different tenant' do
         account = FactoryGirl.create(:asset, tenant_id: 10)
 
         record = FactoryGirl.build(:asset, name: account.name, tenant_id: 11)
-        record.should be_valid
+        expect(record).to be_valid
       end
     end
   end

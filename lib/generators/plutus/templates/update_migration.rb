@@ -1,4 +1,4 @@
-class UpdatePlutusTables < ActiveRecord::Migration
+class UpdatePlutusTables < ActiveRecord::Migration[4.2]
   def change
     # we have to remove these indexes because the temporary
     # table index name is too long

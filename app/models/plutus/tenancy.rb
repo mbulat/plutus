@@ -5,7 +5,11 @@ module Plutus
     included do
       validates :name, presence: true, uniqueness: { scope: :tenant_id }
 
-      belongs_to :tenant, class_name: Plutus.tenant_class
+      if ActiveRecord::VERSION::MAJOR > 4
+        belongs_to :tenant, class_name: Plutus.tenant_class, optional: true
+      else
+        belongs_to :tenant, class_name: Plutus.tenant_class
+      end
     end
   end
 end

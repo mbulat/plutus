@@ -1,5 +1,5 @@
-require 'simplecov'
-SimpleCov.start
+require 'coveralls'
+Coveralls.wear!
 
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path(File.dirname(__FILE__) + "/../fixture_rails_root/config/environment")
@@ -9,6 +9,7 @@ require 'rspec/rails'
 
 $: << File.expand_path(File.dirname(__FILE__) + '/../lib/')
 require 'plutus'
+require 'kaminari'
 
 Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
 

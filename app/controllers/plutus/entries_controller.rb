@@ -17,7 +17,12 @@ module Plutus
     #   GET /entries.xml
     #   GET /entries.json
     def index
-      @entries = Entry.limit(100).order('date DESC')
+      if params[:order] == 'ascending'
+        order = 'ASC'
+      else
+        order = 'DESC'
+      end
+      @entries = Entry.page(params[:page]).per(params[:limit]).order("date #{order}")
 
       respond_to do |format|
         format.html # index.html.erb

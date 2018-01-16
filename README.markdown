@@ -1,14 +1,14 @@
 Plutus
 =================
-[![Build Status](https://secure.travis-ci.org/mbulat/plutus.png?branch=master)](http://travis-ci.org/mbulat/plutus)
+[![Build Status](https://travis-ci.org/mbulat/plutus.svg?branch=master)](https://travis-ci.org/mbulat/plutus) [![Coverage Status](https://coveralls.io/repos/github/mbulat/plutus/badge.svg?branch=master)](https://coveralls.io/github/mbulat/plutus?branch=master)
 
 The Plutus plugin is a Ruby on Rails Engine which provides a double entry accounting system for your application.
 
 Compatibility
 =============
 
-* Ruby versions: MRI 1.9.3 - 2.2, Rubinius 2.2, JRuby 1.7+
-* Rails versions: ~> 4.0
+* Ruby versions: MRI 2.2.2+ (should work with earlier versions if using Rails 4)
+* Rails versions: ~> 5.0, ~> 4.0
 
 For earlier versions, and upgrading, please see the section titled [Previous Versions](https://github.com/mbulat/plutus#previous-versions)
 
@@ -328,7 +328,7 @@ Previous Versions
 
 For the rails 3 version, you can go here:
 
-[https://github.com/mbulat/plutus](https://github.com/mbulat/plutus/tree/rails3)
+[https://github.com/mbulat/plutus/tree/rails3](https://github.com/mbulat/plutus/tree/rails3)
 
 For the rails 2 version, you can go here:
 
@@ -337,6 +337,7 @@ For the rails 2 version, you can go here:
 * Gems in RubyGems.org >= 0.5.0 support Rails 3
 * Gems in RubyGems.org >= 0.8.0 support Rails 4
 * Gems in RubyGems.org >= 0.9.0 support Rails ~> 4.1
+* Gems in RubyGems.org >= 0.13.0 support Rails ~> 5.0
 
 Upgrading from older versions
 -----------------------------
@@ -372,8 +373,6 @@ Bitcoins
 Plutus is free software, but if you'd like to support development, feel free to send some bitcoins:
 
 `1QFSdJheyFkLcsV8X428J8e3pYqX1nmW39`
-
-![bitcoin](https://dl.dropboxusercontent.com/u/8428240/plutus_tip.png)
 
 Also, if anyone is using Plutus for bitcoin related accounting, I'd love to hear about it! Drop me a line.
 

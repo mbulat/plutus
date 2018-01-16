@@ -10,14 +10,14 @@ module Plutus
 
     describe "GET balance_sheet" do
       it "renders when one entry exists" do
-        Entry.stub_chain(:order).and_return([mock_entry])
+        allow(Entry).to receive_message_chain(:order).and_return([mock_entry])
         get :balance_sheet
-        response.should be_success
+        expect(response).to be_success
       end
       it "renders when no entries exist" do
-        Entry.stub_chain(:order).and_return([])
+        allow(Entry).to receive_message_chain(:order).and_return([])
         get :balance_sheet
-        response.should be_success
+        expect(response).to be_success
       end
     end
   end

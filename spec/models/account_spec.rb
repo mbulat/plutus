@@ -5,16 +5,16 @@ module Plutus
     let(:account) { FactoryGirl.build(:account) }
     subject { account }
 
-    it { should_not be_valid }  # must construct a child type instead
+    it { is_expected.not_to be_valid }  # must construct a child type instead
 
     describe "when using a child type" do
       let(:account) { FactoryGirl.create(:account, type: "Finance::Asset") }
-      it { should be_valid }
+      it { is_expected.to be_valid }
 
       it "should be unique per name" do
         conflict = FactoryGirl.build(:account, name: account.name, type: account.type)
-        conflict.should_not be_valid
-        conflict.errors[:name].should == ["has already been taken"]
+        expect(conflict).not_to be_valid
+        expect(conflict.errors[:name]).to eq(["has already been taken"])
       end
     end
 
@@ -28,10 +28,10 @@ module Plutus
 
     describe ".trial_balance" do
       subject { Account.trial_balance }
-      it { should be_kind_of BigDecimal }
+      it { is_expected.to be_kind_of BigDecimal }
 
       context "when given no entries" do
-        it { should == 0 }
+        it { is_expected.to eq(0) }
       end
 
       context "when given correct entries" do
@@ -69,7 +69,7 @@ module Plutus
           FactoryGirl.create(:entry, :credit_amounts => [ca5], :debit_amounts => [da5])
         }
 
-        it { should == 0 }
+        it { is_expected.to eq(0) }
       end
     end
 
