@@ -13,4 +13,6 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-its'
   gem 'coveralls', require: false
+  gem 'jquery-rails'
+  gem 'jquery-ui-rails'
 end

@@ -3,7 +3,7 @@ module Plutus
   # This table can be thought of as a traditional accounting Journal.
   #
   # Posting to a Ledger can be considered to happen automatically, since
-  # Accounts have the reverse 'has_many' relationship to either it's credit or
+  # Accounts have the reverse 'has_many' relationship to either its credit or
   # debit entries
   #
   # @example
