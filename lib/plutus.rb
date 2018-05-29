@@ -1,5 +1,8 @@
 # Plutus
 require "rails"
+require "jquery-rails"
+require "jquery-ui-rails"
+require "kaminari"
 
 module Plutus
   class Engine < Rails::Engine
