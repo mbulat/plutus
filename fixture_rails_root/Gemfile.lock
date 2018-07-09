@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    plutus (0.12.2)
+    plutus (0.13)
       jquery-rails (>= 3.0)
       jquery-ui-rails (>= 4.2.2)
       kaminari (~> 1.0)
@@ -74,18 +74,18 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    kaminari (1.0.1)
+    kaminari (1.1.1)
       activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.0.1)
-      kaminari-activerecord (= 1.0.1)
-      kaminari-core (= 1.0.1)
-    kaminari-actionview (1.0.1)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
       actionview
-      kaminari-core (= 1.0.1)
-    kaminari-activerecord (1.0.1)
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
       activerecord
-      kaminari-core (= 1.0.1)
-    kaminari-core (1.0.1)
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -195,4 +195,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.1
+   1.16.2
