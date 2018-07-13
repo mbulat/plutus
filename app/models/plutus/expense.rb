@@ -7,7 +7,7 @@ module Plutus
   # @see http://en.wikipedia.org/wiki/Expense Expenses
   #
   # @author Michael Bulat
-  class Expense < Account
+  class Expense < Plutus::Account
 
     self.normal_credit_balance = false
 
