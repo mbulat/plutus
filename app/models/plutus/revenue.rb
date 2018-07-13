@@ -7,7 +7,7 @@ module Plutus
   # @see http://en.wikipedia.org/wiki/Revenue Revenue
   #
   # @author Michael Bulat
-  class Revenue < Account
+  class Revenue < Plutus::Account
 
     self.normal_credit_balance = true
 

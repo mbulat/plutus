@@ -7,7 +7,7 @@ module Plutus
   # @see http://en.wikipedia.org/wiki/Liability_(financial_accounting) Liability
   #
   # @author Michael Bulat
-  class Liability < Account
+  class Liability < Plutus::Account
 
     self.normal_credit_balance = true
 

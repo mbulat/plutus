@@ -7,7 +7,7 @@ module Plutus
   # @see http://en.wikipedia.org/wiki/Equity_(finance) Equity
   #
   # @author Michael Bulat
-  class Equity < Account
+  class Equity < Plutus::Account
 
     self.normal_credit_balance = true
 
