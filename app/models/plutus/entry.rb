@@ -29,6 +29,7 @@ module Plutus
     else
       belongs_to :commercial_document, :polymorphic => true
     end
+    belongs_to :trackable, polymorphic: true, optional: true
 
     has_many :credit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::CreditAmount', :inverse_of => :entry
     has_many :debit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::DebitAmount', :inverse_of => :entry
@@ -54,6 +55,10 @@ module Plutus
 
     def initialize(*args)
       super
+    end
+
+    def amount_money
+      Money.from_amount amount
     end
 
     private

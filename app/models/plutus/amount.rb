@@ -8,6 +8,7 @@ module Plutus
   class Amount < ActiveRecord::Base
     belongs_to :entry, :class_name => 'Plutus::Entry'
     belongs_to :account, :class_name => 'Plutus::Account'
+    belongs_to :trackable, polymorphic: true, optional: true
 
     validates_presence_of :type, :amount, :entry, :account
     # attr_accessible :account, :account_name, :amount, :entry

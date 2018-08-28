@@ -39,6 +39,8 @@ module Plutus
     has_many :credit_entries, :through => :credit_amounts, :source => :entry, :class_name => 'Plutus::Entry'
     has_many :debit_entries, :through => :debit_amounts, :source => :entry, :class_name => 'Plutus::Entry'
 
+    belongs_to :accountable, polymorphic: true, optional: true
+
     validates_presence_of :type
 
     if Plutus.enable_tenancy
@@ -165,6 +167,10 @@ module Plutus
         raise(NoMethodError, "undefined method 'trial_balance'")
       end
     end
+
+    def balance_money
+      Money.from self.balance
+    end 
 
   end
 end
