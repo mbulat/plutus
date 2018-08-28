@@ -171,7 +171,7 @@ module Plutus
     end
 
     def balance_money
-      Money.from self.balance
+      Money.from_amount self.balance
     end 
 
   end
