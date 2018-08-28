@@ -41,6 +41,8 @@ module Plutus
 
     belongs_to :accountable, polymorphic: true, optional: true
 
+    default_scope { includes [:credit_amounts, :debit_amounts] }
+
     validates_presence_of :type
 
     if Plutus.enable_tenancy
