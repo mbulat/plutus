@@ -54,7 +54,7 @@ module Plutus
     end
 
     def self.balance_money
-      super
+      Money.from_amount balance
     end
   end
 end

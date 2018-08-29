@@ -53,8 +53,8 @@ module Plutus
       super(options)
     end
 
-    def self.balance_money
-      super
+    def balance_money
+      Money.from_amount balance
     end
   end
 end
