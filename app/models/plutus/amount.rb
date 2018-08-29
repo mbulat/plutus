@@ -18,6 +18,10 @@ module Plutus
       self.account = Account.find_by_name!(name)
     end
 
+    def amount_money
+      Money.from_amount amount
+    end
+
     protected
   end
 end

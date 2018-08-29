@@ -6,5 +6,9 @@ module Plutus
   #
   # @author Michael Bulat
   class CreditAmount < Amount
+
+    def amount_money
+      super
+    end
   end
 end
