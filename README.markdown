@@ -269,7 +269,7 @@ entry = Plutus::Entry.build(
 Multitenancy Support
 =====================
 
-Plutus supports multitenant applications. Multitenancy is acheived by associating all Accounts under `Plutus::Account` with a "Tenant" object (typically some model in your Rails application). To add multi-tenancy support to Plutus, you must do the following:
+Plutus supports multitenant applications. Multitenancy is achieved by associating all Accounts under `Plutus::Account` with a "Tenant" object (typically some model in your Rails application). To add multi-tenancy support to Plutus, you must do the following:
 
 - Generate the migration which will add `tenant_id` to the plutus accounts table
 
