@@ -129,5 +129,13 @@ module Plutus
       end
     end
 
+    it "should have a polymorphic commercial entity associations" do
+      mock_entity = FactoryGirl.create(:asset) # one would never do this, but it allows us to not require a migration for the test
+      entry = FactoryGirl.build(:liability, commercial_entity: mock_entity)
+      entry.save!
+      saved_account = Account.find(entry.id)
+      expect(saved_account.commercial_entity).to eq(mock_entity)
+    end
+
   end
 end

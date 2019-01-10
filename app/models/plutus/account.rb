@@ -47,6 +47,12 @@ module Plutus
       include Plutus::NoTenancy
     end
 
+    if ActiveRecord::VERSION::MAJOR > 4
+      belongs_to :commercial_entity, :polymorphic => true, optional: true
+    else
+      belongs_to :commercial_entity, :polymorphic => true
+    end
+
     # The balance of the account. This instance method is intended for use only
     # on instances of account subclasses.
     #

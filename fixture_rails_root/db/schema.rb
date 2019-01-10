@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170710174915) do
+ActiveRecord::Schema.define(version: 20190110100325) do
 
   create_table "plutus_accounts", force: :cascade do |t|
     t.string "name"
@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(version: 20170710174915) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "tenant_id"
+    t.integer "commercial_entity_id"
+    t.string "commercial_entity_type"
+    t.index ["commercial_entity_type", "commercial_entity_id"], name: "index_accounts_on_commercial_entity"
     t.index ["name", "type"], name: "index_plutus_accounts_on_name_and_type"
   end
 

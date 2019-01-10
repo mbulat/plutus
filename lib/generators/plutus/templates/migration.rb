@@ -4,10 +4,13 @@ class CreatePlutusTables < ActiveRecord::Migration[4.2]
       t.string :name
       t.string :type
       t.boolean :contra, default: false
+      t.integer :commercial_entity_id
+      t.string :commercial_entity_type
 
       t.timestamps
     end
     add_index :plutus_accounts, [:name, :type]
+    add_index :plutus_accounts, [:commercial_entity_type, :commercial_entity_id], :name => "index_accounts_on_commercial_entity"
 
     create_table :plutus_entries do |t|
       t.string :description
