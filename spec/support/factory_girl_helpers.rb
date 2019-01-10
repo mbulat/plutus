@@ -1,8 +1,8 @@
-module FactoryGirlHelpers
+module FactoryBotHelpers
   def self.reload
-    FactoryGirl.factories.clear()
-    FactoryGirl.sequences.clear()
-    FactoryGirl.traits.clear()
-    FactoryGirl.find_definitions()
+    FactoryBot.factories.clear()
+    FactoryBot.sequences.clear()
+    FactoryBot.traits.clear()
+    FactoryBot.find_definitions()
   end
 end

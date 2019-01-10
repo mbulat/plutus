@@ -1,5 +1,5 @@
 shared_examples_for 'a Plutus::Amount subtype' do |elements|
-  let(:amount) { FactoryGirl.build(elements[:kind]) }
+  let(:amount) { FactoryBot.build(elements[:kind]) }
   subject { amount }
 
   it { is_expected.to  be_valid }

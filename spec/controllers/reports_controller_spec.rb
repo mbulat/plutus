@@ -5,7 +5,7 @@ module Plutus
     routes { Plutus::Engine.routes }
 
     def mock_entry(stubs={})
-      @mock_entry ||= FactoryGirl.create(:entry_with_credit_and_debit)
+      @mock_entry ||= FactoryBot.create(:entry_with_credit_and_debit)
     end
 
     describe "GET balance_sheet" do

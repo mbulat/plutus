@@ -2,17 +2,17 @@ require 'spec_helper'
 
 module Plutus
   describe Account do
-    let(:account) { FactoryGirl.build(:account) }
+    let(:account) { FactoryBot.build(:account) }
     subject { account }
 
     it { is_expected.not_to be_valid }  # must construct a child type instead
 
     describe "when using a child type" do
-      let(:account) { FactoryGirl.create(:account, type: "Finance::Asset") }
+      let(:account) { FactoryBot.create(:account, type: "Finance::Asset") }
       it { is_expected.to be_valid }
 
       it "should be unique per name" do
-        conflict = FactoryGirl.build(:account, name: account.name, type: account.type)
+        conflict = FactoryBot.build(:account, name: account.name, type: account.type)
         expect(conflict).not_to be_valid
         expect(conflict.errors[:name]).to eq(["has already been taken"])
       end
@@ -37,36 +37,36 @@ module Plutus
       context "when given correct entries" do
         before {
           # credit accounts
-          liability = FactoryGirl.create(:liability)
-          equity = FactoryGirl.create(:equity)
-          revenue = FactoryGirl.create(:revenue)
-          contra_asset = FactoryGirl.create(:asset, :contra => true)
-          contra_expense = FactoryGirl.create(:expense, :contra => true)
+          liability = FactoryBot.create(:liability)
+          equity = FactoryBot.create(:equity)
+          revenue = FactoryBot.create(:revenue)
+          contra_asset = FactoryBot.create(:asset, :contra => true)
+          contra_expense = FactoryBot.create(:expense, :contra => true)
           # credit amounts
-          ca1 = FactoryGirl.build(:credit_amount, :account => liability, :amount => 100000)
-          ca2 = FactoryGirl.build(:credit_amount, :account => equity, :amount => 1000)
-          ca3 = FactoryGirl.build(:credit_amount, :account => revenue, :amount => 40404)
-          ca4 = FactoryGirl.build(:credit_amount, :account => contra_asset, :amount => 2)
-          ca5 = FactoryGirl.build(:credit_amount, :account => contra_expense, :amount => 333)
+          ca1 = FactoryBot.build(:credit_amount, :account => liability, :amount => 100000)
+          ca2 = FactoryBot.build(:credit_amount, :account => equity, :amount => 1000)
+          ca3 = FactoryBot.build(:credit_amount, :account => revenue, :amount => 40404)
+          ca4 = FactoryBot.build(:credit_amount, :account => contra_asset, :amount => 2)
+          ca5 = FactoryBot.build(:credit_amount, :account => contra_expense, :amount => 333)
 
           # debit accounts
-          asset = FactoryGirl.create(:asset)
-          expense = FactoryGirl.create(:expense)
-          contra_liability = FactoryGirl.create(:liability, :contra => true)
-          contra_equity = FactoryGirl.create(:equity, :contra => true)
-          contra_revenue = FactoryGirl.create(:revenue, :contra => true)
+          asset = FactoryBot.create(:asset)
+          expense = FactoryBot.create(:expense)
+          contra_liability = FactoryBot.create(:liability, :contra => true)
+          contra_equity = FactoryBot.create(:equity, :contra => true)
+          contra_revenue = FactoryBot.create(:revenue, :contra => true)
           # debit amounts
-          da1 = FactoryGirl.build(:debit_amount, :account => asset, :amount => 100000)
-          da2 = FactoryGirl.build(:debit_amount, :account => expense, :amount => 1000)
-          da3 = FactoryGirl.build(:debit_amount, :account => contra_liability, :amount => 40404)
-          da4 = FactoryGirl.build(:debit_amount, :account => contra_equity, :amount => 2)
-          da5 = FactoryGirl.build(:debit_amount, :account => contra_revenue, :amount => 333)
+          da1 = FactoryBot.build(:debit_amount, :account => asset, :amount => 100000)
+          da2 = FactoryBot.build(:debit_amount, :account => expense, :amount => 1000)
+          da3 = FactoryBot.build(:debit_amount, :account => contra_liability, :amount => 40404)
+          da4 = FactoryBot.build(:debit_amount, :account => contra_equity, :amount => 2)
+          da5 = FactoryBot.build(:debit_amount, :account => contra_revenue, :amount => 333)
 
-          FactoryGirl.create(:entry, :credit_amounts => [ca1], :debit_amounts => [da1])
-          FactoryGirl.create(:entry, :credit_amounts => [ca2], :debit_amounts => [da2])
-          FactoryGirl.create(:entry, :credit_amounts => [ca3], :debit_amounts => [da3])
-          FactoryGirl.create(:entry, :credit_amounts => [ca4], :debit_amounts => [da4])
-          FactoryGirl.create(:entry, :credit_amounts => [ca5], :debit_amounts => [da5])
+          FactoryBot.create(:entry, :credit_amounts => [ca1], :debit_amounts => [da1])
+          FactoryBot.create(:entry, :credit_amounts => [ca2], :debit_amounts => [da2])
+          FactoryBot.create(:entry, :credit_amounts => [ca3], :debit_amounts => [da3])
+          FactoryBot.create(:entry, :credit_amounts => [ca4], :debit_amounts => [da4])
+          FactoryBot.create(:entry, :credit_amounts => [ca5], :debit_amounts => [da5])
         }
 
         it { is_expected.to eq(0) }
@@ -75,9 +75,9 @@ module Plutus
 
     describe "#amounts" do
       it "returns all credit and debit amounts" do
-        equity = FactoryGirl.create(:equity)
-        asset = FactoryGirl.create(:asset)
-        expense = FactoryGirl.create(:expense)
+        equity = FactoryBot.create(:equity)
+        asset = FactoryBot.create(:asset)
+        expense = FactoryBot.create(:expense)
 
         investment = Entry.new(
           description: "Initial investment",
@@ -103,9 +103,9 @@ module Plutus
 
     describe "#entries" do
       it "returns all credit and debit entries" do
-        equity = FactoryGirl.create(:equity)
-        asset = FactoryGirl.create(:asset)
-        expense = FactoryGirl.create(:expense)
+        equity = FactoryBot.create(:equity)
+        asset = FactoryBot.create(:asset)
+        expense = FactoryBot.create(:expense)
 
         investment = Entry.new(
           description: "Initial investment",

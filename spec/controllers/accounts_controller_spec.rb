@@ -5,7 +5,7 @@ module Plutus
     routes { Plutus::Engine.routes }
 
     def mock_account(stubs={})
-      @mock_account ||= FactoryGirl.create(:asset)
+      @mock_account ||= FactoryBot.create(:asset)
     end
 
     describe "GET index" do

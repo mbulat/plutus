@@ -1,4 +1,5 @@
-FactoryGirl.define do
+require 'bigdecimal'
+FactoryBot.define do
   factory :amount, :class => Plutus::Amount do |amount|
     amount.amount BigDecimal.new('473')
     amount.association :entry, :factory => :entry_with_credit_and_debit

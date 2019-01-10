@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 module Plutus
   # The Account class represents accounts in the system. Each account must be subclassed as one of the following types:
   #
@@ -137,7 +139,7 @@ module Plutus
       if self.new.class == Plutus::Account
         raise(NoMethodError, "undefined method 'balance'")
       else
-        accounts_balance = BigDecimal.new('0')
+        accounts_balance = BigDecimal('0')
         accounts = self.all
         accounts.each do |account|
           if account.contra
