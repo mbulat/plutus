@@ -20,8 +20,6 @@ Gem::Specification.new do |s|
     "README.markdown"
   ]
   s.add_dependency("rails", "> 6.0")
-  s.add_dependency("jquery-rails", ">= 3.0")
-  s.add_dependency("jquery-ui-rails", ">= 4.2.2")
   s.add_dependency("kaminari", "~> 1.0")
   s.add_development_dependency("yard")
   s.add_development_dependency("shoulda-matchers", "~> 3.1")

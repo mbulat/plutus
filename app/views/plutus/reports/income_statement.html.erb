@@ -5,11 +5,11 @@
     <%= form_tag({:action => 'income_statement'}, {:method => :get, :class => 'form-inline'}) do%>
       <div class="form-group">
       <%= label_tag :from_date, nil, class: 'sr-only'%>
-      <%= text_field_tag :from_date, @from_date, :class => 'datepicker form-control', :placeholder => "Date" %>
+      <%= date_field_tag :from_date, @from_date, :class => 'form-control', :placeholder => "Date" %>
       </div>
       <div class="form-group">
       <%= label_tag :to_date, nil, class: 'sr-only'%>
-      <%= text_field_tag :to_date, @to_date, :class => 'datepicker form-control', :placeholder => "Date" %>
+      <%= date_field_tag :to_date, @to_date, :class => 'form-control', :placeholder => "Date" %>
       </div>
       <button type="submit" class="btn btn-default">Get Report</button>
     <% end %>
