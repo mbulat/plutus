@@ -5,7 +5,7 @@
     <%= form_tag({:action => 'balance_sheet'}, {:method => :get, :class => 'form-inline'}) do%>
       <div class="form-group">
       <%= label_tag :date, nil, class: 'sr-only'%>
-      <%= text_field_tag :date, @to_date, :class => 'datepicker form-control' %>
+      <%= date_field_tag :date, @to_date, :class => 'form-control' %>
       </div>
       <button type="submit" class="btn btn-default">Get Report</button>
     <% end %>
