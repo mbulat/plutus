@@ -3,8 +3,13 @@ module Plutus
   module AmountsExtension
     # Returns a sum of the referenced Amount objects.
     #
-    # Takes a hash specifying :from_date and :to_date for calculating balances during periods.
-    # :from_date and :to_date may be strings of the form "yyyy-mm-dd" or Ruby Date objects
+    # Takes a hash specifying several options:
+    # * passing in :from_date and :to_date calculates balances during periods.
+    #   :from_date and :to_date may be strings of the form "yyyy-mm-dd" or Ruby
+    #   Date objects.
+    # * passing in :commercial_document calculates balances only for entries
+    #   involving that document. :commercial_document is expected to be an
+    #   instance of an ActiveRecord object.
     #
     # This runs the summation in the database, so it only works on persisted records.
     #
@@ -13,14 +18,29 @@ module Plutus
     #   => #<BigDecimal:103259bb8,'0.2E4',4(12)>
     #
     # @return [BigDecimal] The decimal value balance
-    def balance(hash={})
-      if hash[:from_date] && hash[:to_date]
-        from_date = hash[:from_date].kind_of?(Date) ? hash[:from_date] : Date.parse(hash[:from_date])
-        to_date = hash[:to_date].kind_of?(Date) ? hash[:to_date] : Date.parse(hash[:to_date])
-        includes(:entry).where('plutus_entries.date' => from_date..to_date).sum(:amount)
-      else
-        sum(:amount)
+    def balance(options = {})
+      relation = self
+
+      if options[:from_date] && options[:to_date]
+        from_date = options[:from_date].is_a?(Date) ? options[:from_date] : Date.parse(options[:from_date])
+        to_date = options[:to_date].is_a?(Date) ? options[:to_date] : Date.parse(options[:to_date])
+        relation = relation.includes(:entry).where('plutus_entries.date' => from_date..to_date)
       end
+
+      if (doc = options[:commercial_document])
+        cd_id = doc.id
+        cd_type = doc.class.name
+
+        relation = relation
+                   .includes(:entry)
+                   .where(<<~SQL, cd_id: cd_id, cd_type: cd_type)
+                     plutus_entries.commercial_document_id = :cd_id
+                     AND
+                     plutus_entries.commercial_document_type = :cd_type
+                   SQL
+      end
+
+      relation.sum(:amount)
     end
 
     # Returns a sum of the referenced Amount objects.

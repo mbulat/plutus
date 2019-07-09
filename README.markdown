@@ -175,6 +175,14 @@ The balance can also be calculated within a specified date range. Dates can be s
 => #<BigDecimal:103259bb8,'0.2E4',4(12)>
 ```
 
+The balance can also be calculated for a specific commercial document. Commercial documents should be activerecord objects.
+
+```ruby
+>> cash = Plutus::Asset.find_by_name("Cash")
+>> cash.balance(:commercial_document => invoice)
+=> #<BigDecimal:103259bb8,'0.2E4',4(12)>
+```
+
 Checking the Balance of an Account Type
 ---------------------------------------
 
