@@ -30,7 +30,7 @@ module Plutus
     #
     # Since this does not use the database for sumation, it may be used on non-persisted records.
     def balance_for_new_record
-      balance = BigDecimal.new('0')
+      balance = BigDecimal('0')
       each do |amount_record|
         if amount_record.amount && !amount_record.marked_for_destruction?
           balance += amount_record.amount # unless amount_record.marked_for_destruction?
