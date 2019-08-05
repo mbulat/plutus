@@ -52,9 +52,5 @@ module Plutus
     def self.balance(options={})
       super
     end
-
-    def balance
-      Money.from_amount balance
-    end
   end
 end
