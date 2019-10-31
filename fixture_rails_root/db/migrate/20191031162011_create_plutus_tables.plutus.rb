@@ -1,9 +1,10 @@
+# This migration comes from plutus (originally 20160422010135)
 class CreatePlutusTables < ActiveRecord::Migration[4.2]
   def change
     create_table :plutus_accounts do |t|
       t.string :name
       t.string :type
-      t.boolean :contra
+      t.boolean :contra, default: false
 
       t.timestamps
     end
