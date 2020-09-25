@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
     "README.markdown"
   ]
   s.add_dependency("rails", "> 6.0")
-  s.add_dependency("kaminari", "~> 1.0")
+  s.add_dependency("kaminari", "~> 1.2")
   s.add_development_dependency("yard")
   s.add_development_dependency("shoulda-matchers", "~> 3.1")
   s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.markdown"]
