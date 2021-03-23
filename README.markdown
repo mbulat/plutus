@@ -353,7 +353,7 @@ As Plutus is still in alpha, there have been some breaking changes with previous
 
 If you are upgrading, please check the Wiki for guides on how to properly upgrade plutus to deal with the changes:
 
-[Upgrade Notes](https://github.com/mbulat/plutus/wiki/Updrade-Notes)
+[Upgrade Notes](https://github.com/mbulat/plutus/wiki/Upgrade-Notes)
 
 Testing
 =======
