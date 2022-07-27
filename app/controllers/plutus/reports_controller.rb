@@ -6,8 +6,6 @@ module Plutus
   #
   # @author Michael Bulat
   class ReportsController < ::Plutus::ApplicationController
-    unloadable
-
     # @example
     #   GET /reports/balance_sheet
     def balance_sheet
