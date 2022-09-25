@@ -13,4 +13,5 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-its'
   gem 'coveralls', require: false
+  gem 'debug'
 end
