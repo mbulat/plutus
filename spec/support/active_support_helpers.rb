@@ -1,13 +1,6 @@
 module ActiveSupportHelpers
-  # Helps in removing model, and force-reloading it next time This helper does 2
-  # things:
-  # * remove from $LOADED_FEATURES so that ruby 'require' reloads file again
-  # * remove the constant from active support dependencies
-  def self.clear_model(model_name)
-    ActiveSupport::Dependencies.send(:remove_const, "Plutus::#{model_name}")
-
-    models_dir = File.dirname(__FILE__) + '/../../app/models/plutus/'
-    path = File.expand_path(models_dir + model_name.downcase + '.rb')
-    $LOADED_FEATURES.delete(path)
+  def self.reload_model(model_name)
+    Plutus.send(:remove_const, "#{model_name}")
+    load("app/models/plutus/#{model_name.downcase}.rb")
   end
 end
