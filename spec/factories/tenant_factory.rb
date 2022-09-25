@@ -1,6 +1,6 @@
 module Plutus
-class Tenant < ActiveRecord::Base
-end
+  class Tenant < ActiveRecord::Base
+  end
 end
 
 FactoryGirl.define do

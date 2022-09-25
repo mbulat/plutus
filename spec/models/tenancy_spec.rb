@@ -46,6 +46,7 @@ module Plutus
         account = FactoryGirl.create(:asset, tenant: tenant)
 
         record = FactoryGirl.build(:asset, name: account.name, tenant: tenant)
+        debugger
         expect(record).not_to be_valid
         expect(record.errors[:name]).to eq(['has already been taken'])
       end
