@@ -190,7 +190,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.5.0-x86_64-linux)
+    sqlite3 (1.5.1-x86_64-linux)
     strscan (3.0.4)
     thor (1.2.1)
     tilt (2.0.11)
