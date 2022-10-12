@@ -316,6 +316,15 @@ Routing is supplied via an engine mount point. Plutus can be mounted on a subpat
 mount Plutus::Engine => "/plutus", :as => "plutus"
 ```
 
+Sprockets 4+
+------------
+
+You must require Plutus' manifest.js in your app manifest.js:
+
+```
+//= link plutus/manifest.js
+```
+
 *NOTE: The `Plutus::ApplicationController` does not currently support authentication. If you enable routing, the views will be publicly available on your mount point. Authentication can be added by overriding the controller.*
 
 *Future versions of plutus will allow for customization of authentication.*
