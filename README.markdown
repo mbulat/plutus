@@ -7,8 +7,8 @@ The Plutus plugin is a Ruby on Rails Engine which provides a double entry accoun
 Compatibility
 =============
 
-* Ruby versions: MRI 2.5+
-* Rails versions: ~> 6.0
+* Ruby versions: MRI 2.7+
+* Rails versions: ~> 7.0
 
 For earlier versions, and upgrading, please see the section titled [Previous Versions](https://github.com/mbulat/plutus#previous-versions)
 
@@ -310,11 +310,15 @@ The Engine provides controllers and views for rendering basic reports, including
 
 These views and controllers are read-only for reporting purposes. It is assumed entry creation will occur within your applications code.
 
-Routing is supplied via an engine mount point. Plutus can be mounted on a subpath in your existing Rails 3 app by adding the following to your routes.rb:
+Routing is supplied via an engine mount point. Plutus can be mounted on a subpath in your existing Rails app by adding the following to your routes.rb:
 
 ```ruby
 mount Plutus::Engine => "/plutus", :as => "plutus"
 ```
+
+*NOTE: The `Plutus::ApplicationController` does not currently support authentication. If you enable routing, the views will be publicly available on your mount point. Authentication can be added by overriding the controller.*
+
+*Future versions of plutus will allow for customization of authentication.*
 
 Sprockets 4+
 ------------
@@ -324,10 +328,6 @@ You must require Plutus' manifest.js in your app manifest.js:
 ```
 //= link plutus/manifest.js
 ```
-
-*NOTE: The `Plutus::ApplicationController` does not currently support authentication. If you enable routing, the views will be publicly available on your mount point. Authentication can be added by overriding the controller.*
-
-*Future versions of plutus will allow for customization of authentication.*
 
 
 Previous Versions
