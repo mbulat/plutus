@@ -7,8 +7,8 @@ The Plutus plugin is a Ruby on Rails Engine which provides a double entry accoun
 Compatibility
 =============
 
-* Ruby versions: MRI 2.2.2+ (should work with earlier versions if using Rails 4)
-* Rails versions: ~> 5.0, ~> 4.0
+* Ruby versions: MRI 2.7+
+* Rails versions: ~> 7.0
 
 For earlier versions, and upgrading, please see the section titled [Previous Versions](https://github.com/mbulat/plutus#previous-versions)
 
@@ -16,9 +16,7 @@ Installation
 ============
 
 - Add the gem to your Gemfile `gem "plutus"`
-
-- generate migration files `rails g plutus`
-
+- generate migration files `rake plutus:install:migrations`
 - run migrations `rake db:migrate`
 
 Overview
@@ -269,7 +267,7 @@ entry = Plutus::Entry.build(
 Multitenancy Support
 =====================
 
-Plutus supports multitenant applications. Multitenancy is acheived by associating all Accounts under `Plutus::Account` with a "Tenant" object (typically some model in your Rails application). To add multi-tenancy support to Plutus, you must do the following:
+Plutus supports multitenant applications. Multitenancy is achieved by associating all Accounts under `Plutus::Account` with a "Tenant" object (typically some model in your Rails application). To add multi-tenancy support to Plutus, you must do the following:
 
 - Generate the migration which will add `tenant_id` to the plutus accounts table
 
@@ -312,7 +310,7 @@ The Engine provides controllers and views for rendering basic reports, including
 
 These views and controllers are read-only for reporting purposes. It is assumed entry creation will occur within your applications code.
 
-Routing is supplied via an engine mount point. Plutus can be mounted on a subpath in your existing Rails 3 app by adding the following to your routes.rb:
+Routing is supplied via an engine mount point. Plutus can be mounted on a subpath in your existing Rails app by adding the following to your routes.rb:
 
 ```ruby
 mount Plutus::Engine => "/plutus", :as => "plutus"
@@ -321,6 +319,15 @@ mount Plutus::Engine => "/plutus", :as => "plutus"
 *NOTE: The `Plutus::ApplicationController` does not currently support authentication. If you enable routing, the views will be publicly available on your mount point. Authentication can be added by overriding the controller.*
 
 *Future versions of plutus will allow for customization of authentication.*
+
+Sprockets 4+
+------------
+
+You must require Plutus' manifest.js in your app manifest.js:
+
+```
+//= link plutus/manifest.js
+```
 
 
 Previous Versions

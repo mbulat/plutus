@@ -41,6 +41,16 @@ module Plutus
 
     validates_presence_of :type
 
+    def self.types
+      [
+        ::Plutus::Asset,
+        ::Plutus::Equity,
+        ::Plutus::Expense,
+        ::Plutus::Liability,
+        ::Plutus::Revenue,
+      ]
+    end
+
     if Plutus.enable_tenancy
       include Plutus::Tenancy
     else
@@ -137,7 +147,7 @@ module Plutus
       if self.new.class == Plutus::Account
         raise(NoMethodError, "undefined method 'balance'")
       else
-        accounts_balance = BigDecimal.new('0')
+        accounts_balance = BigDecimal('0')
         accounts = self.all
         accounts.each do |account|
           if account.contra

@@ -12,6 +12,8 @@ module Plutus
     validates_presence_of :type, :amount, :entry, :account
     # attr_accessible :account, :account_name, :amount, :entry
 
+    delegate :name, to: :account, prefix: true, allow_nil: true
+
     # Assign an account by name
     def account_name=(name)
       self.account = Account.find_by_name!(name)

@@ -5,6 +5,6 @@ module Plutus
   #     debit_amount = Plutus::DebitAmount.new(:account => cash, :amount => 1000)
   #
   # @author Michael Bulat
-  class DebitAmount < Amount
+  class DebitAmount < ::Plutus::Amount
   end
 end

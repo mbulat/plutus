@@ -5,8 +5,8 @@ module Plutus
   # controller will inherit.
   #
   # @author Michael Bulat
-  class ReportsController <  Plutus::ApplicationController
-    unloadable
+  class ReportsController < ::Plutus::ApplicationController
+    unloadable if respond_to?(:unloadable)
 
     # @example
     #   GET /reports/balance_sheet

@@ -1,11 +1,12 @@
 require 'spec_helper'
+require 'debug'
 
 module Plutus
   describe Entry do
     let(:entry) { FactoryGirl.build(:entry) }
     subject { entry }
 
-    it { is_expected.not_to be_valid }
+    it { is_expected.not_to be_valid } 
 
     context "with credit and debit" do
       let(:entry) { FactoryGirl.build(:entry_with_credit_and_debit) }
