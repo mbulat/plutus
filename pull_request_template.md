@@ -1,6 +1,6 @@
 ## Change description
 
-> Description here
+> Update rails to latest patch version for security fixes
 
 ## Type of change
 - [ ] Bug fix (fixes an issue)
@@ -14,17 +14,17 @@
 
 ### Development
 
-- [ ] Application changes have been tested thoroughly
-- [ ] Automated tests covering modified code pass
+- [ x ] Application changes have been tested thoroughly
+- [ x ] Automated tests covering modified code pass
 
 ### Security
 
-- [ ] Security impact of change has been considered
-- [ ] Code follows company security practices and guidelines
+- [ x ] Security impact of change has been considered
+- [ x ] Code follows company security practices and guidelines
 
 ### Code review 
 
-- [ ] Pull request has a descriptive title and context useful to a reviewer. Screenshots or screencasts are attached as necessary
-- [ ] "Ready for review" label attached and reviewers assigned
+- [ x ] Pull request has a descriptive title and context useful to a reviewer. Screenshots or screencasts are attached as necessary
+- [ x ] "Ready for review" label attached and reviewers assigned
 - [ ] Changes have been reviewed by at least one other contributor
-- [ ] Pull request linked to issue if applicable
+- [ x ] Pull request linked to issue if applicable
