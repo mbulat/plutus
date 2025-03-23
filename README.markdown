@@ -394,7 +394,8 @@ Reference
 
 For a complete reference on Accounting principles, we recommend the following textbook
 
-[http://amzn.com/0324662963](http://amzn.com/0324662963)
+[Accounting by Carl Warren, Jefferson Jones, William Tayler](https://a.co/d/diegFbz)
+
 
 * * *
 
