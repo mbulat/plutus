@@ -8,7 +8,7 @@ Compatibility
 =============
 
 * Ruby versions: MRI 2.7+
-* Rails versions: ~> 7.0
+* Rails versions: ~> 7.0, ~> 8.0
 
 For earlier versions, and upgrading, please see the section titled [Previous Versions](https://github.com/mbulat/plutus#previous-versions)
 
