@@ -26,6 +26,12 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.summary = 'A Plugin providing a Double Entry Accounting Engine for Rails'
   s.test_files = Dir['{spec}/**/*']
+  s.metadata = {
+    'changelog_uri' => 'https://github.com/mbulat/plutus/blob/master/CHANGELOG.md',
+    'github_repo' => 'ssh://github.com/mbulat/plutus',
+    'source_code_uri' => 'https://github.com/mbulat/plutus',
+    'funding_uri' => 'https://github.com/sponsors/mbulat'
+  }
 
   if s.respond_to? :specification_version
     s.specification_version = 3
