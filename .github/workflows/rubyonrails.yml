@@ -41,7 +41,7 @@ jobs:
         with:
           bundler-cache: true
       - name: Generate binstubs
-        run: bundle binstubs bundler-audit brakeman rubocop
+        run: bundle binstubs rubocop
       # Add or replace any other lints here
       # - name: Security audit dependencies
       #   run: bin/bundler-audit --update
