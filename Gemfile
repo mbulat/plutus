@@ -14,6 +14,7 @@ group 'development', 'test' do
   gem 'rails-controller-testing'
   gem 'rspec-its'
   gem 'rspec-rails'
+  gem 'rubocop'
   gem 'shoulda-matchers'
 end
 

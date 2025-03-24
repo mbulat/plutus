@@ -1,5 +1,6 @@
 test.sqlite3
-spec/debug.log
+spec/dummy/log/
+spec/dummy/storage/
 .DS_Store
 pkg/
 
