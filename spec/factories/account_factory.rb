@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :account, :class => Plutus::Account do |account|
     account.name
     account.contra { false }

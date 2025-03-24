@@ -51,13 +51,7 @@ module Plutus
       self.date ||= todays_date
     end
   
-    # Support the deprecated .build method
-    def self.build(hash)
-      ActiveSupport::Deprecation.warn('Plutus::Transaction.build() is deprecated (use new instead)', caller)
-      new(hash)
-    end
-
-    private 
+    private
 
     def credit_amounts?
       errors.add(:base, 'Entry must have at least one credit amount') if credit_amounts.blank?

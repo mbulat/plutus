@@ -1,12 +1,10 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :entry, class: Plutus::Entry do |entry|
     entry.description { 'factory description' }
 
     factory :entry_with_credit_and_debit, class: Plutus::Entry do |entry_cd|
-      entry_cd.after_build do |t|
-        t.credit_amounts << FactoryGirl.build(:credit_amount, entry: t)
-        t.debit_amounts << FactoryGirl.build(:debit_amount, entry: t)
-      end
+      credit_amounts { [association(:credit_amount, entry: build(:entry))] }
+      debit_amounts { [association(:debit_amount, entry: build(:entry))] }
     end
   end
 end

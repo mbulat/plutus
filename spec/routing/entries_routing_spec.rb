@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Plutus
-  describe EntriesController do
+  describe EntriesController, type: :routing do
     routes { Plutus::Engine.routes }
 
     describe "routing" do

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Plutus
-  describe AccountsController do
+  describe AccountsController, type: :routing do
     routes { Plutus::Engine.routes }
 
     describe "routing" do

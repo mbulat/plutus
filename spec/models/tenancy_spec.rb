@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 module Plutus
   describe Account do
@@ -25,7 +25,7 @@ module Plutus
         ActiveSupportHelpers.reload_model('Account')
         ActiveSupportHelpers.reload_model('Asset')
         
-        FactoryGirlHelpers.reload()
+        FactoryBot.reload()
         Plutus::Asset.new
       end
       
@@ -38,24 +38,24 @@ module Plutus
         Plutus.enable_tenancy = false
         Plutus.tenant_class = nil
         
-        FactoryGirlHelpers.reload()
+        FactoryBot.reload()
       end
       
       it 'validate uniqueness of name scoped to tenant' do
-        tenant = FactoryGirl.create(:tenant)
-        account = FactoryGirl.create(:asset, tenant: tenant)
+        tenant = FactoryBot.create(:tenant)
+        account = FactoryBot.create(:asset, tenant: tenant)
         
-        record = FactoryGirl.build(:asset, name: account.name, tenant: tenant)
+        record = FactoryBot.build(:asset, name: account.name, tenant: tenant)
         expect(record).not_to be_valid
         expect(record.errors[:name]).to eq(['has already been taken'])
       end
       
       it 'allows same name scoped under a different tenant' do
-        tenant_1 = FactoryGirl.create(:tenant)
-        tenant_2 = FactoryGirl.create(:tenant)
-        account = FactoryGirl.create(:asset, tenant: tenant_1)
+        tenant_1 = FactoryBot.create(:tenant)
+        tenant_2 = FactoryBot.create(:tenant)
+        account = FactoryBot.create(:asset, tenant: tenant_1)
         
-        record = FactoryGirl.build(:asset, name: account.name, tenant: tenant_2)
+        record = FactoryBot.build(:asset, name: account.name, tenant: tenant_2)
         expect(record).to be_valid
       end
     end

@@ -1,11 +1,11 @@
-require 'spec_helper'
+require 'rails_helper'
 
 module Plutus
-  describe AccountsController do
+  describe AccountsController, :type => :controller do
     routes { Plutus::Engine.routes }
 
     def mock_account(stubs={})
-      @mock_account ||= FactoryGirl.create(:asset)
+      @mock_account ||= FactoryBot.create(:asset)
     end
 
     describe "GET index" do

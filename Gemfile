@@ -1,17 +1,21 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
-# Specify your gem's dependencies in plutus.gemspec
 gemspec
 
-group :development, :test do
-  gem "sqlite3", :platform => [:ruby, :mswin, :mingw]
-  gem "jdbc-sqlite3", :platform => :jruby
-  gem 'activerecord-jdbcsqlite3-adapter', :require => 'jdbc-sqlite3', :platform => :jruby
-  gem 'factory_girl_rails', "~> 1.1"
-  gem 'rspec', "~> 3"
-  gem 'rspec-rails', "~> 4"
+gem 'puma'
+
+gem 'sqlite3'
+
+gem 'propshaft'
+
+group 'development', 'test' do
+  gem 'debug'
+  gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'rspec-its'
-  gem 'coveralls', require: false
-  gem 'debug'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
 end
+
+# Start debugger with binding.b [https://github.com/ruby/debug]
+# gem "debug", ">= 1.0.0"
